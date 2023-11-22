@@ -41,7 +41,56 @@
     margin-right: 40px;
 }
 
+<<<<<<< HEAD
 .comment-section{
     display: flex;
     align-items: center;
+=======
+.post-container {
+    margin-top: 20px;
+    background-color: #131313;
+    width: 100%;
+    padding: 20px;
+    border-radius: 20px;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: start;
+}
+
+.user-dets {
+    display: flex;
+    flex-direction: row;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.user-details {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 70em;
+}
+
+.userProf-post {
+    width: 100%;
+    padding: 3px;
+    max-width: 4em;
+    height: 4em;
+    background-color: white;
+    border-radius: 50%;
+    margin-right: 20px;
+}
+
+.username-post {
+    font-size: 18px;
+}
+
+.upload-img {
+    border-radius: 10px;
+    margin-top: 10px;
+>>>>>>> 39e069ce1ab0c1b35cb22e4704b2dc154aec3b51
 }

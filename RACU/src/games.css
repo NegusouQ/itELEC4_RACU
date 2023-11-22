@@ -1,0 +1,10 @@
+.games-main-container {
+    padding: 20px 20px 0;
+    width: 85vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    flex-wrap: wrap;
+    overflow-x: hidden;
+}

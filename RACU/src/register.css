@@ -14,3 +14,19 @@
     border-left: solid 2px white;
     width: 40em;
 }
+
+.radio-prof {
+    width: 100%;
+    max-width: 80px;
+}
+
+.profile-radio {
+    height: fit-content;
+    margin-bottom: 20px;
+}
+
+.select-prof-label {
+    color: white;
+    font-weight: 700;
+    font-size: 15px;
+}

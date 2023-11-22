@@ -4,7 +4,7 @@ import Login from './login'
 import Home from './home'
 import Register from './register'
 import NavBar from './navbar'
-import Profile from './profile'
+import Games from './games'
 
 function App() {
   return (
@@ -13,10 +13,10 @@ function App() {
         <Routes>
           <Route index element={ <Login/> } />
           <Route path='/register' element={ <Register/> }></Route>
-          
+
           <Route path='/home' element={ <NavBar/> }>
           <Route index element={<Home/>}/>
-          <Route path='profile' element={<Profile/>}/>
+          <Route path='games' element={ <Games/> }/>
           </Route>
         </Routes>
       </Router>

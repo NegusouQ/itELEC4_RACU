@@ -1,10 +1,40 @@
 import './home.css'
 import logo from '../src/assets/images/RACU.png'
+<<<<<<< HEAD
 import { FloatButton, Tooltip, ConfigProvider, Input, Modal, Typography } from 'antd';
 import { EditOutlined } from '@ant-design/icons';
 import React, { useState } from 'react'
+=======
+import userProf from "../src/assets/images/16.png"
+import { Button, FloatButton, Tooltip, ConfigProvider, Input, Modal, Space, Upload, Image } from 'antd';
+import { EditOutlined, UploadOutlined, LikeOutlined, DislikeOutlined, SendOutlined  } from '@ant-design/icons';
+import React, { useState, useEffect, useRef } from 'react'
+import type { UploadFile } from 'antd/es/upload/interface';
+>>>>>>> 39e069ce1ab0c1b35cb22e4704b2dc154aec3b51
 
 const { TextArea } = Input;
+
+// UPLOAD IMAGES
+const fileList: UploadFile[] = [
+    {
+      uid: '0',
+      name: 'xxx.png',
+      status: 'uploading',
+      percent: 33,
+    },
+    {
+      uid: '-1',
+      name: 'yyy.png',
+      status: 'done',
+      url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+      thumbUrl: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+    },
+    {
+      uid: '-2',
+      name: 'zzz.png',
+      status: 'error',
+    },
+  ];
 
 const Home: React.FC = () => {
 
@@ -42,25 +72,49 @@ const Home: React.FC = () => {
     }}
     >
         <Modal
+            width={800}
             title="Create New Post"
             open={open}
             onOk={handleOk}
             confirmLoading={confirmLoading}
             onCancel={handleCancel}
         >
+            <ConfigProvider
+                theme={{
+                    token: {
+                        colorTextPlaceholder:'white',
+                        colorText: 'white'
+                    },
+                }}
+                >
+            <Input placeholder="Enter Game Name" bordered={false} />
+            </ConfigProvider>
             <TextArea rows={4} cols={50} placeholder='Write something here.' />
+            {/* <Button ghost icon={<UploadOutlined />} 
+            style={{ marginTop:'40px' }}>Upload photo</Button> */}
+            <Upload 
+                action="https://run.mocky.io/v3/435e224c-44fb-4773-9faf-380c5e6a2188"
+                listType="picture"
+                defaultFileList={[...fileList]}
+                >
+                <Button ghost icon={<UploadOutlined />}
+                style={{ marginTop: '20px' }}
+                >Upload</Button>
+                </Upload>
+                <br />
+                <br />
         </Modal>
     </ConfigProvider>
       
     
-    <FloatButton.Group shape="circle" style={{ right: 24 }}>
+    <FloatButton.Group shape="circle" style={{ right: 44 }}>
       {/* <FloatButton icon={<QuestionCircleOutlined />} /> */}
       <Tooltip title="Write Post" placement='left'>
       <FloatButton icon={<EditOutlined />} onClick={showModal}/>
         </Tooltip>
-        <Tooltip title="Return to top" placement='left'>
+        {/* <Tooltip title="Return to top" placement='left'>
       <FloatButton.BackTop visibilityHeight={0} />
-        </Tooltip>
+        </Tooltip> */}
     </FloatButton.Group>
 
 
@@ -70,10 +124,11 @@ const Home: React.FC = () => {
                     <h1 className='greeting-text' style={{ lineHeight:'0' }}>Welcome to RACU,</h1>
                     <h3> where every gamer's voice levels up the gaming experience!</h3>
                 </div>
-                <img className='logo-home' src={ logo } alt="" />
+                <img className='logo-home' src={ logo }/>
             </div>
 
             <div className="post-container">
+<<<<<<< HEAD
               <div className='comment-section'>
               <Typography>
                 My comment here test
@@ -81,6 +136,46 @@ const Home: React.FC = () => {
               </div>
             </div>
 
+=======
+                <div className="user-details">
+                    <div className="user-dets">
+                        <img className='userProf-post' src={ userProf }/>
+                        <h5 className='username-post'>Username</h5>
+                    </div>
+                    <div className="vote">
+                    <Button ghost icon={<LikeOutlined />} style={{ marginRight:'5px' }}></Button>
+                    <Button ghost icon={<DislikeOutlined />}></Button>
+                    </div>
+                </div>
+                <h3>Example Game Name</h3>
+                <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                         sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                          Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                           Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                            Excepteur sint occaecat cupidatat non proident,
+                         sunt in culpa qui officia deserunt mollit anim id est laborum.</span>
+                         <Image
+                            className='upload-img'
+                            width={200}
+                            src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
+                        />
+                         {/* <Input placeholder="Leave Comment" /> */}
+                         <ConfigProvider
+                            theme={{
+                                token: {
+                                    colorTextPlaceholder:'white',
+                                    colorText: 'white'
+                                },
+                            }}
+                            >
+                                <Space.Compact style={{ width: '100%', marginTop:'20px' }}>
+                                    <Button ghost type="primary"><SendOutlined /></Button>
+                                    <Input placeholder="Leave a comment" bordered={false} />
+                                </Space.Compact>
+                        </ConfigProvider>
+                         
+            </div>
+>>>>>>> 39e069ce1ab0c1b35cb22e4704b2dc154aec3b51
         </div>
     </>
 }

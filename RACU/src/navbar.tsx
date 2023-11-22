@@ -22,7 +22,7 @@ const NavBar: React.FC = () => {
                 Games</span>
             </Link>
 
-            <Link className='navLinks' to='/'>
+            <Link className='navLinks' to='profile'>
             <GitlabFilled />
             <span>
                 Profile</span>

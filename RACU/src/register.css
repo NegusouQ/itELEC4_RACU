@@ -1,0 +1,16 @@
+.poster {
+    width: 100%;
+    max-width: 30em;
+    margin-right: 50px;
+    margin-bottom: 20px;
+}
+
+.register-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 40px;
+    border-left: solid 2px white;
+    width: 40em;
+}

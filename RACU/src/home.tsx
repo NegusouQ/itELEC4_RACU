@@ -1,6 +1,6 @@
 import './home.css'
 import logo from '../src/assets/images/RACU.png'
-import { Button, FloatButton, Tooltip, ConfigProvider, Input, Modal } from 'antd';
+import { FloatButton, Tooltip, ConfigProvider, Input, Modal, Typography } from 'antd';
 import { EditOutlined } from '@ant-design/icons';
 import React, { useState } from 'react'
 
@@ -71,6 +71,14 @@ const Home: React.FC = () => {
                     <h3> where every gamer's voice levels up the gaming experience!</h3>
                 </div>
                 <img className='logo-home' src={ logo } alt="" />
+            </div>
+
+            <div className="post-container">
+              <div className='comment-section'>
+              <Typography>
+                My comment here test
+              </Typography>
+              </div>
             </div>
 
         </div>

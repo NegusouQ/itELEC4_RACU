@@ -6,7 +6,7 @@
     width: 85vw;
     height: 100vh;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: start;
     flex-wrap: wrap;
     overflow-x: hidden;
@@ -39,4 +39,9 @@
 
 .text-greeting {
     margin-right: 40px;
+}
+
+.comment-section{
+    display: flex;
+    align-items: center;
 }

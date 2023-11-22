@@ -4,6 +4,7 @@ import Login from './login'
 import Home from './home'
 import Register from './register'
 import NavBar from './navbar'
+import Profile from './profile'
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
           
           <Route path='/home' element={ <NavBar/> }>
           <Route index element={<Home/>}/>
+          <Route path='profile' element={<Profile/>}/>
           </Route>
         </Routes>
       </Router>

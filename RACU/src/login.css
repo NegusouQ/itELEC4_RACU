@@ -3,6 +3,12 @@
     max-width: 35em;
 }
 
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 Form {
     display: flex;
     flex-direction: row;
@@ -19,13 +25,13 @@ h2 {
 .login-form {
     /* background-color: aqua; */
     display: flex;
-    justify-content: center;
-    align-items: center;
+    justify-content: start;
+    align-items: start;
     flex-direction: column;
-    padding: 40px;
+    /* padding: 40px; */
     border-right: solid 2px white;
     /* border-radius: 10px; */
-    width: 40em;
+    /* width: 40em; */
 }
 
 .login-poster {

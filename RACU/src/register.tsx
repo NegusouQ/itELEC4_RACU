@@ -24,8 +24,6 @@ const Register: React.FC = () => {
         <Form
             name="basic"
             labelCol={{ span: 9 }}
-            wrapperCol={{ span: 20 }}
-            style={{ maxWidth: 1000 }}
             initialValues={{ remember: true }}
             onFinish={onFinish}
             onFinishFailed={onFinishFailed}
@@ -95,7 +93,7 @@ const Register: React.FC = () => {
             <Checkbox>Remember me</Checkbox>
             </Form.Item> */}
 
-            <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+            <Form.Item wrapperCol={{ offset: 14, span: 16 }}>
             <Button type="primary" htmlType="submit">
                 Register
             </Button>

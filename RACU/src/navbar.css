@@ -2,7 +2,7 @@
     width: 25vh;
     justify-content: start;
     align-items: center;
-    height: 100vh;
+    height: 97.3vh;
     display: flex;
     flex-direction: column;
     padding-top: 20px;
@@ -28,7 +28,7 @@
 .navLinks {
     gap: 10px;
     text-decoration: none;
-    width: 8em;
+    width: 9.5em;
     border-radius: 5px;
     display: flex;
     justify-content: center;

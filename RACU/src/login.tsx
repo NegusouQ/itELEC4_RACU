@@ -81,7 +81,7 @@ const Login: React.FC = () => {
 
             <div className="login-poster">
             <img className='RACU-logo' src={ logo }/>
-            <span>Don't have an account yet?</span>
+            <span className='reg-text'>Don't have an account yet?</span>
             <Link to='/register'>
             <Button type='text'
             style={{ color: 'white', width: '15em', fontWeight: '900' }}>

@@ -16,7 +16,7 @@ const NavBar: React.FC = () => {
                 Home</span>
             </Link>
 
-            <Link className='navLinks' to='/home'>
+            <Link className='navLinks' to='games'>
             <img className='nav-icons' src={ gameIcon }/>
             <span>
                 Games</span>

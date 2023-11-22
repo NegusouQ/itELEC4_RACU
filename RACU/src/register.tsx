@@ -1,6 +1,12 @@
 import { Link } from "react-router-dom";
 import registerPoster from '../src/assets/images/register.png'
-import { Button, Form, Input, ConfigProvider } from 'antd';
+import { Button, Form, Input, ConfigProvider, Radio } from 'antd';
+import profile1 from "../src/assets/images/12.png"
+import profile2 from "../src/assets/images/13.png"
+import profile3 from "../src/assets/images/14.png"
+import profile4 from "../src/assets/images/15.png"
+import profile5 from "../src/assets/images/16.png"
+
 import './register.css'
 
 const onFinish = (values: any) => {
@@ -32,7 +38,7 @@ const Register: React.FC = () => {
 
         <div className="login-poster">
             <img className="poster" src={ registerPoster }/>
-                <span>Already have an account?</span>
+                <span className="reg-text">Already have an account?</span>
                 <Link to='/'>
                 <Button type='text'
                 style={{ color: 'white', width: '15em', fontWeight: '900' }}>
@@ -84,6 +90,16 @@ const Register: React.FC = () => {
             >
             <Input.Password />
             </Form.Item>
+
+
+            <label className="select-prof-label" htmlFor="profile">Select Profile Picture</label>
+            <Radio.Group defaultValue="a" buttonStyle="solid" name="profile">
+              <Radio.Button className="profile-radio" value="b"><img className="radio-prof" src={ profile1 }/></Radio.Button>
+              <Radio.Button className="profile-radio" value="c"><img className="radio-prof" src={ profile2 }/></Radio.Button>
+              <Radio.Button className="profile-radio" value="d"><img className="radio-prof" src={ profile3 }/></Radio.Button>
+              <Radio.Button className="profile-radio" value="e"><img className="radio-prof" src={ profile4 }/></Radio.Button>
+              <Radio.Button className="profile-radio" value="f"><img className="radio-prof" src={ profile5 }/></Radio.Button>
+            </Radio.Group>
 
             {/* <Form.Item<FieldType>
             name="remember"

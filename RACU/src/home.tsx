@@ -1,16 +1,10 @@
 import './home.css'
 import logo from '../src/assets/images/RACU.png'
-<<<<<<< HEAD
-import { FloatButton, Tooltip, ConfigProvider, Input, Modal, Typography } from 'antd';
-import { EditOutlined } from '@ant-design/icons';
-import React, { useState } from 'react'
-=======
 import userProf from "../src/assets/images/16.png"
 import { Button, FloatButton, Tooltip, ConfigProvider, Input, Modal, Space, Upload, Image } from 'antd';
-import { EditOutlined, UploadOutlined, LikeOutlined, DislikeOutlined, SendOutlined  } from '@ant-design/icons';
+import { EditOutlined, UploadOutlined, LikeOutlined, DislikeOutlined, SendOutlined, ClockCircleOutlined  } from '@ant-design/icons';
 import React, { useState, useEffect, useRef } from 'react'
 import type { UploadFile } from 'antd/es/upload/interface';
->>>>>>> 39e069ce1ab0c1b35cb22e4704b2dc154aec3b51
 
 const { TextArea } = Input;
 
@@ -128,19 +122,12 @@ const Home: React.FC = () => {
             </div>
 
             <div className="post-container">
-<<<<<<< HEAD
-              <div className='comment-section'>
-              <Typography>
-                My comment here test
-              </Typography>
-              </div>
-            </div>
-
-=======
                 <div className="user-details">
                     <div className="user-dets">
                         <img className='userProf-post' src={ userProf }/>
                         <h5 className='username-post'>Username</h5>
+              <span className='existing-post-time'><ClockCircleOutlined style={{ marginRight:'5px' }}/>30 mins. ago</span>
+
                     </div>
                     <div className="vote">
                     <Button ghost icon={<LikeOutlined />} style={{ marginRight:'5px' }}></Button>
@@ -175,7 +162,6 @@ const Home: React.FC = () => {
                         </ConfigProvider>
                          
             </div>
->>>>>>> 39e069ce1ab0c1b35cb22e4704b2dc154aec3b51
         </div>
     </>
 }

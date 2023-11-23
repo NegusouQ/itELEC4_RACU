@@ -6,7 +6,7 @@
     width: 85vw;
     height: 100vh;
     display: flex;
-    flex-direction: column;
+    /* flex-direction: column; */
     justify-content: start;
     flex-wrap: wrap;
     overflow-x: hidden;
@@ -41,11 +41,6 @@
     margin-right: 40px;
 }
 
-<<<<<<< HEAD
-.comment-section{
-    display: flex;
-    align-items: center;
-=======
 .post-container {
     margin-top: 20px;
     background-color: #131313;
@@ -92,5 +87,4 @@
 .upload-img {
     border-radius: 10px;
     margin-top: 10px;
->>>>>>> 39e069ce1ab0c1b35cb22e4704b2dc154aec3b51
 }

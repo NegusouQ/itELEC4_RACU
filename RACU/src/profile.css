@@ -211,6 +211,5 @@
 .likes-container, .dislikes-container {
     display: flex;
     flex-direction: column;
-    width: 80em;
-
+    max-width: 80em;
 }

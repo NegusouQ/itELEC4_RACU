@@ -1,8 +1,9 @@
 import './games.css'
 import { AudioOutlined } from '@ant-design/icons';
+import gamePic from "../src/assets/images/genshin.png"
 import React from 'react';
-import { Input, Space, Table, Tag, Rate, ConfigProvider } from 'antd';
-import { DownOutlined } from '@ant-design/icons';
+import { Input, Space, Table, Tag, Rate, ConfigProvider, Modal } from 'antd';
+import { DownOutlined, StarFilled } from '@ant-design/icons';
 import type { MenuProps } from 'antd';
 import { Dropdown, Typography } from 'antd';
 import type { SearchProps } from '../Search';
@@ -27,37 +28,38 @@ const items: MenuProps['items'] = [
 interface DataType {
     key: string;
     name: string;
-    age: number;
-    address: string;
-    tags: string[];
+    year: number;
+    developer: string;
+    category: string[];
+    rating: number;
   }
   
   const columns: ColumnsType<DataType> = [
     {
-      title: 'Name',
+      title: 'Game Name',
       dataIndex: 'name',
       key: 'name',
       render: (text) => <a>{text}</a>,
     },
     {
-      title: 'Age',
-      dataIndex: 'age',
-      key: 'age',
+      title: 'Year Published',
+      dataIndex: 'year',
+      key: 'year',
     },
     {
-      title: 'Address',
-      dataIndex: 'address',
-      key: 'address',
+      title: 'Developer',
+      dataIndex: 'developer',
+      key: 'developer',
     },
     {
-      title: 'Tags',
-      key: 'tags',
-      dataIndex: 'tags',
-      render: (_, { tags }) => (
+      title: 'Category',
+      key: 'category',
+      dataIndex: 'category',
+      render: (_, { category }) => (
         <>
-          {tags.map((tag) => {
-            let color = tag.length > 5 ? 'geekblue' : 'green';
-            if (tag === 'loser') {
+          {category.map((tag) => {
+            let color = tag.length > 15 ? 'geekblue' : 'green';
+            if (tag === 'Racing') {
               color = 'volcano';
             }
             return (
@@ -70,40 +72,61 @@ interface DataType {
       ),
     },
     {
-      title: 'Action',
-      key: 'action',
-      render: (_, record) => (
-        <Space size="middle">
-          <Rate />
-        </Space>
-      ),
+      title: 'Rating',
+      dataIndex: 'rating',
+      key: 'rating',
+      // render: (_, record) => (
+      //   <Space size="middle">
+      //     <Rate />
+      //   </Space>
+      // ),
     },
   ];
 
   const data: DataType[] = [
     {
       key: '1',
-      name: 'John Brown',
-      age: 32,
-      address: 'New York No. 1 Lake Park',
-      tags: ['nice', 'developer'],
+      name: 'Genshin Impact',
+      year: 2020,
+      developer: 'miHoYo',
+      category: ['Video Game', 'Adventure Game'],
+      rating: 4.7,
     },
     {
       key: '2',
       name: 'Jim Green',
-      age: 42,
-      address: 'London No. 1 Lake Park',
-      tags: ['loser'],
+      year: 2021,
+      developer: 'London No. 1 Lake Park',
+      category: ['Racing'],
+      rating: 4.5,
     },
     {
       key: '3',
       name: 'Joe Black',
-      age: 32,
-      address: 'Sydney No. 1 Lake Park',
-      tags: ['cool', 'teacher'],
+      year: 2019,
+      developer: 'Sydney No. 1 Lake Park',
+      category: ['Simulation Video Game', 'First-person Shooter'],
+      rating: 4.9,
     },
   ];
+
+
+  // MODAL
+  // const [isModalOpen, setIsModalOpen] = useState(false);
+
+  // const showModal = () => {
+  //   setIsModalOpen(true);
+  // };
+
+  // const handleOk = () => {
+  //   setIsModalOpen(false);
+  // };
+
+  // const handleCancel = () => {
+  //   setIsModalOpen(false);
+  // };
   
+  // END OF MODAL
 
 const { Search } = Input;
 
@@ -169,13 +192,20 @@ const Games: React.FC = () => {
                 colorBgContainer: '#131313',
                 headerColor: 'white',
                 colorText: 'white',
+                borderColor: '#131313',
+                rowHoverBg:'#0197FF'
             },
             },
         }}
         >
         <Table
         style={{ marginTop: '20px' }}
-        columns={columns} dataSource={data} />
+        columns={columns} dataSource={data}
+        onRow={(record, rowIndex) => {
+          return {
+            onClick: (event) => {}, // click row
+          };
+        }} />
         </ConfigProvider>
         
         </div>

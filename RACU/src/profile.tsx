@@ -162,6 +162,7 @@ const Profile: React.FC = () => {
               components: {
                 Tabs: {
                   itemColor: 'white',
+                  lineType: 'none'
                 },
               },
             }}
@@ -174,7 +175,7 @@ const Profile: React.FC = () => {
                             theme={{
                                 token: {
                                     colorTextPlaceholder:'white',
-                                    colorText: 'white'
+                                    colorText: 'white',
                                 },
                             }}
                             >

@@ -3,8 +3,73 @@
     width: 85vw;
     height: 90vh;
     display: flex;
-    flex-direction: column;
     justify-content: start;
+    flex-direction: column;
     flex-wrap: wrap;
     overflow-x: hidden;
+}
+/* 
+.game-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+} */
+
+.game-thumbnail {
+    width: 100%;
+    max-width: 8em;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.game-card-content {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.game-card-description {
+    color: white;
+}
+
+.games-container-card {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+    flex-wrap: wrap;
+    margin-top: 20px;
+    /* height: 100vh; */
+}
+
+.userAvatar {
+    background-color: #0197FF;
+    border: solid 1px white;
+}
+
+.game-description-container {
+    display: flex;
+    flex-direction: row;
+    width: 30em;
+    line-height: 0;
+    gap: 40px;
+}
+
+.category-game {
+    display: flex;
+    flex-direction: column;
+    /* background-color: #0197FF; */
+    justify-content: space-between;
+    /* line-height: 0; */
+    align-items: start;
+}
+
+.uploadImage-tags-container {
+    display: flex;
+    flex-direction: row;
+}
+
+.tag-category {
+    max-width: 250px;
+    max-height: 20px ;
 }

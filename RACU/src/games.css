@@ -42,9 +42,27 @@
     /* height: 100vh; */
 }
 
-.userAvatar {
+.userAvatar, .gameThumbnail {
     background-color: #0197FF;
     border: solid 1px white;
+}
+
+.gamePost-user-details {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-top: 20px;
+    gap: 30px;
+}
+
+.gamePost-date-time {
+    font-size: 12px;
+}
+
+.game-buttons-container {
+    display: flex;
+    gap: 8px;
+    width: 20em;
 }
 
 .game-description-container {
@@ -52,6 +70,7 @@
     flex-direction: row;
     width: 30em;
     line-height: 0;
+    background-color: #1C1C1C;
     gap: 40px;
 }
 
@@ -72,4 +91,63 @@
 .tag-category {
     max-width: 250px;
     max-height: 20px ;
+}
+
+.game-like-counter {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+    color: #0197FF;
+    height: 3em;
+    align-items: center;
+    justify-content: end;
+}
+
+.gameReviews-container {
+    height: 38em;
+    width: 63%;
+    display: flex;
+    flex-wrap: wrap;
+    overflow: auto;
+}
+
+.commenter-reviews-prof {
+    width: 100%;
+    max-width: 3.5em;
+    background-color: #0197FF;
+    border-radius: 50%;
+    border: solid 2px white;
+}
+
+.review-userDets {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.userReview-container {
+    background-color: #0C0C0C;
+    padding: 14px;
+    border-radius: 10px;
+    width: 50em;
+    height: fit-content;
+    border: solid 1px #424242;
+    margin-bottom: 8px;
+}
+
+.modal-main-container{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.writeReview-container {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    width: 34%;
+    flex-direction: column;
+    padding: 10px;
 }

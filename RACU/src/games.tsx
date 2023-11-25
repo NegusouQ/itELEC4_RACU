@@ -1,6 +1,8 @@
 import './games.css'
 import gamePic from "../src/assets/images/genshin.png"
+import userProf from '../src/assets/images/16.png'
 import React, { useEffect, useRef, useState } from 'react';
+import RACU from '../src/assets/images/RACU.png'
 import { TweenOneGroup } from 'rc-tween-one';
 import type { InputRef } from 'antd';
 import { Input, Space, Tag, ConfigProvider, Modal, Button, theme } from 'antd';
@@ -10,10 +12,11 @@ import { Dropdown, Typography } from 'antd';
 import type { SearchProps } from '../Search';
 import { DownloadOutlined } from '@ant-design/icons';
 import { Avatar, Card } from 'antd';
-import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
+import { LoadingOutlined, PlusOutlined, ClockCircleOutlined, LikeOutlined, LikeFilled } from '@ant-design/icons';
 import { message, Upload } from 'antd';
 import type { UploadChangeParam } from 'antd/es/upload';
 import type { RcFile, UploadFile, UploadProps } from 'antd/es/upload/interface';
+import Profile from './profile';
 // import Profile from './profile';
 
 // TEXT AREA FOR GAME DESCRIPTION
@@ -165,6 +168,10 @@ const Games: React.FC = () => {
     const [addGameOpen, setAddGameOpen] = useState(false);
     // END OF MODAL
 
+    // REVIEWS MODAL
+    const [reviewsModalOpen, setReviewsModalOpen] = useState(false);
+    
+
     // UPLOAD IMAGE
     const [loading, setLoading] = useState(false);
   const [imageUrl, setImageUrl] = useState<string>();
@@ -194,7 +201,15 @@ const Games: React.FC = () => {
 
 
     return <>
+            
         <div className="games-main-container">
+          <div className="greeting">
+                <div className="text-greeting">
+                    <h1 className='greeting-text' style={{ lineHeight:'0' }}>Welcome to RACU,</h1>
+                    <h3> where every gamer's voice levels up the gaming experience!</h3>
+                </div>
+                <img className='logo-home' src={ RACU }/>
+          </div>
         <ConfigProvider
         theme={{
             token: {
@@ -204,7 +219,7 @@ const Games: React.FC = () => {
             },
         }}
         >
-            <Space direction="horizontal">
+            <Space direction="horizontal" style={{  marginTop:'30px' }}>
                     <Search
                     style={{ width:'500px', marginRight: '50px' }}
                     placeholder="Search by Game name" onSearch={onSearch} enterButton />
@@ -237,6 +252,8 @@ const Games: React.FC = () => {
                 
             </Space>
         </ConfigProvider>
+
+        {/* MODAL TO ADD NEW GAME IN THE LIST */}
         <Modal
           title="Add Game"
           open={addGameOpen}
@@ -341,11 +358,22 @@ const Games: React.FC = () => {
               components: {
                 Card: {
                   extraColor: 'white',
+                colorBgContainer: '#1C1C1C',
 
+                },
+                Modal: {
+                  contentBg: '#1C1C1C',
+                  headerBg: '#1C1C1C',
+                  colorText: 'white'
+                },
+                Input: {
+                  activeBg: '#0C0C0C',
+                  colorBgContainer: '#0C0C0C',
+                  colorText:'white',
+                  colorTextPlaceholder: 'white'
                 },
               },
               token: {
-                colorBgContainer: '#1C1C1C',
                 colorTextHeading: 'white',
                 colorTextDescription: 'white'
               },
@@ -355,16 +383,23 @@ const Games: React.FC = () => {
             hoverable={true}
             onClick={gameModal}>
               <Meta
-                avatar={<Avatar size={64} className='userAvatar' src={ gamePic } />}
+                avatar={<Avatar size={64} className='gameThumbnail' src={ gamePic } />}
                 title="Gensin Impact"
                 description="open-world role-playing game (or RPG)"
               />
+              <div className="game-like-counter">
+              <LikeFilled/>
+              <p>1243</p>
+              </div>
             </Card>
 
-          </ConfigProvider>
-        
-        </div>
-        <Modal title="Genshin Impact" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+            {/* GAME DESCRIPTION MODAL */}
+            <Modal title="Genshin Impact" 
+            open={isModalOpen} 
+            onOk={handleOk} 
+            onCancel={handleCancel}
+            width={650}
+            >
           <div className="game-description-container">
             <img
             style={{ width: '100%', maxWidth: '10em', height: '10em', borderRadius:'10px' }}
@@ -376,17 +411,142 @@ const Games: React.FC = () => {
                   <Tag color="#2db7f5">Adventure game</Tag>
                   <Tag color="#87d068">Action role-playing game</Tag>
                 </Space>
-                <Button type="primary" href='https://genshin.hoyoverse.com/en/' shape="round" icon={<DownloadOutlined />}>
-                  Download
-                </Button>
+                <div className="game-buttons-container">
+                  <Button type="primary" href='https://genshin.hoyoverse.com/en/' shape="round" icon={<DownloadOutlined />}>
+                    Download
+                  </Button>
+                  <Button ghost onClick={() => setReviewsModalOpen(true)}>Reviews</Button>
+                  {/* LIKE BUTTON */}
+                  <Button ghost><LikeOutlined/></Button>
+                  {/* <Button ghost><DislikeOutlined/></Button> */}
+                </div>
+
               </div>
-  
+
+          </div>
+          <div className="gamePost-user-details">
+            <Meta
+            style={{ display: 'flex',  flexDirection: 'row', alignItems: 'center', gap: '10px' }}
+                  avatar={<Avatar size={44} className='userAvatar' src={ userProf } />}
+                  title="Username"/>
+                  <p className='gamePost-date-time'><ClockCircleOutlined style={{ marginRight:'5px' }}/>1 day ago</p>
           </div>
           <p className='game-description'>Genshin Impact is an open-world,
              action role-playing game that allows the player to control one of four interchangeable characters in a party.
               Switching between characters can be done quickly during combat,
              allowing the player to use several different combinations of skills and attacks.</p>
         </Modal>
+
+
+        {/* REVIEWS */}
+        <Modal
+          title="Game Reviews"
+          open={reviewsModalOpen}
+          onOk={() => setReviewsModalOpen(false)}
+          onCancel={() => setReviewsModalOpen(false)}
+          width={1200}
+          centered={true}        
+          >
+          <div className="modal-main-container">
+          <div className="gameReviews-container">
+            <div className="userReview-container">
+              <div className="review-userDets">
+              <img src={userProf} className='commenter-reviews-prof'/>
+                <span>Username</span>
+              </div>
+              <span className='review-text-content'>Genshin Impact is an open-world,
+              action role-playing game that allows the player to control one of four interchangeable characters in a party.
+                Switching between characters can be done quickly during combat,
+              allowing the player to use several different combinations of skills and attacks.</span>
+              </div>
+              <div className="userReview-container">
+              <div className="review-userDets">
+              <img src={userProf} className='commenter-reviews-prof'/>
+                <span>Username</span>
+              </div>
+              <span className='review-text-content'>Genshin Impact is an open-world,
+              action role-playing game that allows the player to control one of four interchangeable characters in a party.
+                Switching between characters can be done quickly during combat,
+              allowing the player to use several different combinations of skills and attacks.</span>
+              </div>
+              <div className="userReview-container">
+              <div className="review-userDets">
+              <img src={userProf} className='commenter-reviews-prof'/>
+                <span>Username</span>
+              </div>
+              <span className='review-text-content'>Genshin Impact is an open-world,
+              action role-playing game that allows the player to control one of four interchangeable characters in a party.
+                Switching between characters can be done quickly during combat,
+              allowing the player to use several different combinations of skills and attacks.</span>
+              </div>
+              <div className="userReview-container">
+              <div className="review-userDets">
+              <img src={userProf} className='commenter-reviews-prof'/>
+                <span>Username</span>
+              </div>
+              <span className='review-text-content'>Genshin Impact is an open-world,
+              action role-playing game that allows the player to control one of four interchangeable characters in a party.
+                Switching between characters can be done quickly during combat,
+              allowing the player to use several different combinations of skills and attacks.</span>
+              </div>
+              <div className="userReview-container">
+              <div className="review-userDets">
+              <img src={userProf} className='commenter-reviews-prof'/>
+                <span>Username</span>
+              </div>
+              <span className='review-text-content'>Genshin Impact is an open-world,
+              action role-playing game that allows the player to control one of four interchangeable characters in a party.
+                Switching between characters can be done quickly during combat,
+              allowing the player to use several different combinations of skills and attacks.</span>
+              </div>
+              <div className="userReview-container">
+              <div className="review-userDets">
+              <img src={userProf} className='commenter-reviews-prof'/>
+                <span>Username</span>
+              </div>
+              <span className='review-text-content'>Genshin Impact is an open-world,
+              action role-playing game that allows the player to control one of four interchangeable characters in a party.
+                Switching between characters can be done quickly during combat,
+              allowing the player to use several different combinations of skills and attacks.</span>
+              </div>
+              <div className="userReview-container">
+              <div className="review-userDets">
+              <img src={userProf} className='commenter-reviews-prof'/>
+                <span>Username</span>
+              </div>
+              <span className='review-text-content'>Genshin Impact is an open-world,
+              action role-playing game that allows the player to control one of four interchangeable characters in a party.
+                Switching between characters can be done quickly during combat,
+              allowing the player to use several different combinations of skills and attacks.</span>
+              </div>
+          </div>
+
+          <div className="writeReview-container">
+            <span 
+            style={{ fontSize: '25px', fontWeight: '700' }}
+            >
+              Give Review</span>
+              <TextArea
+                showCount
+                maxLength={500}
+                onChange={onChange}
+                placeholder="Write your thoughts here."
+                style={{ height: 320, resize: 'none', marginBottom:'20px' }}
+              />
+              <Button ghost
+                style={{ marginTop: '10px', marginLeft:'20em' }}
+              >Post Review</Button>
+          </div>
+          </div>
+          
+        </Modal>
+
+          </ConfigProvider>
+        
+        </div>
+        
+
+        
 
         
         </div>

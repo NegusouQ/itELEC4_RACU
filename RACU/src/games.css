@@ -8,6 +8,35 @@
     flex-wrap: wrap;
     overflow-x: hidden;
 }
+
+.greeting {
+    display: flex;
+    flex-direction: row;
+    /* background-color: #0C0C0C; */
+    background: linear-gradient(to right, #0C0C0C, #0197FF);
+    padding: 10px;
+    height: fit-content;
+    border-radius: 20px;
+    width: 81vw;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo-home {
+    width: 100%;
+    max-width: 15em;
+    height: 15em;
+}
+
+.greeting-text {
+    font-family: 'Pixelify Sans', sans-serif;
+    font-weight: 700;
+    font-size: 75px;
+}
+
+.text-greeting {
+    margin-right: 40px;
+}
 /* 
 .game-card {
     display: flex;
@@ -125,6 +154,7 @@
     align-items: center;
     gap: 10px;
     margin-bottom: 15px;
+    justify-content: space-between;
 }
 
 .userReview-container {

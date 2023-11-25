@@ -10,17 +10,17 @@ const NavBar: React.FC = () => {
         <div className="nav-container">
             <img className='nav-logo' src={ UserProf } alt="" />
             <span className='username'>Username</span>
-            <Link className='navLinks' to='/home'>
-            <HomeFilled />
-            <span>
-                Home</span>
-            </Link>
-
-            <Link className='navLinks' to='games'>
+            <Link className='navLinks' to='/games'>
             <img className='nav-icons' src={ gameIcon }/>
             <span>
                 Games</span>
             </Link>
+
+            {/* <Link className='navLinks' to='games'>
+            <img className='nav-icons' src={ gameIcon }/>
+            <span>
+                Games</span>
+            </Link> */}
 
             <Link className='navLinks' to='profile'>
             <GitlabFilled />

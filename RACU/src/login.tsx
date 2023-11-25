@@ -67,7 +67,7 @@ const Login: React.FC = () => {
               </Form.Item> */}
 
               <Form.Item wrapperCol={{ offset: 12, span: 12 }}>
-              <Link to='/home'>
+              <Link to='/games'>
               <Button type="primary" htmlType="submit"
               style={{ marginTop:'50px' }}>
                   Login

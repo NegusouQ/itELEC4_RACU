@@ -5,19 +5,28 @@ import React, { useEffect, useRef, useState } from 'react';
 import RACU from '../src/assets/images/RACU.png'
 import { TweenOneGroup } from 'rc-tween-one';
 import type { InputRef } from 'antd';
-import { Input, Space, Tag, ConfigProvider, Modal, Button, theme } from 'antd';
-import { DownOutlined,  } from '@ant-design/icons';
+import { Input, Space, Tag, ConfigProvider, Modal, Button, theme, Tooltip, FloatButton } from 'antd';
+import { DownOutlined, CloseOutlined } from '@ant-design/icons';
 import type { MenuProps } from 'antd';
 import { Dropdown, Typography } from 'antd';
 import type { SearchProps } from '../Search';
-import { DownloadOutlined } from '@ant-design/icons';
+import { DownloadOutlined, EllipsisOutlined } from '@ant-design/icons';
 import { Avatar, Card } from 'antd';
-import { LoadingOutlined, PlusOutlined, ClockCircleOutlined, LikeOutlined, LikeFilled } from '@ant-design/icons';
+import { LoadingOutlined, PlusOutlined, ClockCircleOutlined, LikeOutlined, LikeFilled, EditOutlined } from '@ant-design/icons';
 import { message, Upload } from 'antd';
 import type { UploadChangeParam } from 'antd/es/upload';
 import type { RcFile, UploadFile, UploadProps } from 'antd/es/upload/interface';
 import Profile from './profile';
 // import Profile from './profile';
+
+
+// TAG CATEGORIES
+const { CheckableTag } = Tag;
+
+const tagsData = ['Adventure', 'FPS', 'RPG', 'Simulation', 'Strategy', 'Survival & Horror', 'Platformers',
+'Sports & Fitness', 'Fighting', 'Web3 Games', 'Augmented Reality', 'Educational', 'Puzzlers & Party Games', 'Stealth'];
+
+//
 
 // TEXT AREA FOR GAME DESCRIPTION
 const { TextArea } = Input;
@@ -55,18 +64,13 @@ const { Meta } = Card;
 const items: MenuProps['items'] = [
     {
       key: '1',
-      label: 'Video Game',
+      label: 'Edit Post',
     },
     {
       key: '2',
-      label: 'Adventure Game',
-    },
-    {
-      key: '3',
-      label: 'Action',
+      label: 'Delete Post',
     },
   ];
-
 
 
 
@@ -86,65 +90,16 @@ const onSearch: SearchProps['onSearch'] = (value, _e, info) => console.log(info?
 const Games: React.FC = () => {
   
   // TAGS
-  const { token } = theme.useToken();
-  const [tags, setTags] = useState(['Tag 1', 'Tag 2', 'Tag 3']);
-  const [inputVisible, setInputVisible] = useState(false);
-  const [inputValue, setInputValue] = useState('');
-  const inputRef = useRef<InputRef>(null);
+  const [selectedTags, setSelectedTags] = useState<string[]>(['Books']);
 
-  useEffect(() => {
-    if (inputVisible) {
-      inputRef.current?.focus();
-    }
-  }, [inputVisible]);
-
-  const handleClose = (removedTag: string) => {
-    const newTags = tags.filter((tag) => tag !== removedTag);
-    console.log(newTags);
-    setTags(newTags);
+  const handleChange = (tag: string, checked: boolean) => {
+    const nextSelectedTags = checked
+      ? [...selectedTags, tag]
+      : selectedTags.filter((t) => t !== tag);
+    console.log('You are interested in: ', nextSelectedTags);
+    setSelectedTags(nextSelectedTags);
   };
 
-  const showInput = () => {
-    setInputVisible(true);
-  };
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setInputValue(e.target.value);
-  };
-
-  const handleInputConfirm = () => {
-    if (inputValue && tags.indexOf(inputValue) === -1) {
-      setTags([...tags, inputValue]);
-    }
-    setInputVisible(false);
-    setInputValue('');
-  };
-
-  const forMap = (tag: string) => {
-    const tagElem = (
-      <Tag
-        closable
-        onClose={(e) => {
-          e.preventDefault();
-          handleClose(tag);
-        }}
-      >
-        {tag}
-      </Tag>
-    );
-    return (
-      <span key={tag} style={{ display: 'inline-block' }}>
-        {tagElem}
-      </span>
-    );
-  };
-
-  const tagChild = tags.map(forMap);
-
-  const tagPlusStyle: React.CSSProperties = {
-    background: token.colorBgContainer,
-    borderStyle: 'dashed',
-  };
 
     // MODAL
     // SHOW GAME DESCRIPTION
@@ -161,7 +116,6 @@ const Games: React.FC = () => {
     const handleCancel = () => {
       setIsModalOpen(false);
     };
-    
 
     // ADD GAME MODAL
 
@@ -176,7 +130,7 @@ const Games: React.FC = () => {
     const [loading, setLoading] = useState(false);
   const [imageUrl, setImageUrl] = useState<string>();
 
-  const handleChange: UploadProps['onChange'] = (info: UploadChangeParam<UploadFile>) => {
+  const UPLOAD: UploadProps['onChange'] = (info: UploadChangeParam<UploadFile>) => {
     if (info.file.status === 'uploading') {
       setLoading(true);
       return;
@@ -224,132 +178,30 @@ const Games: React.FC = () => {
                     style={{ width:'500px', marginRight: '50px' }}
                     placeholder="Search by Game name" onSearch={onSearch} enterButton />
 
-            <ConfigProvider
-            theme={{
-                token: {
-                    colorBgElevated: 'black',
-                },
-            }}
-            >
-                            <Dropdown
-                                menu={{
-                                items,
-                                selectable: true,
-                                defaultSelectedKeys: ['3'],
-                                }}
-                            >
-                                <Typography.Link>
-                                <Space>
-                                    Category
-                                    <DownOutlined />
-                                </Space>
-                                </Typography.Link>
-                            </Dropdown>
-            </ConfigProvider>
 
-                                {/* ADD GAME BUTTON */}
-                <Button type='primary' onClick={() => setAddGameOpen(true)}>Add Game</Button>
+                <span style={{ marginRight: 8, color:'#0197FF', fontWeight:'800' }}>Genres:</span>
+                  <Space size={[0, 8]} wrap>
+                    {tagsData.map((tag) => (
+                      <CheckableTag
+                        key={tag}
+                        checked={selectedTags.includes(tag)}
+                        onChange={(checked) => handleChange(tag, checked)}
+                      >
+                        {tag}
+                      </CheckableTag>
+                    ))}
+                  </Space>
                 
             </Space>
         </ConfigProvider>
 
-        {/* MODAL TO ADD NEW GAME IN THE LIST */}
-        <Modal
-          title="Add Game"
-          open={addGameOpen}
-          onOk={() => setAddGameOpen(false)}
-          onCancel={() => setAddGameOpen(false)}
-        >
-          {/* GAME NAME */}
-          <Input placeholder="Enter game name" bordered={true} 
-          style={{ marginBottom: '10px' }}/>
 
-          <div className="uploadImage-tags-container">
-            {/* UPLOAD IMAGE  */}
-              <Upload
-                name="avatar"
-                listType="picture-card"
-                className="avatar-uploader"
-                showUploadList={false}
-                action="https://run.mocky.io/v3/435e224c-44fb-4773-9faf-380c5e6a2188"
-                beforeUpload={beforeUpload}
-                onChange={handleChange}
-              >
-                {imageUrl ? <img src={imageUrl} alt="avatar" style={{ width: '100%' }} /> : uploadButton}
-              </Upload>
+                                                     {/* ADD GAME BUTTON */}
+        <Tooltip title="Add Game" placement='left'>
+          <FloatButton shape='square' type='primary' icon={<EditOutlined />} onClick={() => setAddGameOpen(true)}/>
+        </Tooltip>
 
 
-                                {/* TAGS */}
-              <div style={{ marginBottom: 16, width: 600 }}>
-            <TweenOneGroup
-              enter={{
-                scale: 0.8,
-                opacity: 0,
-                type: 'from',
-                duration: 100,
-              }}
-              onEnd={(e) => {
-                if (e.type === 'appear' || e.type === 'enter') {
-                  (e.target as any).style = 'display: inline-block';
-                }
-              }}
-              leave={{ opacity: 0, width: 0, scale: 0, duration: 200 }}
-              appear={false}
-            >
-              {tagChild}
-            </TweenOneGroup>
-          </div>
-          {inputVisible ? (
-            <Input
-              ref={inputRef}
-              type="text"
-              size="small"
-              style={{ width: 250, height: 20 }}
-              value={inputValue}
-              onChange={handleInputChange}
-              onBlur={handleInputConfirm}
-              onPressEnter={handleInputConfirm}
-            />
-          ) : (
-            <Tag onClick={showInput} style={tagPlusStyle} className='tag-category'>
-              <PlusOutlined /> New Category
-            </Tag>
-          )}
-          </div>
-          
-                                {/* DESCRIPTION */}
-          <TextArea
-            showCount
-            maxLength={500}
-            onChange={onChange}
-            placeholder="Enter game description here."
-            style={{ height: 220, resize: 'none', marginBottom:'20px' }}
-          />
-        </Modal>
-        
-                {/* TABLE */}
-        {/* <ConfigProvider
-        theme={{
-            components: {
-            Table: {
-                colorBgContainer: '#131313',
-                headerColor: 'white',
-                colorText: 'white',
-                borderColor: '#131313',
-                rowHoverBg:'#0197FF'
-            },
-            },
-        }}
-        >
-        <Table
-        style={{ marginTop: '20px' }}
-        columns={columns} dataSource={data}
-        onRow={(record, rowIndex) => {
-          return {
-            onClick: (event) => {}, // click row
-          };
-        }} />
-        </ConfigProvider> */}
 
         <div className="games-container-card">
           {/* GAMES (CARD) */}
@@ -364,13 +216,16 @@ const Games: React.FC = () => {
                 Modal: {
                   contentBg: '#1C1C1C',
                   headerBg: '#1C1C1C',
-                  colorText: 'white'
+                  colorText: 'white',
                 },
                 Input: {
                   activeBg: '#0C0C0C',
                   colorBgContainer: '#0C0C0C',
                   colorText:'white',
                   colorTextPlaceholder: 'white'
+                },
+                Tag: {
+                  defaultColor:'#0197FF'
                 },
               },
               token: {
@@ -379,6 +234,60 @@ const Games: React.FC = () => {
               },
             }}
           >
+
+{/* MODAL TO ADD NEW GAME IN THE LIST */}
+<Modal
+          title="Add Game"
+          open={addGameOpen}
+          onOk={() => setAddGameOpen(false)}
+          onCancel={() => setAddGameOpen(false)}
+          okText='Post'
+          centered={true}
+          width={700}
+        >
+          {/* GAME NAME */}
+          <Input placeholder="Enter game name" bordered={true} 
+          style={{ marginBottom: '10px' }}/>
+
+          <div className="uploadImage-tags-container">
+            {/* UPLOAD IMAGE  */}
+              <Upload
+                name="avatar"
+                listType="picture-card"
+                className="avatar-uploader"
+                showUploadList={false}
+                action="https://run.mocky.io/v3/435e224c-44fb-4773-9faf-380c5e6a2188"
+                beforeUpload={beforeUpload}
+                onChange={UPLOAD}
+              >
+                {imageUrl ? <img src={imageUrl} alt="avatar" style={{ width: '100%' }} /> : uploadButton}
+              </Upload>
+              <span>Genre:</span>
+              <Space size={[0, 8]} wrap>
+                    {tagsData.map((tag) => (
+                      <CheckableTag
+                        key={tag}
+                        checked={selectedTags.includes(tag)}
+                        onChange={(checked) => handleChange(tag, checked)}
+                      >
+                        {tag}
+                      </CheckableTag>
+                    ))}
+                  </Space>
+          </div>
+          
+
+
+                                {/* DESCRIPTION */}
+          <TextArea
+            showCount
+            maxLength={500}
+            onChange={onChange}
+            placeholder="Enter game description here."
+            style={{ height: 220, resize: 'none', marginBottom:'20px', marginTop:'20px' }}
+          />
+        </Modal>
+
             <Card bordered={false} style={{ width: 300, height: 140 }}
             hoverable={true}
             onClick={gameModal}>
@@ -399,6 +308,10 @@ const Games: React.FC = () => {
             onOk={handleOk} 
             onCancel={handleCancel}
             width={650}
+            centered={true}
+            okText='Close'
+            footer={null}
+            closeIcon={<span style={{ color: 'white' }}><CloseOutlined/></span>}
             >
           <div className="game-description-container">
             <img
@@ -417,8 +330,33 @@ const Games: React.FC = () => {
                   </Button>
                   <Button ghost onClick={() => setReviewsModalOpen(true)}>Reviews</Button>
                   {/* LIKE BUTTON */}
-                  <Button ghost><LikeOutlined/></Button>
+                  <Button ghost>
+                    <span className='game-likeCounter'>123</span>
+                    <LikeOutlined/>
+                    </Button>
                   {/* <Button ghost><DislikeOutlined/></Button> */}
+                  <div className="edit-delete-dropdown">
+                  <ConfigProvider
+                    theme={{
+                      token: {
+                        colorBgElevated: '#0C0C0C',
+                        controlItemBgHover: '#1C1C1C',
+                        colorText: 'white'
+                      },
+                    }}
+                  >
+                    <Dropdown menu={{ items }} trigger={['click']}>
+                    <a onClick={(e) => e.preventDefault()}>
+                      <Space>
+                        <Tooltip title="Click to edit or delete post">
+                          <EllipsisOutlined style={{ fontSize: '25px', marginLeft:'20px' }}/>
+                        </Tooltip>
+                      </Space>
+                    </a>
+                  </Dropdown>
+                  </ConfigProvider>
+                  
+                  </div>
                 </div>
 
               </div>
@@ -445,74 +383,28 @@ const Games: React.FC = () => {
           onOk={() => setReviewsModalOpen(false)}
           onCancel={() => setReviewsModalOpen(false)}
           width={1200}
-          centered={true}        
+          centered={true}
+          closeIcon={<span style={{ color: 'white' }}><CloseOutlined/></span>}    
+          footer={null}
           >
           <div className="modal-main-container">
           <div className="gameReviews-container">
+
+            {/* INDIV REVIEW */}
             <div className="userReview-container">
               <div className="review-userDets">
-              <img src={userProf} className='commenter-reviews-prof'/>
-                <span>Username</span>
-              </div>
-              <span className='review-text-content'>Genshin Impact is an open-world,
-              action role-playing game that allows the player to control one of four interchangeable characters in a party.
-                Switching between characters can be done quickly during combat,
-              allowing the player to use several different combinations of skills and attacks.</span>
-              </div>
-              <div className="userReview-container">
-              <div className="review-userDets">
-              <img src={userProf} className='commenter-reviews-prof'/>
-                <span>Username</span>
-              </div>
-              <span className='review-text-content'>Genshin Impact is an open-world,
-              action role-playing game that allows the player to control one of four interchangeable characters in a party.
-                Switching between characters can be done quickly during combat,
-              allowing the player to use several different combinations of skills and attacks.</span>
-              </div>
-              <div className="userReview-container">
-              <div className="review-userDets">
-              <img src={userProf} className='commenter-reviews-prof'/>
-                <span>Username</span>
-              </div>
-              <span className='review-text-content'>Genshin Impact is an open-world,
-              action role-playing game that allows the player to control one of four interchangeable characters in a party.
-                Switching between characters can be done quickly during combat,
-              allowing the player to use several different combinations of skills and attacks.</span>
-              </div>
-              <div className="userReview-container">
-              <div className="review-userDets">
-              <img src={userProf} className='commenter-reviews-prof'/>
-                <span>Username</span>
-              </div>
-              <span className='review-text-content'>Genshin Impact is an open-world,
-              action role-playing game that allows the player to control one of four interchangeable characters in a party.
-                Switching between characters can be done quickly during combat,
-              allowing the player to use several different combinations of skills and attacks.</span>
-              </div>
-              <div className="userReview-container">
-              <div className="review-userDets">
-              <img src={userProf} className='commenter-reviews-prof'/>
-                <span>Username</span>
-              </div>
-              <span className='review-text-content'>Genshin Impact is an open-world,
-              action role-playing game that allows the player to control one of four interchangeable characters in a party.
-                Switching between characters can be done quickly during combat,
-              allowing the player to use several different combinations of skills and attacks.</span>
-              </div>
-              <div className="userReview-container">
-              <div className="review-userDets">
-              <img src={userProf} className='commenter-reviews-prof'/>
-                <span>Username</span>
-              </div>
-              <span className='review-text-content'>Genshin Impact is an open-world,
-              action role-playing game that allows the player to control one of four interchangeable characters in a party.
-                Switching between characters can be done quickly during combat,
-              allowing the player to use several different combinations of skills and attacks.</span>
-              </div>
-              <div className="userReview-container">
-              <div className="review-userDets">
-              <img src={userProf} className='commenter-reviews-prof'/>
-                <span>Username</span>
+                <div
+                style={{ display:'flex', alignItems:'center', gap:'10px' }}
+                >
+                  <img src={userProf} className='commenter-reviews-prof'/>
+                  <span>Username</span>
+                </div>
+                <div className="review-like-btn">
+                  <Button ghost>
+                    <span className='review-likeCounter'>123</span>
+                <LikeOutlined/>
+                </Button>
+                </div>
               </div>
               <span className='review-text-content'>Genshin Impact is an open-world,
               action role-playing game that allows the player to control one of four interchangeable characters in a party.
@@ -521,11 +413,12 @@ const Games: React.FC = () => {
               </div>
           </div>
 
+
           <div className="writeReview-container">
-            <span 
+            {/* <span 
             style={{ fontSize: '25px', fontWeight: '700' }}
             >
-              Give Review</span>
+              Give Review</span> */}
               <TextArea
                 showCount
                 maxLength={500}
@@ -534,7 +427,7 @@ const Games: React.FC = () => {
                 style={{ height: 320, resize: 'none', marginBottom:'20px' }}
               />
               <Button ghost
-                style={{ marginTop: '10px', marginLeft:'20em' }}
+                style={{ marginTop: '10em', marginLeft:'20em' }}
               >Post Review</Button>
           </div>
           </div>

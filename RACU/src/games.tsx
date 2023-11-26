@@ -2,7 +2,7 @@ import './games.css'
 import gamePic from "../src/assets/images/genshin.png"
 import userProf from '../src/assets/images/21.png'
 import React, { useEffect, useRef, useState } from 'react';
-import RACU from '../src/assets/images/RACU.png'
+import RACU from '../src/assets/images/a-8.png'
 import { TweenOneGroup } from 'rc-tween-one';
 import type { InputRef } from 'antd';
 import { Input, Space, Tag, ConfigProvider, Modal, Button, theme, Tooltip, FloatButton } from 'antd';

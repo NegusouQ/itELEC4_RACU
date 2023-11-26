@@ -1,11 +1,28 @@
 import './profile.css'
-import { Input, Button, Space, ConfigProvider,message, Upload} from 'antd';
-import type { UploadProps } from 'antd';
+import { Input, Button, Space, ConfigProvider,message, Upload, Avatar, Dropdown} from 'antd';
+import type { MenuProps, UploadProps } from 'antd';
 import { Tabs } from 'antd';
 import type { TabsProps } from 'antd';
-import { UploadOutlined, EditOutlined, ClockCircleOutlined, DeleteOutlined, SendOutlined, HeartOutlined, LikeFilled,
-DislikeFilled } from '@ant-design/icons';
-import profile from '../src/assets/images/12.png'
+import gameImg from '../src/assets/images/genshin.png'
+import { EditOutlined, ClockCircleOutlined, LikeFilled,
+  EllipsisOutlined } from '@ant-design/icons';
+import profile from '../src/assets/images/23.png'
+import Meta from 'antd/es/card/Meta';
+
+
+
+// dropdown
+const items: MenuProps['items'] = [
+  {
+    key: '1',
+    label: 'Edit Review',
+  },
+  {
+    key: '2',
+    label: 'Delete Review',
+  },
+];
+//
 
 const { TextArea } = Input;
 
@@ -14,73 +31,7 @@ const onChange = (key: string) => {
   console.log(key);
 };
 
-const items: TabsProps['items'] = [
-  {
-    key: '1',
-    label: 'COMMENTS',
-    children:
-    <div className='commenter-container'>
-      <div className="commenter-details">
-        <img className='commenter-prof' src={ profile } alt="" />
-        <h3 className='commenter-name'>Commenter Name</h3>
-        <span className='existing-post-time'><ClockCircleOutlined style={{ marginRight:'5px' }}/>10 mins. ago</span>
-        <div className="heart-btn"  style={{ fontSize:'20px', color:'white', marginLeft:'33em', cursor:'pointer' }}>
-          <span className='heart-counter'>12312</span>
-          <HeartOutlined/>
-        </div>
-      </div>
-      <div className="comment-container">
-        <span className='commenter-comment'>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                         sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                          Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                           Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                            Excepteur sint occaecat cupidatat non proident,
-                         sunt in culpa qui officia deserunt mollit anim id est laborum.
-        </span>
-      </div>
-    </div>,
-  },
-  {
-    key: '2',
-    label: 'LIKES',
-    children: <div className='likes-container'>
-      <div className="reactor-container">
-        <img className='commenter-prof' src={ profile } alt="" />
-        <h3 className='commenter-name'>Commenter Name</h3>
-        <h3 style={{ color: 'white', marginLeft:'10px' }}>liked your post.</h3>
-        {/* <LikeFilled style={{ marginLeft:'40em', fontSize:'18px', color:'#0197FF' }}/> */}
-      </div>
-      <div className="reactor-container">
-        <img className='commenter-prof' src={ profile } alt="" />
-        <h3 className='commenter-name'>Commenter Name</h3>
-        <h3 style={{ color: 'white', marginLeft:'10px' }}>liked your post.</h3>
-        {/* <LikeFilled style={{ marginLeft:'40em', fontSize:'18px', color:'#0197FF' }}/> */}
-      </div>
-    </div>,
-  },
-  {
-    key: '3',
-    label: 'DISLIKES',
-    children: <div className='dislikes-container'>
-    <div className="reactor-container">
-      <img className='commenter-prof' src={ profile } alt="" />
-      <h3 className='commenter-name'>Commentesdasdasdr Name</h3>
-      <h3 style={{ color: 'white', marginLeft:'10px' }}>disliked your post.</h3>
-      {/* <DislikeFilled style={{ marginLeft:'38em', fontSize:'18px', color:'#0197FF' }}/> */}
 
-    </div>
-    <div className="reactor-container">
-      <img className='commenter-prof' src={ profile } alt="" />
-      <h3 className='commenter-name'>Commenter Name</h3>
-      <h3 style={{ color: 'white', marginLeft:'10px' }}>disliked your post.</h3>
-      {/* <DislikeFilled style={{ marginLeft:'38em', fontSize:'18px', color:'#0197FF' }}/> */}
-    </div>
-  </div>,
-  },
-];
-
-//END OF TABS
 
 const props: UploadProps = {
     name: 'file',
@@ -102,89 +53,93 @@ const props: UploadProps = {
 
 const Profile: React.FC = () => {
     return <>
+          {/* USER PROFILE BANNER */}
     <div className="profile-main-container">
         <div className='userProfile-container'>
             <div className='image-name-user'>
                 <img className='user-prof' src={ profile } alt="" />
-                <h1>Sample name here</h1>
+                <h1 className='profile-username-banner'>Sample name here</h1>
             </div>
             <Button ghost><EditOutlined/>Edit Profile</Button>
         </div>
 
-        <div className="profile-comment-section">
-            <div className='profile-user-details'>
-                <img className='user-comment-prof' src={ profile } alt="" />
-                <h3>Croy croy</h3>
-            </div>
-                <div className="post-upload">
-                        <ConfigProvider
+            {/* MAIN CONTAINER FOR REVIEWS AND LIKED GAMES */}
+      <div className="review-likedGames-main-container">
+        <div className="previous-reviews-container">
+          {/* REVIEW CONTAINER */}
+          <div className="user-prevReviews">
+            <div className="user-details-prevReviews">
+              <div
+              style={{ display:'flex', flexDirection: 'row', alignItems:'center', gap:'10px' }}
+              >
+              <Meta
+                    avatar={<Avatar size={64} className='reviews-profile-avatar' src={ profile } />} />
+                    <span className='profile-prevRev-username'>Username</span>
+                    <span style={{ fontSize:'12px', marginLeft:'10px' }}>
+                    <ClockCircleOutlined style={{ marginRight:'4px' }}/>3 days ago</span>
+              </div>
+
+                      <div className="edit-delete-prevReview">
+                      <ConfigProvider
                         theme={{
-                            token: {
-                                colorTextPlaceholder:'white',
-                                colorText: 'white'
-                            },
+                          token: {
+                            colorBgElevated: '#424242',
+                            colorText: 'white',
+                            controlItemBgHover: '#0C0C0C'
+                          },
                         }}
-                        >
-                            
-                        <Space.Compact className="post-textarea">
-                            <TextArea rows={4} placeholder="Post your thoughts here!" bordered={false} />
-                        </Space.Compact>
-                        </ConfigProvider>
-                </div>
-                <div className='post-btns'>
-                    <Upload className='upload-btn' {...props}>
-                        <Button icon={<UploadOutlined />}>Upload photos</Button>
-                    </Upload>
-                    <Button className='post-btn' ghost>Post</Button>
-                </div>
+                      >
+                        <Dropdown menu={{ items }} placement='bottomRight' trigger={['click']} >
+                          <a onClick={(e) => e.preventDefault()}>
+                            <Space>
+                              {/* <Tooltip title="Click to edit or delete post"> */}
+                                <EllipsisOutlined style={{ fontSize: '25px', marginRight:'10px' }}/>
+                              {/* </Tooltip> */}
+                            </Space>
+                          </a>
+                        </Dropdown>
+                      </ConfigProvider>
+                        
+                      </div>
+            </div>
+
+            <h4 className='reviews-GameName'>Game Name</h4>
+                    
+            <span className='prevReviews-profile-content'>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+            sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
+            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+            Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+            </span>
+
+              <div className="prevReviews-profile-likeCounter">
+                <span className='prevReviews-likes'>
+                <LikeFilled style={{ marginRight:'5px' }}/>
+                  123</span>
+              </div>
+
+          </div>
+          
         </div>
 
-        <div className="existing-post-container">
-          <div className='profile-user-details'>
-              <img className='user-comment-prof' src={ profile } alt="" />
-              <h3>Croy croy</h3>
-              <span className='existing-post-time'><ClockCircleOutlined style={{ marginRight:'5px' }}/>30 mins. ago</span>
-              <div className="delete-btn">
-              <DeleteOutlined style={{ fontSize:'20px', color:'white', marginLeft:'38em', cursor:'pointer' }} />
-              </div>
+        <div className="profile-liked-games-container">
+          <h4>Liked Games</h4>
+
+            {/* INDIV GAME CONTAINER */}
+          <div className="liked-games-container">
+            <Meta
+                    avatar={<Avatar size={64} className='liked-gameImg-avatar' src={ gameImg } />} />
+                    <span className='profile-prevRev-username'>Example Game Name</span>
+                    
           </div>
-          <span className='existing-post-content'>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                         sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                          Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                           Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                            Excepteur sint occaecat cupidatat non proident,
-                         sunt in culpa qui officia deserunt mollit anim id est laborum.
-          </span>
-          {/* TABS */}
-          <ConfigProvider
-            theme={{
-              components: {
-                Tabs: {
-                  itemColor: 'white',
-                  lineType: 'none'
-                },
-              },
-            }}
-          >
-          <Tabs defaultActiveKey="1" items={items} onChange={onChange} style={{ marginTop:'10px' }}/>
-          </ConfigProvider>
-          
-          {/* COMMENT - USER CAN LEAVE A COMMENT */}
-          <ConfigProvider
-                            theme={{
-                                token: {
-                                    colorTextPlaceholder:'white',
-                                    colorText: 'white',
-                                },
-                            }}
-                            >
-                                <Space.Compact style={{ width: '100%', marginTop:'20px' }}>
-                                    <Button ghost type="primary"><SendOutlined /></Button>
-                                    <Input placeholder="Leave a comment" bordered={false} />
-                                </Space.Compact>
-          </ConfigProvider>
+
+
         </div>
+      </div>
+
+      
+
     </div>
     </>
 }

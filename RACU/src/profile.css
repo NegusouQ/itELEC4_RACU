@@ -11,6 +11,12 @@
     overflow-x: hidden;
 }
 
+.review-likedGames-main-container {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+
 .userProfile-container{
     padding: 20px;
     display: flex;
@@ -212,4 +218,73 @@
     display: flex;
     flex-direction: column;
     max-width: 80em;
+}
+
+.profile-username-banner {
+    font-size: 40px;
+}
+
+.reviews-profile-avatar {
+    border: solid 2px white;
+    background-color: #170BA7;
+}
+
+.liked-gameImg-avatar {
+    border: solid 2px white;
+}
+
+.user-prevReviews {
+    width: 50vw;
+    padding: 15px;
+    border-radius: 10px;
+    background-color: #0C0C0C;
+    border: solid 1px #424242;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+}
+
+.profile-liked-games-container {
+    width: 25vw;
+    border-radius: 10px;
+    border: solid 1px #424242;
+    padding: 10px;
+    background-color: #0C0C0C;
+    height: fit-content;
+    max-height: 30em;
+    flex-wrap: wrap;
+    overflow-x: hidden;
+}
+
+.user-details-prevReviews {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.prevReviews-likes {
+    color: #0197FF;
+}
+
+.prevReviews-profile-likeCounter {
+    display: flex;
+    align-items: end;
+    justify-content: end;
+}
+
+.liked-games-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    margin-bottom: 10px;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.liked-games-container:hover {
+    background-color: #424242;
 }

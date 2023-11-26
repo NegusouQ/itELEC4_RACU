@@ -1,11 +1,13 @@
 import { Link } from "react-router-dom";
-import registerPoster from '../src/assets/images/register.png'
+import registerPoster from '../src/assets/images/a-8.png'
 import { Button, Form, Input, ConfigProvider, Radio } from 'antd';
-import profile1 from "../src/assets/images/12.png"
-import profile2 from "../src/assets/images/13.png"
-import profile3 from "../src/assets/images/14.png"
-import profile4 from "../src/assets/images/15.png"
-import profile5 from "../src/assets/images/16.png"
+import profile1 from "../src/assets/images/18.png"
+import profile2 from "../src/assets/images/19.png"
+import profile3 from "../src/assets/images/20.png"
+import profile4 from "../src/assets/images/21.png"
+// import profile5 from "../src/assets/images/22.png"
+import profile6 from "../src/assets/images/23.png"
+
 
 import './register.css'
 
@@ -98,7 +100,8 @@ const Register: React.FC = () => {
               <Radio.Button className="profile-radio" value="c"><img className="radio-prof" src={ profile2 }/></Radio.Button>
               <Radio.Button className="profile-radio" value="d"><img className="radio-prof" src={ profile3 }/></Radio.Button>
               <Radio.Button className="profile-radio" value="e"><img className="radio-prof" src={ profile4 }/></Radio.Button>
-              <Radio.Button className="profile-radio" value="f"><img className="radio-prof" src={ profile5 }/></Radio.Button>
+              {/* <Radio.Button className="profile-radio" value="f"><img className="radio-prof" src={ profile5 }/></Radio.Button> */}
+              <Radio.Button className="profile-radio" value="g"><img className="radio-prof" src={ profile6 }/></Radio.Button>
             </Radio.Group>
 
             {/* <Form.Item<FieldType>

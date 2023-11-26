@@ -1,6 +1,6 @@
 import './games.css'
 import gamePic from "../src/assets/images/genshin.png"
-import userProf from '../src/assets/images/16.png'
+import userProf from '../src/assets/images/21.png'
 import React, { useEffect, useRef, useState } from 'react';
 import RACU from '../src/assets/images/RACU.png'
 import { TweenOneGroup } from 'rc-tween-one';
@@ -276,7 +276,9 @@ const Games: React.FC = () => {
                   </Space>
           </div>
           
-
+                        {/* GAME LINK */}
+                        <Input placeholder="Enter game download link here." bordered={true} 
+                    style={{ marginTop:'8px' }}/>
 
                                 {/* DESCRIPTION */}
           <TextArea

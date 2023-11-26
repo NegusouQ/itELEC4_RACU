@@ -1,7 +1,7 @@
 import './navbar.css'
 import { Outlet } from "react-router"
 import { Link } from 'react-router-dom';
-import UserProf from '../src/assets/images/12.png'
+import UserProf from '../src/assets/images/23.png'
 import gameIcon from '../src/assets/icons/games.png'
 import { HomeFilled, GitlabFilled } from '@ant-design/icons';
 

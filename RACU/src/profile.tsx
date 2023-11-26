@@ -1,14 +1,19 @@
 import './profile.css'
-import { Input, Button, Space, ConfigProvider,message, Upload, Avatar, Dropdown} from 'antd';
+import { Input, Button, Space, ConfigProvider,message, Modal, Avatar, Dropdown, Radio, Form} from 'antd';
+import React, { useState } from 'react';
 import type { MenuProps, UploadProps } from 'antd';
-import { Tabs } from 'antd';
-import type { TabsProps } from 'antd';
 import gameImg from '../src/assets/images/genshin.png'
+import { CloseOutlined } from '@ant-design/icons';
 import { EditOutlined, ClockCircleOutlined, LikeFilled,
   EllipsisOutlined } from '@ant-design/icons';
 import profile from '../src/assets/images/23.png'
 import Meta from 'antd/es/card/Meta';
-
+//PROFILE OPTIONS
+import profile1 from "../src/assets/images/18.png"
+import profile2 from "../src/assets/images/19.png"
+import profile3 from "../src/assets/images/20.png"
+import profile4 from "../src/assets/images/21.png"
+import profile6 from "../src/assets/images/23.png"
 
 
 // dropdown
@@ -24,34 +29,36 @@ const items: MenuProps['items'] = [
 ];
 //
 
-const { TextArea } = Input;
-
-//TABS
-const onChange = (key: string) => {
-  console.log(key);
+// const { TextArea } = Input;
+const onChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  console.log('Change:', e.target.value);
 };
 
-
-
-const props: UploadProps = {
-    name: 'file',
-    action: 'https://run.mocky.io/v3/435e224c-44fb-4773-9faf-380c5e6a2188',
-    headers: {
-      authorization: 'authorization-text',
-    },
-    onChange(info) {
-      if (info.file.status !== 'uploading') {
-        console.log(info.file, info.fileList);
-      }
-      if (info.file.status === 'done') {
-        message.success(`${info.file.name} file uploaded successfully`);
-      } else if (info.file.status === 'error') {
-        message.error(`${info.file.name} file upload failed.`);
-      }
-    },
+// INPUT FIELD TYPE
+  type FieldType = {
+    username?: string;
+    password?: string;
+    confirmPassword?: string;
+    remember?: string;
+    fullName?: string;
   };
 
 const Profile: React.FC = () => {
+  // EDIT PROFILE MODAL
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const editProfile = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleOk = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
+
     return <>
           {/* USER PROFILE BANNER */}
     <div className="profile-main-container">
@@ -60,7 +67,17 @@ const Profile: React.FC = () => {
                 <img className='user-prof' src={ profile } alt="" />
                 <h1 className='profile-username-banner'>Sample name here</h1>
             </div>
-            <Button ghost><EditOutlined/>Edit Profile</Button>
+            <ConfigProvider
+              theme={{
+                components: {
+                  Button: {
+                    colorPrimaryHover: '#0C0C0C'
+                  },
+                },
+              }}
+            >
+            <Button ghost onClick={editProfile}><EditOutlined/>Edit Profile</Button>
+            </ConfigProvider>
         </div>
 
             {/* MAIN CONTAINER FOR REVIEWS AND LIKED GAMES */}
@@ -136,6 +153,90 @@ const Profile: React.FC = () => {
 
 
         </div>
+
+        <ConfigProvider
+          theme={{
+            components: {
+              Modal: {
+                contentBg: '#1C1C1C',
+                headerBg: '#1C1C1C',
+                colorText: 'white',
+                colorTextHeading: 'white'
+              },
+              Input: {
+                colorText: 'white',
+                colorBgContainer: 'BLACK',
+                colorIcon: 'white',
+                colorTextPlaceholder: 'white',
+                colorTextDescription: 'white'
+              },
+              Form: {
+                labelColor: 'white',
+                colorError: '#C877FF',
+                colorErrorBorder:'#C877FF',
+                colorErrorOutline: '#D28FFF',
+              },
+            },
+            token: {
+              
+            },
+          }}
+        >
+ {/* EDIT PROFIL MODAL */}
+        <Modal title="Edit Profile Information"
+        open={isModalOpen}
+          onOk={handleOk}
+          okText='Save'
+          onCancel={handleCancel}
+          width={650}
+          closeIcon={<span style={{ color: 'white' }}><CloseOutlined/></span>}
+          >
+            <label htmlFor="profile">Select Profile Picture</label>
+        <Radio.Group defaultValue="a" buttonStyle="solid" name="profile">
+                <Radio.Button className="profile-radio" value="b"><img className="radio-prof" src={ profile1 }/></Radio.Button>
+                <Radio.Button className="profile-radio" value="c"><img className="radio-prof" src={ profile2 }/></Radio.Button>
+                <Radio.Button className="profile-radio" value="d"><img className="radio-prof" src={ profile3 }/></Radio.Button>
+                <Radio.Button className="profile-radio" value="e"><img className="radio-prof" src={ profile4 }/></Radio.Button>
+                {/* <Radio.Button className="profile-radio" value="f"><img className="radio-prof" src={ profile5 }/></Radio.Button> */}
+                <Radio.Button className="profile-radio" value="g"><img className="radio-prof" src={ profile6 }/></Radio.Button>
+              </Radio.Group>
+
+            <div className="user-info-container-editProf">
+              <Form.Item<FieldType>
+              label="Username"
+              name="username"
+              rules={[{ required: true, message: 'Please input your username!' }]}
+              >
+              <Input showCount maxLength={12} onChange={onChange}/>
+              </Form.Item>
+
+              <Form.Item<FieldType>
+              label="Full Name"
+              name="fullName"
+              rules={[{ required: true, message: 'Please input your full name!' }]}
+              >
+              <Input />
+              </Form.Item>
+
+              <Form.Item<FieldType>
+              label="Password"
+              name="password"
+              rules={[{ required: true, message: 'Please input your password!' }]}
+              >
+              <Input.Password />
+              </Form.Item>
+
+              <Form.Item<FieldType>
+              label="Confirm Password"
+              name="confirmPassword"
+              rules={[{ required: true, message: 'Please re-enter your password!' }]}
+              >
+              <Input.Password />
+              </Form.Item>
+            </div>
+        </Modal>
+        </ConfigProvider>
+       
       </div>
 
       

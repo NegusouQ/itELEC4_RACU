@@ -3,19 +3,24 @@ import gamePic from "../src/assets/images/genshin.png"
 import userProf from '../src/assets/images/21.png'
 import React, { useState } from 'react';
 import RACU from '../src/assets/images/a-8.png'
-import { Input, Space, Tag, ConfigProvider, Modal, Button, Tooltip, FloatButton } from 'antd';
+import { Input, Space, Tag, ConfigProvider, Modal, Button, Tooltip, FloatButton, Popconfirm } from 'antd';
 import { CloseOutlined } from '@ant-design/icons';
-import type { MenuProps } from 'antd';
-import { Dropdown } from 'antd';
 import type { SearchProps } from '../Search';
-import { DownloadOutlined, EllipsisOutlined } from '@ant-design/icons';
+import { DownloadOutlined } from '@ant-design/icons';
 import { Avatar, Card } from 'antd';
-import { LoadingOutlined, PlusOutlined, ClockCircleOutlined, LikeOutlined, LikeFilled, EditOutlined } from '@ant-design/icons';
+import { LoadingOutlined, PlusOutlined, ClockCircleOutlined, LikeOutlined, LikeFilled, EditOutlined,
+  QuestionCircleOutlined } from '@ant-design/icons';
 import { message, Upload } from 'antd';
 import type { UploadChangeParam } from 'antd/es/upload';
 import type { RcFile, UploadFile, UploadProps } from 'antd/es/upload/interface';
 // import Profile from './profile';
 
+
+// DELETE POST CONFIRMATION NOTIF
+const confirm = (e: React.MouseEvent<HTMLElement>) => {
+  console.log(e);
+  message.success('Post deleted Successfully!');
+};
 
 // TAG CATEGORIES
 const { CheckableTag } = Tag;
@@ -55,19 +60,6 @@ const beforeUpload = (file: RcFile) => {
 
 //
 const { Meta } = Card;
-
-
-// dropdown
-const items: MenuProps['items'] = [
-    {
-      key: '1',
-      label: 'Edit Post',
-    },
-    {
-      key: '2',
-      label: 'Delete Post',
-    },
-  ];
 
 
 
@@ -288,14 +280,23 @@ const Games: React.FC = () => {
           />
         </Modal>
 
-            <Card bordered={false} style={{ width: 300, height: 140 }}
+            <Card bordered={false} style={{ width: 400, height: 'fit-content' }}
             hoverable={true}
             onClick={gameModal}>
-              <Meta
-                avatar={<Avatar size={64} className='gameThumbnail' src={ gamePic } />}
-                title="Gensin Impact"
-                description="open-world role-playing game (or RPG)"
-              />
+              <div className="game-card-content">
+                <Meta
+                  avatar={<Avatar size={64} className='gameThumbnail' src={ gamePic } />}
+                />
+                <div>
+                  <span className='post-game-name'>Genshin Impact</span>
+                  <Space size={[0, 8]} wrap
+                  style={{ marginTop:'10px' }}>
+                      <Tag color="#f50">Video game</Tag>
+                      <Tag color="#2db7f5">Adventure game</Tag>
+                      <Tag color="#87d068">Action role-playing game</Tag>
+                    </Space>
+                </div>
+              </div>
               <div className="game-like-counter">
               <LikeFilled/>
               <p>1243</p>
@@ -307,7 +308,7 @@ const Games: React.FC = () => {
             open={isModalOpen} 
             onOk={handleOk} 
             onCancel={handleCancel}
-            width={650}
+            width={750}
             centered={true}
             okText='Close'
             footer={null}
@@ -335,28 +336,29 @@ const Games: React.FC = () => {
                     <LikeOutlined/>
                     </Button>
                   {/* <Button ghost><DislikeOutlined/></Button> */}
-                  <div className="edit-delete-dropdown">
-                  <ConfigProvider
-                    theme={{
-                      token: {
-                        colorBgElevated: '#0C0C0C',
-                        controlItemBgHover: '#1C1C1C',
-                        colorText: 'white'
-                      },
-                    }}
-                  >
-                    <Dropdown menu={{ items }} trigger={['click']}>
-                    <a onClick={(e) => e.preventDefault()}>
-                      <Space>
-                        <Tooltip title="Click to edit or delete post">
-                          <EllipsisOutlined style={{ fontSize: '25px', marginLeft:'20px' }}/>
-                        </Tooltip>
-                      </Space>
-                    </a>
-                  </Dropdown>
-                  </ConfigProvider>
-                  
-                  </div>
+                    <ConfigProvider
+                      theme={{
+                        token: {
+                          colorBgElevated: '#0C0C0C',
+                          controlItemBgHover: '#1C1C1C',
+                          colorText: 'white'
+                        },
+                      }}
+                    >
+                          {/* DELETE POST CONFIRMATION */}
+                    <Popconfirm
+                      showCancel={false}
+                      okText='Yes'
+                      title="Delete Post"
+                      description="Are you sure to delete this post?"
+                      onConfirm={confirm}
+                      icon={<QuestionCircleOutlined style={{ color: 'red' }} />}
+                    >
+                      <Button ghost danger>Delete Post</Button>
+                    </Popconfirm>
+                    </ConfigProvider>
+                    
+                    <Button type='default'>Edit Post</Button>
                 </div>
 
               </div>

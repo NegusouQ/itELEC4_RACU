@@ -61,7 +61,7 @@
 }
 
 .userAvatar, .gameThumbnail {
-    background-color: #0197FF;
+    background-color: white;
     border: solid 1px white;
 }
 
@@ -77,10 +77,16 @@
     font-size: 12px;
 }
 
+.post-game-name {
+    color: white;
+    font-weight: 900;
+    font-size: 15px;
+}
+
 .game-buttons-container {
     display: flex;
     gap: 8px;
-    width: 20em;
+    width: 37em;
 }
 
 .game-description-container {
@@ -132,7 +138,7 @@
 .commenter-reviews-prof {
     width: 100%;
     max-width: 3.5em;
-    background-color: #0197FF;
+    background-color: white;
     border-radius: 50%;
     border: solid 2px white;
 }
@@ -170,3 +176,5 @@
     flex-direction: column;
     padding: 10px;
 }
+
+

@@ -16,7 +16,7 @@
     max-height: 3em;
     border-radius: 50%;
     border: solid 2px white;
-    background-color: #170BA7;
+    background-color: white;
     margin-bottom: 10px;
 }
 
@@ -47,4 +47,30 @@
 .nav-icons {
     width: 100%;
     max-width: 1.2em;
+}
+
+.logoutConfirm-btns {
+    display: flex;
+    justify-content: space-between;
+    width: 8em;
+    margin-left: 25em;
+}
+
+.character-logout-confirm {
+    width: 100%;
+    max-width: 10em;
+    margin-top: 20px;
+}
+
+.logout-confirmMessage-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.logout-message {
+    color: white;
+    font-size: 30px;
 }

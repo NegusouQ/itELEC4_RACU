@@ -288,3 +288,8 @@
 .liked-games-container:hover {
     background-color: #424242;
 }
+
+.user-info-container-editProf {
+    /* background-color: #0197FF; */
+    max-width: 30em;
+}

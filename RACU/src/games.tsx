@@ -157,8 +157,8 @@ const Games: React.FC = () => {
           <div className="greeting">
                 <div className="text-greeting">
                     <h1 className='greeting-text' style={{ lineHeight:'0' }}>Welcome to RACU,</h1>
-                    <h5> Rallying Across Cyber Realms, Uniting gamers through shared Adventures and 
-                      celebrating triumphant Conquests.</h5>
+                    <h5> RACU: Roaming Across Console Universes,
+                      fostering Unity through shared gaming Adventures and celebrating collective Conquests.</h5>
                 </div>
                 <img className='logo-home' src={ RACU }/>
           </div>

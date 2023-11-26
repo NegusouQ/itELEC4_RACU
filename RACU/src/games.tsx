@@ -1,14 +1,12 @@
 import './games.css'
 import gamePic from "../src/assets/images/genshin.png"
 import userProf from '../src/assets/images/21.png'
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useState } from 'react';
 import RACU from '../src/assets/images/a-8.png'
-import { TweenOneGroup } from 'rc-tween-one';
-import type { InputRef } from 'antd';
-import { Input, Space, Tag, ConfigProvider, Modal, Button, theme, Tooltip, FloatButton } from 'antd';
-import { DownOutlined, CloseOutlined } from '@ant-design/icons';
+import { Input, Space, Tag, ConfigProvider, Modal, Button, Tooltip, FloatButton } from 'antd';
+import { CloseOutlined } from '@ant-design/icons';
 import type { MenuProps } from 'antd';
-import { Dropdown, Typography } from 'antd';
+import { Dropdown } from 'antd';
 import type { SearchProps } from '../Search';
 import { DownloadOutlined, EllipsisOutlined } from '@ant-design/icons';
 import { Avatar, Card } from 'antd';
@@ -16,7 +14,6 @@ import { LoadingOutlined, PlusOutlined, ClockCircleOutlined, LikeOutlined, LikeF
 import { message, Upload } from 'antd';
 import type { UploadChangeParam } from 'antd/es/upload';
 import type { RcFile, UploadFile, UploadProps } from 'antd/es/upload/interface';
-import Profile from './profile';
 // import Profile from './profile';
 
 
@@ -160,7 +157,8 @@ const Games: React.FC = () => {
           <div className="greeting">
                 <div className="text-greeting">
                     <h1 className='greeting-text' style={{ lineHeight:'0' }}>Welcome to RACU,</h1>
-                    <h3> where every gamer's voice levels up the gaming experience!</h3>
+                    <h5> Rallying Across Cyber Realms, Uniting gamers through shared Adventures and 
+                      celebrating triumphant Conquests.</h5>
                 </div>
                 <img className='logo-home' src={ RACU }/>
           </div>

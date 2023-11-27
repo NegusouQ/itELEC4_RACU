@@ -1,5 +1,5 @@
 import './profile.css'
-import { Input, Button, Space, ConfigProvider,message, Modal, Avatar, Dropdown, Radio, Form} from 'antd';
+import { Input, Button, Space, ConfigProvider,message, Modal, Avatar, Dropdown, Radio, Form, Menu} from 'antd';
 import React, { useState } from 'react';
 import type { MenuProps, UploadProps } from 'antd';
 import gameImg from '../src/assets/images/genshin.png'
@@ -14,20 +14,6 @@ import profile2 from "../src/assets/images/19.png"
 import profile3 from "../src/assets/images/20.png"
 import profile4 from "../src/assets/images/21.png"
 import profile6 from "../src/assets/images/23.png"
-
-
-// dropdown
-const items: MenuProps['items'] = [
-  {
-    key: '1',
-    label: 'Edit Review',
-  },
-  {
-    key: '2',
-    label: 'Delete Review',
-  },
-];
-//
 
 // const { TextArea } = Input;
 const onChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -46,6 +32,8 @@ const onChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) 
 const Profile: React.FC = () => {
   // EDIT PROFILE MODAL
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isEditReviewModalOpen, setIsEditReviewModalOpen] = useState(false);
+  const [reviewContent, setReviewContent] = useState('');
 
   const editProfile = () => {
     setIsModalOpen(true);
@@ -59,13 +47,31 @@ const Profile: React.FC = () => {
     setIsModalOpen(false);
   };
 
+  const handleEditReview = () => {
+    setIsEditReviewModalOpen(true);
+    // Populate the review content in the state here
+    // setReviewContent('Your review content goes here');
+  };
+
+  const handleEditReviewOk = () => {
+    // Handle saving the edited review content
+    setIsEditReviewModalOpen(false);
+  };
+
+  const handleEditReviewCancel = () => {
+    setIsEditReviewModalOpen(false);
+  };
+
     return <>
           {/* USER PROFILE BANNER */}
     <div className="profile-main-container">
         <div className='userProfile-container'>
             <div className='image-name-user'>
                 <img className='user-prof' src={ profile } alt="" />
-                <h1 className='profile-username-banner'>Sample name here</h1>
+                <div className="fullName-username-container">
+                  <h1 className='profile-fullName-banner'>Sample name here</h1>
+                  <span className='profile-user-Username'>Username</span>
+                </div>
             </div>
             <ConfigProvider
               theme={{
@@ -106,12 +112,29 @@ const Profile: React.FC = () => {
                           },
                         }}
                       >
-                        <Dropdown menu={{ items }} placement='bottomRight' trigger={['click']} >
+
+                        {/* DROPDOWN FOR EDIT OR DELETE REVIEW */}
+                        <Dropdown
+                          overlay={
+                            <Menu>
+
+                              {/* EDIT REVIEW */}
+                              <Menu.Item key="1" onClick={handleEditReview}>
+                                Edit Review
+                              </Menu.Item>
+
+                              {/* DELETE REVIEW */}
+                              <Menu.Item key="2" onClick={handleEditReview}>
+                                Delete Review
+                              </Menu.Item>
+                            </Menu>
+                          }
+                          placement="bottomRight"
+                          trigger={['click']}
+                        >
                           <a onClick={(e) => e.preventDefault()}>
                             <Space>
-                              {/* <Tooltip title="Click to edit or delete post"> */}
-                                <EllipsisOutlined style={{ fontSize: '25px', marginRight:'10px' }}/>
-                              {/* </Tooltip> */}
+                              <EllipsisOutlined style={{ fontSize: '25px', marginRight: '10px' }} />
                             </Space>
                           </a>
                         </Dropdown>
@@ -235,6 +258,41 @@ const Profile: React.FC = () => {
               </Form.Item>
             </div>
         </Modal>
+
+
+        <Modal
+        title="Edit Review"
+        centered={true}
+        visible={isEditReviewModalOpen}
+        onOk={handleEditReviewOk}
+        onCancel={handleEditReviewCancel}
+        width={600}
+        closable={false}
+        maskClosable={false}
+        destroyOnClose
+        footer={[
+          <Button key="cancel" onClick={handleEditReviewCancel}>
+            Cancel
+          </Button>,
+          <Button key="save" type="primary" onClick={handleEditReviewOk}>
+            Save
+          </Button>,
+        ]}
+      >
+        <Form>
+          <Form.Item>
+            <Input.TextArea
+            placeholder='Enter your new review here.'
+              value={reviewContent}
+              onChange={(e) => setReviewContent(e.target.value)}
+              rows={10}
+              cols={60}
+              showCount
+                maxLength={500}
+            />
+          </Form.Item>
+        </Form>
+      </Modal>
         </ConfigProvider>
        
       </div>

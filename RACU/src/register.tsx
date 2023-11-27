@@ -5,7 +5,6 @@ import profile1 from "../src/assets/images/18.png"
 import profile2 from "../src/assets/images/19.png"
 import profile3 from "../src/assets/images/20.png"
 import profile4 from "../src/assets/images/21.png"
-// import profile5 from "../src/assets/images/22.png"
 import profile6 from "../src/assets/images/23.png"
 
 

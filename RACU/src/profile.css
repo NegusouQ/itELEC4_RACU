@@ -40,7 +40,7 @@
     max-width: 13em;
     border-radius: 50%;
     margin-right: 40px;
-    background-color: #170BA7;
+    background-color: white;
     border: solid 3px white;
     justify-content: left;
 }
@@ -83,7 +83,7 @@
     max-width: 3em;
     border-radius: 50%;
     margin: 10px;
-    background-color: #170BA7;
+    background-color: white;
     border: solid 1px white;
     margin-right: 20px;
     padding: 4px;
@@ -220,13 +220,13 @@
     max-width: 80em;
 }
 
-.profile-username-banner {
+.profile-fullName-banner {
     font-size: 40px;
 }
 
 .reviews-profile-avatar {
     border: solid 2px white;
-    background-color: #170BA7;
+    background-color: white;
 }
 
 .liked-gameImg-avatar {
@@ -292,4 +292,8 @@
 .user-info-container-editProf {
     /* background-color: #0197FF; */
     max-width: 30em;
+}
+
+.fullName-username-container {
+    line-height: 0;
 }

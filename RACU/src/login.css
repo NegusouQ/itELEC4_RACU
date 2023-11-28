@@ -1,7 +1,7 @@
 .RACU-logo {
     width: 100%;
-    max-width: 40em;
-    margin-bottom: 80px;
+    max-width: 45em;
+    margin-bottom: 50px;
 }
 
 body {
@@ -12,25 +12,27 @@ body {
 
 Form {
     display: flex;
+    margin-left: 60em;
     flex-direction: row;
     align-items: center;
 }
 
 h2 {
-    font-size: 40px;
+    font-size: 35px;
     color: white;
     margin-bottom: 1em;
-    width: 10em;
 }
 
 .login-form {
     /* background-color: aqua; */
     display: flex;
-    justify-content: start;
-    align-items: start;
+    justify-content: center;
+    align-items: center;
     flex-direction: column;
     /* padding: 40px; */
     border-right: solid 2px white;
+    padding-right: 50px;
+    margin-left: 10em;
     /* border-radius: 10px; */
     /* width: 40em; */
 }
@@ -40,8 +42,13 @@ h2 {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+
 }
 
 .reg-text {
     color: white;
+}
+
+.login-form-container {
+    width: 25em;
 }

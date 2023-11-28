@@ -60,37 +60,39 @@ const Register: React.FC = () => {
 >
 <div className="register-form">
     <h2>Register Using Your Credentials</h2>
-            <Form.Item<FieldType>
-            label="Username"
-            name="username"
-            rules={[{ required: true, message: 'Please input your username!' }]}
-            >
-            <Input />
-            </Form.Item>
+            <div className="register-form-container">
+              <Form.Item<FieldType>
+              label="Username"
+              name="username"
+              rules={[{ required: true, message: 'Please input your username!' }]}
+              >
+              <Input />
+              </Form.Item>
 
-            <Form.Item<FieldType>
-            label="Full Name"
-            name="fullName"
-            rules={[{ required: true, message: 'Please input your full name!' }]}
-            >
-            <Input />
-            </Form.Item>
+              <Form.Item<FieldType>
+              label="Full Name"
+              name="fullName"
+              rules={[{ required: true, message: 'Please input your full name!' }]}
+              >
+              <Input />
+              </Form.Item>
 
-            <Form.Item<FieldType>
-            label="Password"
-            name="password"
-            rules={[{ required: true, message: 'Please input your password!' }]}
-            >
-            <Input.Password />
-            </Form.Item>
+              <Form.Item<FieldType>
+              label="Password"
+              name="password"
+              rules={[{ required: true, message: 'Please input your password!' }]}
+              >
+              <Input.Password />
+              </Form.Item>
 
-            <Form.Item<FieldType>
-            label="Confirm Password"
-            name="confirmPassword"
-            rules={[{ required: true, message: 'Please re-enter your password!' }]}
-            >
-            <Input.Password />
-            </Form.Item>
+              <Form.Item<FieldType>
+              label="Confirm Password"
+              name="confirmPassword"
+              rules={[{ required: true, message: 'Please re-enter your password!' }]}
+              >
+              <Input.Password />
+              </Form.Item>
+            </div>
 
 
             <label className="select-prof-label" htmlFor="profile">Select Profile Picture</label>
@@ -111,11 +113,14 @@ const Register: React.FC = () => {
             <Checkbox>Remember me</Checkbox>
             </Form.Item> */}
 
-            <Form.Item wrapperCol={{ offset: 14, span: 16 }}>
-            <Button type="primary" htmlType="submit">
+            <Button type="primary" htmlType="submit"
+            style={{
+              width:'20em',
+              borderRadius:'20px',
+              marginTop:'20px'
+            }}>
                 Register
             </Button>
-            </Form.Item>
             </div>
 
 </ConfigProvider>

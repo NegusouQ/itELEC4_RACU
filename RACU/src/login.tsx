@@ -40,8 +40,8 @@ const Login: React.FC = () => {
   }}
 >
 <div className="login-form">
-    <h2>Login Using Your Credentials</h2>
-           <div>
+    <h2>Login to your account</h2>
+           <div className='login-form-container'>
             <Form.Item<FieldType>
               label="Username"
               name="username"
@@ -66,26 +66,25 @@ const Login: React.FC = () => {
               <Checkbox>Remember me</Checkbox>
               </Form.Item> */}
 
-              <Form.Item wrapperCol={{ offset: 12, span: 12 }}>
-              <Link to='/games'>
+              
+           </div>
+           <Link to='/games'>
               <Button type="primary" htmlType="submit"
-              style={{ marginTop:'50px' }}>
+              style={{ marginTop:'50px', width:'20em', borderRadius:'20px' }}>
                   Login
               </Button>
               </Link>
-              </Form.Item>
-           </div>
             </div>
 
 </ConfigProvider>
 
             <div className="login-poster">
-            <img className='RACU-logo' src={ logo }/>
-            <span className='reg-text'>Don't have an account yet?</span>
-            <Link to='/register'>
-            <Button type='text'
-            style={{ color: 'white', width: '15em', fontWeight: '900' }}>
-                Click here to Register</Button>
+              <img className='RACU-logo' src={ logo }/>
+              <span className='reg-text'>Don't have an account yet?</span>
+              <Link to='/register'>
+              <Button type='text'
+              style={{ color: 'white', width: '15em', fontWeight: '900' }}>
+                  Click here to Register</Button>
                 </Link>
             </div>
 

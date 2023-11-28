@@ -1,7 +1,7 @@
 import './profile.css'
-import { Input, Button, Space, ConfigProvider,message, Modal, Avatar, Dropdown, Radio, Form, Menu} from 'antd';
+import { Input, Button, Space, ConfigProvider, Modal, Avatar, Dropdown, Radio, Form, Menu,
+Popconfirm } from 'antd';
 import React, { useState } from 'react';
-import type { MenuProps, UploadProps } from 'antd';
 import gameImg from '../src/assets/images/genshin.png'
 import { CloseOutlined } from '@ant-design/icons';
 import { EditOutlined, ClockCircleOutlined, LikeFilled,
@@ -47,6 +47,9 @@ const Profile: React.FC = () => {
     setIsModalOpen(false);
   };
 
+
+
+  //EDITE REVIEW
   const handleEditReview = () => {
     setIsEditReviewModalOpen(true);
     // Populate the review content in the state here
@@ -124,8 +127,16 @@ const Profile: React.FC = () => {
                               </Menu.Item>
 
                               {/* DELETE REVIEW */}
-                              <Menu.Item key="2" onClick={handleEditReview}>
+                              <Menu.Item key="2">
+                              <Popconfirm
+                                title="Delete Review"
+                                description="Are you sure to delete this review?"
+                                okText="Yes"
+                                cancelText="No"
+                                cancelButtonProps={{ style:{ color:'black' } }}
+                              >
                                 Delete Review
+                              </Popconfirm>
                               </Menu.Item>
                             </Menu>
                           }
@@ -238,7 +249,7 @@ const Profile: React.FC = () => {
               name="fullName"
               rules={[{ required: true, message: 'Please input your full name!' }]}
               >
-              <Input />
+              <Input  showCount maxLength={25} onChange={onChange} />
               </Form.Item>
 
               <Form.Item<FieldType>

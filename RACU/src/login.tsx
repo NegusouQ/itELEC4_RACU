@@ -1,6 +1,6 @@
 import { Button, Form, Input, ConfigProvider } from 'antd';
 import { Link } from "react-router-dom";
-import logo from './assets/images/a-8.png'
+import logo from './assets/images/a-10.png'
 import './login.css'
 
 const onFinish = (values: any) => {

@@ -225,15 +225,36 @@ const Profile: React.FC = () => {
           width={650}
           closeIcon={<span style={{ color: 'white' }}><CloseOutlined/></span>}
           >
-            <label htmlFor="profile">Select Profile Picture</label>
-        <Radio.Group defaultValue="a" buttonStyle="solid" name="profile">
-                <Radio.Button className="profile-radio" value="b"><img className="radio-prof" src={ profile1 }/></Radio.Button>
-                <Radio.Button className="profile-radio" value="c"><img className="radio-prof" src={ profile2 }/></Radio.Button>
-                <Radio.Button className="profile-radio" value="d"><img className="radio-prof" src={ profile3 }/></Radio.Button>
-                <Radio.Button className="profile-radio" value="e"><img className="radio-prof" src={ profile4 }/></Radio.Button>
-                {/* <Radio.Button className="profile-radio" value="f"><img className="radio-prof" src={ profile5 }/></Radio.Button> */}
-                <Radio.Button className="profile-radio" value="g"><img className="radio-prof" src={ profile6 }/></Radio.Button>
-              </Radio.Group>
+
+            <ConfigProvider
+              theme={{
+                components: {
+                  Radio: {
+                    buttonBg:'#1C1C1C',
+                    buttonSolidCheckedActiveBg: '#0C0C0C',
+                    buttonSolidCheckedBg: '#0C0C0C',
+                    buttonSolidCheckedHoverBg: '#0C0C0C',
+                    buttonCheckedBg: '#0C0C0C',
+                    colorPrimaryActive: '#1C1C1C',
+                    colorPrimary: '#1C1C1C',
+                    colorPrimaryHover:'#0C0C0C',
+                    colorBorder: '#0C0C0C'
+
+                  },
+                },
+              }}
+            >
+           <label className="select-prof-label" htmlFor="profile">Select Profile Picture</label>
+                        <Radio.Group defaultValue="a" buttonStyle="solid" name="profile">
+                          <Radio.Button className="profile-radio" value="b"><img className="radio-prof" src={ profile1 }/></Radio.Button>
+                          <Radio.Button className="profile-radio" value="c"><img className="radio-prof" src={ profile2 }/></Radio.Button>
+                          <Radio.Button className="profile-radio" value="d"><img className="radio-prof" src={ profile3 }/></Radio.Button>
+                          <Radio.Button className="profile-radio" value="e"><img className="radio-prof" src={ profile4 }/></Radio.Button>
+                          {/* <Radio.Button className="profile-radio" value="f"><img className="radio-prof" src={ profile5 }/></Radio.Button> */}
+                          <Radio.Button className="profile-radio" value="g"><img className="radio-prof" src={ profile6 }/></Radio.Button>
+                        </Radio.Group>
+            </ConfigProvider>
+            
 
             <div className="user-info-container-editProf">
               <Form.Item<FieldType>

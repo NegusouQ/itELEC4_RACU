@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import registerPoster from '../src/assets/images/a-8.png'
+import registerPoster from '../src/assets/images/a-10.png'
 import { Button, Form, Input, ConfigProvider, Radio } from 'antd';
 import profile1 from "../src/assets/images/18.png"
 import profile2 from "../src/assets/images/19.png"
@@ -46,6 +46,8 @@ const Register: React.FC = () => {
                     Click here to Login</Button>
                     </Link>
         </div>
+
+        
             <ConfigProvider
   theme={{
     components: {
@@ -95,7 +97,24 @@ const Register: React.FC = () => {
             </div>
 
 
-              {/* <label className="select-prof-label" htmlFor="profile">Select Profile Picture</label> */}
+            <ConfigProvider
+              theme={{
+                components: {
+                  Radio: {
+                    buttonBg:'#1C1C1C',
+                    buttonSolidCheckedActiveBg: '#0C0C0C',
+                    buttonSolidCheckedBg: '#0C0C0C',
+                    buttonSolidCheckedHoverBg: '#0C0C0C',
+                    buttonCheckedBg: '#0C0C0C',
+                    colorPrimaryActive: '#1C1C1C',
+                    colorPrimary: '#1C1C1C',
+                    colorPrimaryHover:'#0C0C0C',
+                    colorBorder: '#0C0C0C'
+                  },
+                },
+              }}
+            >
+              <label className="select-prof-label" htmlFor="profile">Select Profile Picture</label>
                         <Radio.Group defaultValue="a" buttonStyle="solid" name="profile">
                           <Radio.Button className="profile-radio" value="b"><img className="radio-prof" src={ profile1 }/></Radio.Button>
                           <Radio.Button className="profile-radio" value="c"><img className="radio-prof" src={ profile2 }/></Radio.Button>
@@ -104,7 +123,7 @@ const Register: React.FC = () => {
                           {/* <Radio.Button className="profile-radio" value="f"><img className="radio-prof" src={ profile5 }/></Radio.Button> */}
                           <Radio.Button className="profile-radio" value="g"><img className="radio-prof" src={ profile6 }/></Radio.Button>
                         </Radio.Group>
-           
+            </ConfigProvider>
             
 
             {/* <Form.Item<FieldType>

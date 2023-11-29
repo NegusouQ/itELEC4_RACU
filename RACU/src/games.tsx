@@ -109,11 +109,16 @@ const Games: React.FC = () => {
     // ADD GAME MODAL
 
     const [addGameOpen, setAddGameOpen] = useState(false);
-    // END OF MODAL
+
 
     // REVIEWS MODAL
     const [reviewsModalOpen, setReviewsModalOpen] = useState(false);
     
+
+    // EDIT post MODAL
+    const [editPostModalOpen, setEditPostModalOpen] = useState(false);
+ 
+
 
     // UPLOAD IMAGE
     const [loading, setLoading] = useState(false);
@@ -347,8 +352,9 @@ const Games: React.FC = () => {
                     >
                           {/* DELETE POST CONFIRMATION */}
                     <Popconfirm
-                      showCancel={false}
                       okText='Yes'
+                      cancelText="No"
+                      cancelButtonProps={{ style:{ color:'black' } }}
                       title="Delete Post"
                       description="Are you sure to delete this post?"
                       onConfirm={confirm}
@@ -358,7 +364,7 @@ const Games: React.FC = () => {
                     </Popconfirm>
                     </ConfigProvider>
                     
-                    <Button type='default'>Edit Post</Button>
+                    <Button type='default' onClick={() => setEditPostModalOpen(true)}>Edit Post</Button>
                 </div>
 
               </div>
@@ -436,11 +442,68 @@ const Games: React.FC = () => {
           
         </Modal>
 
+
+              {/* EDIT POST MODAL */}
+              <Modal
+              title="Edit Post"
+              okText='Save'
+              open={editPostModalOpen}
+              onOk={() => setEditPostModalOpen(false)}
+              onCancel={() => setEditPostModalOpen(false)}
+              width={750}
+              centered={true}
+              closeIcon={<span style={{ color: 'white' }}><CloseOutlined/></span>}    
+              // footer={null}
+              >
+           <Input placeholder="Enter game name" bordered={true} 
+          style={{ marginBottom: '10px' }}/>
+
+          <div className="uploadImage-tags-container">
+            {/* UPLOAD IMAGE  */}
+              <Upload
+                name="avatar"
+                listType="picture-card"
+                className="avatar-uploader"
+                showUploadList={false}
+                action="https://run.mocky.io/v3/435e224c-44fb-4773-9faf-380c5e6a2188"
+                beforeUpload={beforeUpload}
+                onChange={UPLOAD}
+              >
+                {imageUrl ? <img src={imageUrl} alt="avatar" style={{ width: '100%' }} /> : uploadButton}
+              </Upload>
+              <span>Genre:</span>
+              <Space size={[0, 8]} wrap>
+                    {tagsData.map((tag) => (
+                      <CheckableTag
+                        key={tag}
+                        checked={selectedTags.includes(tag)}
+                        onChange={(checked) => handleChange(tag, checked)}
+                      >
+                        {tag}
+                      </CheckableTag>
+                    ))}
+                  </Space>
+          </div>
+          
+                        {/* GAME LINK */}
+                        <Input placeholder="Enter game download link here." bordered={true} 
+                    style={{ marginTop:'8px' }}/>
+
+                                {/* DESCRIPTION */}
+          <TextArea
+            showCount
+            maxLength={500}
+            onChange={onChange}
+            placeholder="Enter game description here."
+            style={{ height: 220, resize: 'none', marginBottom:'20px', marginTop:'20px' }}
+          />
+              </Modal>
+
           </ConfigProvider>
         
         </div>
         
-
+              
         
 
         

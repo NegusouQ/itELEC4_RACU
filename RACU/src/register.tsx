@@ -95,15 +95,17 @@ const Register: React.FC = () => {
             </div>
 
 
-            <label className="select-prof-label" htmlFor="profile">Select Profile Picture</label>
-            <Radio.Group defaultValue="a" buttonStyle="solid" name="profile">
-              <Radio.Button className="profile-radio" value="b"><img className="radio-prof" src={ profile1 }/></Radio.Button>
-              <Radio.Button className="profile-radio" value="c"><img className="radio-prof" src={ profile2 }/></Radio.Button>
-              <Radio.Button className="profile-radio" value="d"><img className="radio-prof" src={ profile3 }/></Radio.Button>
-              <Radio.Button className="profile-radio" value="e"><img className="radio-prof" src={ profile4 }/></Radio.Button>
-              {/* <Radio.Button className="profile-radio" value="f"><img className="radio-prof" src={ profile5 }/></Radio.Button> */}
-              <Radio.Button className="profile-radio" value="g"><img className="radio-prof" src={ profile6 }/></Radio.Button>
-            </Radio.Group>
+              {/* <label className="select-prof-label" htmlFor="profile">Select Profile Picture</label> */}
+                        <Radio.Group defaultValue="a" buttonStyle="solid" name="profile">
+                          <Radio.Button className="profile-radio" value="b"><img className="radio-prof" src={ profile1 }/></Radio.Button>
+                          <Radio.Button className="profile-radio" value="c"><img className="radio-prof" src={ profile2 }/></Radio.Button>
+                          <Radio.Button className="profile-radio" value="d"><img className="radio-prof" src={ profile3 }/></Radio.Button>
+                          <Radio.Button className="profile-radio" value="e"><img className="radio-prof" src={ profile4 }/></Radio.Button>
+                          {/* <Radio.Button className="profile-radio" value="f"><img className="radio-prof" src={ profile5 }/></Radio.Button> */}
+                          <Radio.Button className="profile-radio" value="g"><img className="radio-prof" src={ profile6 }/></Radio.Button>
+                        </Radio.Group>
+           
+            
 
             {/* <Form.Item<FieldType>
             name="remember"

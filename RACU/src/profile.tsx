@@ -154,7 +154,7 @@ const Profile: React.FC = () => {
                       </div>
             </div>
 
-            <h4 className='reviews-GameName'>Game Name</h4>
+            <h3 className='reviews-GameName'>Game Name</h3>
                     
             <span className='prevReviews-profile-content'>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit,
@@ -175,7 +175,7 @@ const Profile: React.FC = () => {
         </div>
 
         <div className="profile-liked-games-container">
-          <h4>Liked Games</h4>
+          <h3>Liked Games</h3>
 
             {/* INDIV GAME CONTAINER */}
           <div className="liked-games-container">

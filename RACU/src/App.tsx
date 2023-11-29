@@ -7,6 +7,9 @@ import NavBar from './navbar'
 import Games from './games'
 import Profile from './profile'
 
+// ERROR PAGE
+import Error from './common/error'
+
 function App() {
   return (
     <>
@@ -20,6 +23,10 @@ function App() {
           {/* <Route path='games' element={ <Games/> }/> */}
           <Route path='profile' element={ <Profile/> }/>
           </Route>
+
+          <Route path='*' element={ <Error/> }/>
+
+
         </Routes>
       </Router>
     </>

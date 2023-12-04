@@ -2,7 +2,7 @@ import './games.css'
 import gamePic from "../src/assets/images/genshin.png"
 import userProf from '../src/assets/images/21.png'
 import React, { useState } from 'react';
-import RACU from '../src/assets/images/a-10.png'
+import RACU from '../src/assets/images/RACU(LOGO).png'
 import { Input, Space, Tag, ConfigProvider, Modal, Button, Tooltip, FloatButton, Popconfirm } from 'antd';
 import { CloseOutlined } from '@ant-design/icons';
 import type { SearchProps } from '../Search';

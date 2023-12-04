@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import registerPoster from '../src/assets/images/a-10.png'
+import registerPoster from '../src/assets/images/RACU(LOGO).png'
 import { Button, Form, Input, ConfigProvider, Radio } from 'antd';
 import profile1 from "../src/assets/images/18.png"
 import profile2 from "../src/assets/images/19.png"
@@ -64,35 +64,39 @@ const Register: React.FC = () => {
     <h2>Register Using Your Credentials</h2>
             <div className="register-form-container">
               <Form.Item<FieldType>
-              label="Username"
+              // label="Username"
               name="username"
               rules={[{ required: true, message: 'Please input your username!' }]}
               >
-              <Input />
+              <Input
+              placeholder="Username" />
               </Form.Item>
 
               <Form.Item<FieldType>
-              label="Full Name"
+              // label="Full Name"
               name="fullName"
               rules={[{ required: true, message: 'Please input your full name!' }]}
               >
-              <Input />
+              <Input 
+              placeholder="Full Name"/>
               </Form.Item>
 
               <Form.Item<FieldType>
-              label="Password"
+              // label="Password"
               name="password"
               rules={[{ required: true, message: 'Please input your password!' }]}
               >
-              <Input.Password />
+              <Input.Password
+              placeholder="Password" />
               </Form.Item>
 
               <Form.Item<FieldType>
-              label="Confirm Password"
+              // label="Confirm Password"
               name="confirmPassword"
               rules={[{ required: true, message: 'Please re-enter your password!' }]}
               >
-              <Input.Password />
+              <Input.Password 
+              placeholder="Confirm Password"/>
               </Form.Item>
             </div>
 

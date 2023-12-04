@@ -1,6 +1,6 @@
 import { Button, Form, Input, ConfigProvider } from 'antd';
 import { Link } from "react-router-dom";
-import logo from './assets/images/a-10.png'
+import logo from './assets/images/RACU(LOGO).png'
 import './login.css'
 
 const onFinish = (values: any) => {
@@ -43,19 +43,20 @@ const Login: React.FC = () => {
     <h2>Login to your account</h2>
            <div className='login-form-container'>
             <Form.Item<FieldType>
-              label="Username"
               name="username"
               rules={[{ required: true, message: 'Please input your username!' }]}
               >
-              <Input />
+              <Input
+              placeholder='Username' />
               </Form.Item>
 
               <Form.Item<FieldType>
-              label="Password"
+              // label="Password"
               name="password"
               rules={[{ required: true, message: 'Please input your password!' }]}
               >
-              <Input.Password />
+              <Input.Password 
+              placeholder='Password'/>
               </Form.Item>
 
               {/* <Form.Item<FieldType>

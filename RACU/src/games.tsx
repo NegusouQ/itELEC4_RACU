@@ -284,7 +284,7 @@ const Games: React.FC = () => {
             style={{ height: 220, resize: 'none', marginBottom:'20px', marginTop:'20px' }}
           />
         </Modal>
-
+                              {/* GAME CARD */}
             <Card bordered={false} style={{ width: 400, height: 'fit-content' }}
             hoverable={true}
             onClick={gameModal}>
@@ -308,6 +308,8 @@ const Games: React.FC = () => {
               </div>
             </Card>
 
+
+{/* POPS UP AFTER THE USER CLICKS THE GAME CARD */}
             {/* GAME DESCRIPTION MODAL */}
             <Modal title="Genshin Impact" 
             open={isModalOpen} 
@@ -340,7 +342,7 @@ const Games: React.FC = () => {
                     <span className='game-likeCounter'>123</span>
                     <LikeOutlined/>
                     </Button>
-                  {/* <Button ghost><DislikeOutlined/></Button> */}
+
                     <ConfigProvider
                       theme={{
                         token: {
@@ -370,13 +372,15 @@ const Games: React.FC = () => {
               </div>
 
           </div>
+
           <div className="gamePost-user-details">
             <Meta
             style={{ display: 'flex',  flexDirection: 'row', alignItems: 'center', gap: '10px' }}
-                  avatar={<Avatar size={44} className='userAvatar' src={ userProf } />}
+                  avatar={<Avatar size={50} className='userAvatar' src={ userProf } />}
                   title="Username"/>
                   <p className='gamePost-date-time'><ClockCircleOutlined style={{ marginRight:'5px' }}/>1 day ago</p>
           </div>
+
           <p className='game-description'>Genshin Impact is an open-world,
              action role-playing game that allows the player to control one of four interchangeable characters in a party.
               Switching between characters can be done quickly during combat,
@@ -384,6 +388,7 @@ const Games: React.FC = () => {
         </Modal>
 
 
+{/* POPS UP ANOTHER MODAL WHEN THE USER CLICKS THE REVIEW BUTTON FROM THE GAME DESCRIPTION MODAL */}
         {/* REVIEWS */}
         <Modal
           title="Game Reviews"
@@ -396,48 +401,44 @@ const Games: React.FC = () => {
           footer={null}
           >
           <div className="modal-main-container">
-          <div className="gameReviews-container">
+            <div className="gameReviews-container">
 
-            {/* INDIV REVIEW */}
-            <div className="userReview-container">
-              <div className="review-userDets">
-                <div
-                style={{ display:'flex', alignItems:'center', gap:'10px' }}
-                >
-                  <img src={userProf} className='commenter-reviews-prof'/>
-                  <span>Username</span>
+              {/* INDIV REVIEW */}
+              <div className="userReview-container">
+                <div className="review-userDets">
+                  <div
+                  style={{ display:'flex', alignItems:'center', gap:'10px' }}
+                  >
+                    <img src={userProf} className='commenter-reviews-prof'/>
+                    <span>Username</span>
+                  </div>
+                  <div className="review-like-btn">
+                    <Button ghost>
+                      <span className='review-likeCounter'>123</span>
+                  <LikeOutlined/>
+                  </Button>
+                  </div>
                 </div>
-                <div className="review-like-btn">
-                  <Button ghost>
-                    <span className='review-likeCounter'>123</span>
-                <LikeOutlined/>
-                </Button>
+                <span className='review-text-content'>Genshin Impact is an open-world,
+                action role-playing game that allows the player to control one of four interchangeable characters in a party.
+                  Switching between characters can be done quickly during combat,
+                allowing the player to use several different combinations of skills and attacks.</span>
                 </div>
-              </div>
-              <span className='review-text-content'>Genshin Impact is an open-world,
-              action role-playing game that allows the player to control one of four interchangeable characters in a party.
-                Switching between characters can be done quickly during combat,
-              allowing the player to use several different combinations of skills and attacks.</span>
-              </div>
-          </div>
+            </div>
 
 
-          <div className="writeReview-container">
-            {/* <span 
-            style={{ fontSize: '25px', fontWeight: '700' }}
-            >
-              Give Review</span> */}
-              <TextArea
-                showCount
-                maxLength={500}
-                onChange={onChange}
-                placeholder="Write your thoughts here."
-                style={{ height: 320, resize: 'none', marginBottom:'20px' }}
-              />
-              <Button ghost
-                style={{ marginTop: '10em', marginLeft:'20em' }}
-              >Post Review</Button>
-          </div>
+            <div className="writeReview-container">
+                <TextArea
+                  showCount
+                  maxLength={500}
+                  onChange={onChange}
+                  placeholder="Write your thoughts here."
+                  style={{ height: 320, resize: 'none', marginBottom:'20px' }}
+                />
+                <Button ghost
+                  style={{ marginTop: '10em', marginLeft:'20em' }}
+                >Post Review</Button>
+            </div>
           </div>
           
         </Modal>
@@ -453,8 +454,8 @@ const Games: React.FC = () => {
               width={750}
               centered={true}
               closeIcon={<span style={{ color: 'white' }}><CloseOutlined/></span>}    
-              // footer={null}
               >
+
            <Input placeholder="Enter game name" bordered={true} 
           style={{ marginBottom: '10px' }}/>
 
@@ -482,7 +483,7 @@ const Games: React.FC = () => {
                         {tag}
                       </CheckableTag>
                     ))}
-                  </Space>
+              </Space>
           </div>
           
                         {/* GAME LINK */}
@@ -502,10 +503,6 @@ const Games: React.FC = () => {
           </ConfigProvider>
         
         </div>
-        
-              
-        
-
         
         </div>
     </>

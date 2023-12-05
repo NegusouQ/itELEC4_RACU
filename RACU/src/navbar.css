@@ -12,10 +12,10 @@
 
 .nav-logo {
     width: 100%;
-    max-width: 3em;
-    max-height: 3em;
+    max-width: 3.5em;
+    max-height: 3.5em;
     border-radius: 50%;
-    border: solid 2px white;
+    border: solid 5px #2a2a2a;
     background-color: white;
     margin-bottom: 10px;
 }

@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "JHOoeSIgEeMrdFkq4BdKTQ/zpQax0qI0tlrujq/BkrA=",
+  "Source": "racu.api",
+  "BasePath": "_content/racu.api",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}

@@ -71,7 +71,7 @@ const Login: React.FC = () => {
            </div>
            <Link to='/games'>
               <Button type="primary" htmlType="submit"
-              style={{ marginTop:'50px', width:'20em', borderRadius:'20px' }}>
+              style={{ marginTop:'20px', width:'20em', borderRadius:'20px' }}>
                   Login
               </Button>
               </Link>

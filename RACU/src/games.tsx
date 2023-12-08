@@ -1,32 +1,29 @@
 import './games.css'
-import gamePic from "../src/assets/images/genshin.png"
 import userProf from '../src/assets/images/21.png'
 import React, { useState } from 'react';
-import RACU from '../src/assets/images/RACU(LOGO).png'
+import RACU from '../src/assets/images/a-14.png'
 import { Input, Space, Tag, ConfigProvider, Modal, Button, Tooltip, FloatButton, Popconfirm } from 'antd';
 import { CloseOutlined } from '@ant-design/icons';
 import type { SearchProps } from '../Search';
-import { DownloadOutlined } from '@ant-design/icons';
 import { Avatar, Card } from 'antd';
-import { LoadingOutlined, PlusOutlined, ClockCircleOutlined, LikeOutlined, LikeFilled, EditOutlined,
-  QuestionCircleOutlined } from '@ant-design/icons';
-import { message, Upload } from 'antd';
-import type { UploadChangeParam } from 'antd/es/upload';
-import type { RcFile, UploadFile, UploadProps } from 'antd/es/upload/interface';
+import { EditOutlined, QuestionCircleOutlined } from '@ant-design/icons';
+import { message } from 'antd';
+// import type { UploadChangeParam } from 'antd/es/upload';
+// import type { RcFile, UploadFile, UploadProps } from 'antd/es/upload/interface';
 // import Profile from './profile';
 
 
 // DELETE POST CONFIRMATION NOTIF
 const confirm = (e: React.MouseEvent<HTMLElement>) => {
   console.log(e);
-  message.success('Post deleted Successfully!');
+  message.success('Wish List deleted Successfully!');
 };
 
 // TAG CATEGORIES
-const { CheckableTag } = Tag;
+// const { CheckableTag } = Tag;
 
-const tagsData = ['Adventure', 'FPS', 'RPG', 'Simulation', 'Strategy', 'Survival & Horror', 'Platformers',
-'Sports & Fitness', 'Fighting', 'Web3 Games', 'Augmented Reality', 'Educational', 'Puzzlers & Party Games', 'Stealth'];
+// const tagsData = ['Adventure', 'FPS', 'RPG', 'Simulation', 'Strategy', 'Survival & Horror', 'Platformers',
+// 'Sports & Fitness', 'Fighting', 'Web3 Games', 'Augmented Reality', 'Educational', 'Puzzlers & Party Games', 'Stealth'];
 
 //
 
@@ -39,23 +36,23 @@ const onChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) 
 //
 
 // upload
-const getBase64 = (img: RcFile, callback: (url: string) => void) => {
-  const reader = new FileReader();
-  reader.addEventListener('load', () => callback(reader.result as string));
-  reader.readAsDataURL(img);
-};
+// const getBase64 = (img: RcFile, callback: (url: string) => void) => {
+//   const reader = new FileReader();
+//   reader.addEventListener('load', () => callback(reader.result as string));
+//   reader.readAsDataURL(img);
+// };
 
-const beforeUpload = (file: RcFile) => {
-  const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
-  if (!isJpgOrPng) {
-    message.error('You can only upload JPG/PNG file!');
-  }
-  const isLt2M = file.size / 1024 / 1024 < 2;
-  if (!isLt2M) {
-    message.error('Image must smaller than 2MB!');
-  }
-  return isJpgOrPng && isLt2M;
-};
+// const beforeUpload = (file: RcFile) => {
+//   const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
+//   if (!isJpgOrPng) {
+//     message.error('You can only upload JPG/PNG file!');
+//   }
+//   const isLt2M = file.size / 1024 / 1024 < 2;
+//   if (!isLt2M) {
+//     message.error('Image must smaller than 2MB!');
+//   }
+//   return isJpgOrPng && isLt2M;
+// };
 
 
 //
@@ -79,15 +76,15 @@ const onSearch: SearchProps['onSearch'] = (value, _e, info) => console.log(info?
 const Games: React.FC = () => {
   
   // TAGS
-  const [selectedTags, setSelectedTags] = useState<string[]>(['Books']);
+  // const [selectedTags, setSelectedTags] = useState<string[]>(['Books']);
 
-  const handleChange = (tag: string, checked: boolean) => {
-    const nextSelectedTags = checked
-      ? [...selectedTags, tag]
-      : selectedTags.filter((t) => t !== tag);
-    console.log('You are interested in: ', nextSelectedTags);
-    setSelectedTags(nextSelectedTags);
-  };
+  // const handleChange = (tag: string, checked: boolean) => {
+  //   const nextSelectedTags = checked
+  //     ? [...selectedTags, tag]
+  //     : selectedTags.filter((t) => t !== tag);
+  //   console.log('You are interested in: ', nextSelectedTags);
+  //   setSelectedTags(nextSelectedTags);
+  // };
 
 
     // MODAL
@@ -106,56 +103,23 @@ const Games: React.FC = () => {
       setIsModalOpen(false);
     };
 
-    // ADD GAME MODAL
+    // ADD wish list MODAL
 
-    const [addGameOpen, setAddGameOpen] = useState(false);
+    const [addWishOpen, setAddWishOpen] = useState(false);
 
-
-    // REVIEWS MODAL
-    const [reviewsModalOpen, setReviewsModalOpen] = useState(false);
     
 
-    // EDIT post MODAL
-    const [editPostModalOpen, setEditPostModalOpen] = useState(false);
- 
+    // EDIT wish list MODAL
+    const [editWishOpen, setEditWishOpen] = useState(false);
 
-
-    // UPLOAD IMAGE
-    const [loading, setLoading] = useState(false);
-  const [imageUrl, setImageUrl] = useState<string>();
-
-  const UPLOAD: UploadProps['onChange'] = (info: UploadChangeParam<UploadFile>) => {
-    if (info.file.status === 'uploading') {
-      setLoading(true);
-      return;
-    }
-    if (info.file.status === 'done') {
-      // Get this url from response in real world.
-      getBase64(info.file.originFileObj as RcFile, (url) => {
-        setLoading(false);
-        setImageUrl(url);
-      });
-    }
-  };
-
-  const uploadButton = (
-    <div>
-      {loading ? <LoadingOutlined /> : <PlusOutlined />}
-      <div style={{ marginTop: 8 }}>Upload</div>
-    </div>
-  );
-
-  //END OF UPLOAD IMAGE
 
 
     return <>
             
-        <div className="games-main-container">
+        <div className="wish-main-container">
           <div className="greeting">
                 <div className="text-greeting">
-                    <h1 className='greeting-text' style={{ lineHeight:'0' }}>Welcome to RACU,</h1>
-                    <h5> RACU: Roaming Across Console Universes,
-                      fostering Unity through shared gaming Adventures and celebrating collective Conquests.</h5>
+                    <h3 className='greeting-text'> Welcome back to the festive fun!</h3>
                 </div>
                 <img className='logo-home' src={ RACU }/>
           </div>
@@ -163,68 +127,54 @@ const Games: React.FC = () => {
         theme={{
             token: {
                 colorBgContainer: 'transparent',
-                colorText: 'white',
-                colorTextPlaceholder: 'white'
+                // colorTextPlaceholder: 'white'
             },
         }}
         >
-            <Space direction="horizontal" style={{  marginTop:'30px' }}>
+            <Space direction="horizontal" style={{  marginTop:'30px', marginBottom:'20px' }}>
                     <Search
                     style={{ width:'500px', marginRight: '50px' }}
-                    placeholder="Search by Game name" onSearch={onSearch} enterButton />
+                    placeholder="Search by Username" onSearch={onSearch} enterButton />
 
-
-                <span style={{ marginRight: 8, color:'#0197FF', fontWeight:'800' }}>Genres:</span>
-                  <Space size={[0, 8]} wrap>
-                    {tagsData.map((tag) => (
-                      <CheckableTag
-                        key={tag}
-                        checked={selectedTags.includes(tag)}
-                        onChange={(checked) => handleChange(tag, checked)}
-                      >
-                        {tag}
-                      </CheckableTag>
-                    ))}
-                  </Space>
                 
             </Space>
         </ConfigProvider>
 
 
                                                      {/* ADD GAME BUTTON */}
-        <Tooltip title="Add Game" placement='left'>
-          <FloatButton shape='square' type='primary' icon={<EditOutlined />} onClick={() => setAddGameOpen(true)}/>
+        <Tooltip title="Create wish list" placement='left'>
+          <FloatButton shape='circle' icon={<EditOutlined />} onClick={() => setAddWishOpen(true)}/>
         </Tooltip>
 
 
 
-        <div className="games-container-card">
+        <div className="wish-container-card">
           {/* GAMES (CARD) */}
           <ConfigProvider
             theme={{
               components: {
                 Card: {
-                  extraColor: 'white',
-                colorBgContainer: '#1C1C1C',
-
+                colorBgContainer: '#660000',
                 },
                 Modal: {
-                  contentBg: '#1C1C1C',
-                  headerBg: '#1C1C1C',
-                  colorText: 'white',
+                  contentBg: 'white',
+                  headerBg: 'white',
+                  colorText: '#660000',
+                  fontFamily: 'Great Vibes',
+                  fontSizeHeading5: 40
                 },
-                Input: {
-                  activeBg: '#0C0C0C',
-                  colorBgContainer: '#0C0C0C',
-                  colorText:'white',
-                  colorTextPlaceholder: 'white'
-                },
+                // Input: {
+                //   activeBg: 'white',
+                //   colorBgContainer: '#0C0C0C',
+                //   colorText:'white',
+                //   colorTextPlaceholder: 'white'
+                // },
                 Tag: {
                   defaultColor:'#0197FF'
                 },
               },
               token: {
-                colorTextHeading: 'white',
+                colorTextHeading: '#660000',
                 colorTextDescription: 'white'
               },
             }}
@@ -232,86 +182,42 @@ const Games: React.FC = () => {
 
 {/* MODAL TO ADD NEW GAME IN THE LIST */}
 <Modal
-          title="Add Game"
-          open={addGameOpen}
-          onOk={() => setAddGameOpen(false)}
-          onCancel={() => setAddGameOpen(false)}
+          title="My Christmas Wish List"
+          open={addWishOpen}
+          onOk={() => setAddWishOpen(false)}
+          onCancel={() => setAddWishOpen(false)}
           okText='Post'
           centered={true}
           width={700}
         >
-          {/* GAME NAME */}
-          <Input placeholder="Enter game name" bordered={true} 
-          style={{ marginBottom: '10px' }}/>
-
-          <div className="uploadImage-tags-container">
-            {/* UPLOAD IMAGE  */}
-              <Upload
-                name="avatar"
-                listType="picture-card"
-                className="avatar-uploader"
-                showUploadList={false}
-                action="https://run.mocky.io/v3/435e224c-44fb-4773-9faf-380c5e6a2188"
-                beforeUpload={beforeUpload}
-                onChange={UPLOAD}
-              >
-                {imageUrl ? <img src={imageUrl} alt="avatar" style={{ width: '100%' }} /> : uploadButton}
-              </Upload>
-              <span>Genre:</span>
-              <Space size={[0, 8]} wrap>
-                    {tagsData.map((tag) => (
-                      <CheckableTag
-                        key={tag}
-                        checked={selectedTags.includes(tag)}
-                        onChange={(checked) => handleChange(tag, checked)}
-                      >
-                        {tag}
-                      </CheckableTag>
-                    ))}
-                  </Space>
-          </div>
-          
-                        {/* GAME LINK */}
-                        <Input placeholder="Enter game download link here." bordered={true} 
-                    style={{ marginTop:'8px' }}/>
-
-                                {/* DESCRIPTION */}
           <TextArea
             showCount
             maxLength={500}
             onChange={onChange}
-            placeholder="Enter game description here."
+            placeholder="Enter your christmas wish list here."
             style={{ height: 220, resize: 'none', marginBottom:'20px', marginTop:'20px' }}
           />
         </Modal>
-                              {/* GAME CARD */}
-            <Card bordered={false} style={{ width: 400, height: 'fit-content' }}
+
+
+                              {/* wish CARD */}
+            <Card bordered={false} style={{ width: 300, height: 'fit-content' }}
             hoverable={true}
             onClick={gameModal}>
-              <div className="game-card-content">
+              <div className="wish-card-content">
                 <Meta
-                  avatar={<Avatar size={64} className='gameThumbnail' src={ gamePic } />}
+                  avatar={<Avatar size={64} className='wishUser-pic' src={ userProf } />}
                 />
                 <div>
-                  <span className='post-game-name'>Genshin Impact</span>
-                  <Space size={[0, 8]} wrap
-                  style={{ marginTop:'10px' }}>
-                      <Tag color="#f50">Video game</Tag>
-                      <Tag color="#2db7f5">Adventure game</Tag>
-                      <Tag color="#87d068">Action role-playing game</Tag>
-                    </Space>
+                  <span className='wish-users-name'>Username</span>
                 </div>
-              </div>
-              <div className="game-like-counter">
-              <LikeFilled/>
-              <p>1243</p>
               </div>
             </Card>
 
 
-{/* POPS UP AFTER THE USER CLICKS THE GAME CARD */}
-            {/* GAME DESCRIPTION MODAL */}
-            <Modal title="Genshin Impact" 
+{/* POPS UP AFTER THE USER CLICKS THE wish list card */}
+            {/* wish list DESCRIPTION MODAL */}
+            <Modal title="Christmas Wish List" 
             open={isModalOpen} 
             onOk={handleOk} 
             onCancel={handleCancel}
@@ -319,36 +225,27 @@ const Games: React.FC = () => {
             centered={true}
             okText='Close'
             footer={null}
-            closeIcon={<span style={{ color: 'white' }}><CloseOutlined/></span>}
+            closeIcon={<span style={{ color: '#660000' }}><CloseOutlined/></span>}
             >
-          <div className="game-description-container">
+          <div className="wish-description-container">
             <img
             style={{ width: '100%', maxWidth: '10em', height: '10em', borderRadius:'10px' }}
-            src={ gamePic } alt="" />
-            {/* <Divider orientation="left">Custom</Divider> */}
-              <div className="category-game">
-                <Space size={[0, 8]} wrap>
-                  <Tag color="#f50">Video game</Tag>
-                  <Tag color="#2db7f5">Adventure game</Tag>
-                  <Tag color="#87d068">Action role-playing game</Tag>
-                </Space>
-                <div className="game-buttons-container">
-                  <Button type="primary" href='https://genshin.hoyoverse.com/en/' shape="round" icon={<DownloadOutlined />}>
-                    Download
-                  </Button>
-                  <Button ghost onClick={() => setReviewsModalOpen(true)}>Reviews</Button>
-                  {/* LIKE BUTTON */}
-                  <Button ghost>
-                    <span className='game-likeCounter'>123</span>
-                    <LikeOutlined/>
-                    </Button>
+            src={ userProf } alt="" />
+            <span className='username-wishlist'>Username</span>
+          </div>
 
+          <p className='wish-list-content'>Genshin Impact is an open-world,
+             action role-playing game that allows the player to control one of four interchangeable characters in a party.
+              Switching between characters can be done quickly during combat,
+             allowing the player to use several different combinations of skills and attacks.</p>
+
+                <div className="wish-buttons-container">
                     <ConfigProvider
                       theme={{
                         token: {
-                          colorBgElevated: '#0C0C0C',
-                          controlItemBgHover: '#1C1C1C',
-                          colorText: 'white'
+                          colorBgElevated: '#660000',
+                          colorText: 'white',
+                          colorTextHeading: 'white'
                         },
                       }}
                     >
@@ -362,140 +259,34 @@ const Games: React.FC = () => {
                       onConfirm={confirm}
                       icon={<QuestionCircleOutlined style={{ color: 'red' }} />}
                     >
-                      <Button ghost danger>Delete Post</Button>
+                      <Button danger>Delete Wish List</Button>
                     </Popconfirm>
                     </ConfigProvider>
                     
-                    <Button type='default' onClick={() => setEditPostModalOpen(true)}>Edit Post</Button>
+                    <Button onClick={() => setEditWishOpen(true)}>Edit</Button>
                 </div>
-
-              </div>
-
-          </div>
-
-          <div className="gamePost-user-details">
-            <Meta
-            style={{ display: 'flex',  flexDirection: 'row', alignItems: 'center', gap: '10px' }}
-                  avatar={<Avatar size={50} className='userAvatar' src={ userProf } />}
-                  title="Username"/>
-                  <p className='gamePost-date-time'><ClockCircleOutlined style={{ marginRight:'5px' }}/>1 day ago</p>
-          </div>
-
-          <p className='game-description'>Genshin Impact is an open-world,
-             action role-playing game that allows the player to control one of four interchangeable characters in a party.
-              Switching between characters can be done quickly during combat,
-             allowing the player to use several different combinations of skills and attacks.</p>
         </Modal>
 
 
-{/* POPS UP ANOTHER MODAL WHEN THE USER CLICKS THE REVIEW BUTTON FROM THE GAME DESCRIPTION MODAL */}
-        {/* REVIEWS */}
-        <Modal
-          title="Game Reviews"
-          open={reviewsModalOpen}
-          onOk={() => setReviewsModalOpen(false)}
-          onCancel={() => setReviewsModalOpen(false)}
-          width={1200}
-          centered={true}
-          closeIcon={<span style={{ color: 'white' }}><CloseOutlined/></span>}    
-          footer={null}
-          >
-          <div className="modal-main-container">
-            <div className="gameReviews-container">
 
-              {/* INDIV REVIEW */}
-              <div className="userReview-container">
-                <div className="review-userDets">
-                  <div
-                  style={{ display:'flex', alignItems:'center', gap:'10px' }}
-                  >
-                    <img src={userProf} className='commenter-reviews-prof'/>
-                    <span>Username</span>
-                  </div>
-                  <div className="review-like-btn">
-                    <Button ghost>
-                      <span className='review-likeCounter'>123</span>
-                  <LikeOutlined/>
-                  </Button>
-                  </div>
-                </div>
-                <span className='review-text-content'>Genshin Impact is an open-world,
-                action role-playing game that allows the player to control one of four interchangeable characters in a party.
-                  Switching between characters can be done quickly during combat,
-                allowing the player to use several different combinations of skills and attacks.</span>
-                </div>
-            </div>
-
-
-            <div className="writeReview-container">
-                <TextArea
-                  showCount
-                  maxLength={500}
-                  onChange={onChange}
-                  placeholder="Write your thoughts here."
-                  style={{ height: 320, resize: 'none', marginBottom:'20px' }}
-                />
-                <Button ghost
-                  style={{ marginTop: '10em', marginLeft:'20em' }}
-                >Post Review</Button>
-            </div>
-          </div>
-          
-        </Modal>
-
-
-              {/* EDIT POST MODAL */}
+              {/* EDIT wish MODAL */}
               <Modal
-              title="Edit Post"
+              title="Edit Wish List"
               okText='Save'
-              open={editPostModalOpen}
-              onOk={() => setEditPostModalOpen(false)}
-              onCancel={() => setEditPostModalOpen(false)}
+              open={editWishOpen}
+              onOk={() => setEditWishOpen(false)}
+              onCancel={() => setEditWishOpen(false)}
               width={750}
               centered={true}
               closeIcon={<span style={{ color: 'white' }}><CloseOutlined/></span>}    
               >
-
-           <Input placeholder="Enter game name" bordered={true} 
-          style={{ marginBottom: '10px' }}/>
-
-          <div className="uploadImage-tags-container">
-            {/* UPLOAD IMAGE  */}
-              <Upload
-                name="avatar"
-                listType="picture-card"
-                className="avatar-uploader"
-                showUploadList={false}
-                action="https://run.mocky.io/v3/435e224c-44fb-4773-9faf-380c5e6a2188"
-                beforeUpload={beforeUpload}
-                onChange={UPLOAD}
-              >
-                {imageUrl ? <img src={imageUrl} alt="avatar" style={{ width: '100%' }} /> : uploadButton}
-              </Upload>
-              <span>Genre:</span>
-              <Space size={[0, 8]} wrap>
-                    {tagsData.map((tag) => (
-                      <CheckableTag
-                        key={tag}
-                        checked={selectedTags.includes(tag)}
-                        onChange={(checked) => handleChange(tag, checked)}
-                      >
-                        {tag}
-                      </CheckableTag>
-                    ))}
-              </Space>
-          </div>
-          
-                        {/* GAME LINK */}
-                        <Input placeholder="Enter game download link here." bordered={true} 
-                    style={{ marginTop:'8px' }}/>
 
                                 {/* DESCRIPTION */}
           <TextArea
             showCount
             maxLength={500}
             onChange={onChange}
-            placeholder="Enter game description here."
+            placeholder="Enter your wish list here."
             style={{ height: 220, resize: 'none', marginBottom:'20px', marginTop:'20px' }}
           />
               </Modal>

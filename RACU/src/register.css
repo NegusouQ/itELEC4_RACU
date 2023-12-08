@@ -1,6 +1,6 @@
 .poster {
     width: 100%;
-    max-width: 30em;
+    max-width: 25em;
     margin-bottom: 80px;
 }
 
@@ -10,7 +10,9 @@
     align-items: center;
     flex-direction: column;
     padding: 40px;
-    border-left: solid 2px white;
+    border-left: solid 2px #660000;
+    /* background-color: #660000; */
+    width: 60vw;
 }
 
 .radio-prof {
@@ -25,7 +27,7 @@
 }
 
 .select-prof-label {
-    color: white;
+    color: #660000;
     font-weight: 700;
     font-size: 15px;
     margin-top: 15px;
@@ -42,4 +44,7 @@
     align-items: center;
     justify-content: center;
     width: fit-content;
+    padding: 0 60px 0 0;
+
 }
+

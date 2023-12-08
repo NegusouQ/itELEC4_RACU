@@ -1,4 +1,4 @@
-.games-main-container {
+.wish-main-container {
     padding: 20px 20px 0;
     width: 85vw;
     height: 90vh;
@@ -12,26 +12,26 @@
 .greeting {
     display: flex;
     flex-direction: row;
-    /* background-color: #0C0C0C; */
-    background: linear-gradient(to right, #0197FF, #0C0C0C);
+    background-color: #ECE2D0;
+    /* background: linear-gradient(to right, white, #ECE2D0); */
     padding: 10px;
     height: fit-content;
     border-radius: 20px;
     width: 81vw;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
 }
 
 .logo-home {
     width: 100%;
     max-width: 13em;
-    margin-bottom: 30px;
 }
 
 .greeting-text {
-    font-family: 'Cinzel Decorative', serif;
+    font-family: 'Great Vibes', cursive;
     font-weight: 700;
-    font-size: 75px;
+    font-size: 70px;
+    color: #660000;
 }
 
 .game-thumbnail {
@@ -41,10 +41,11 @@
     margin-bottom: 10px;
 }
 
-.game-card-content {
+.wish-card-content {
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    justify-content: start;
+    align-items: center;
 }
 
 .game-card-description {
@@ -60,9 +61,8 @@
     /* height: 100vh; */
 }
 
-.userAvatar, .gameThumbnail {
+.userAvatar, .wishUser-pic {
     background-color: white;
-    border: solid 5px #2a2a2a;
 }
 
 .gamePost-user-details {
@@ -73,29 +73,32 @@
     gap: 30px;
 }
 
-.gamePost-date-time {
-    font-size: 12px;
-}
-
-.post-game-name {
+.wish-users-name {
     color: white;
     font-weight: 900;
     font-size: 15px;
 }
 
-.game-buttons-container {
+.wish-buttons-container {
     display: flex;
     gap: 8px;
-    width: 37em;
+    justify-content: end;
+    align-items: end;
 }
 
-.game-description-container {
+.username-wishlist {
+    font-size: 25px;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-weight: 600;
+}
+
+.wish-description-container {
     display: flex;
     flex-direction: row;
     width: 30em;
     line-height: 0;
-    background-color: #1C1C1C;
     gap: 40px;
+    align-items: center;
 }
 
 .category-game {
@@ -177,4 +180,7 @@
     padding: 10px;
 }
 
-
+.wish-list-content {
+    font-size: 20px;
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}

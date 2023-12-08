@@ -1,6 +1,6 @@
 import { Button, Form, Input, ConfigProvider } from 'antd';
 import { Link } from "react-router-dom";
-import logo from './assets/images/RACU(LOGO).png'
+import logo from './assets/images/a-14.png'
 import './login.css'
 
 const onFinish = (values: any) => {
@@ -40,7 +40,8 @@ const Login: React.FC = () => {
   }}
 >
 <div className="login-form">
-    <h2>Login to your account</h2>
+    {/* <h2>Welcome back to the festive fun!</h2> */}
+    <h2>Log in and let the Christmas wishes begin!</h2>
            <div className='login-form-container'>
             <Form.Item<FieldType>
               name="username"
@@ -70,8 +71,9 @@ const Login: React.FC = () => {
               
            </div>
            <Link to='/games'>
-              <Button type="primary" htmlType="submit"
-              style={{ marginTop:'20px', width:'20em', borderRadius:'20px' }}>
+              <Button htmlType="submit"
+              style={{ marginTop:'20px', width:'15em', borderRadius:'20px', backgroundColor:'#ECE2D0', color:'#660000', fontFamily:'Mountains of Christmas',
+              fontWeight:'700', fontSize:'20px' }}>
                   Login
               </Button>
               </Link>
@@ -84,7 +86,7 @@ const Login: React.FC = () => {
               <span className='reg-text'>Don't have an account yet?</span>
               <Link to='/register'>
               <Button type='text'
-              style={{ color: 'white', width: '15em', fontWeight: '900' }}>
+              style={{ color: '#660000', width: '13em', fontWeight: '900', fontFamily:'Mountains of Christmas', fontSize:'20px'}}>
                   Click here to Register</Button>
                 </Link>
             </div>

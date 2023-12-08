@@ -80,38 +80,44 @@ const Profile: React.FC = () => {
               theme={{
                 components: {
                   Button: {
-                    colorPrimaryHover: '#0C0C0C'
+                    colorPrimaryHover: '#0C0C0C',
+                    colorText:'#660000'
                   },
                 },
               }}
             >
-            <Button ghost onClick={editProfile}><EditOutlined/>Edit Profile</Button>
+            <Button onClick={editProfile}><EditOutlined/>Edit Profile</Button>
             </ConfigProvider>
         </div>
 
             {/* MAIN CONTAINER FOR REVIEWS AND LIKED GAMES */}
-      <div className="review-likedGames-main-container">
-        <div className="previous-reviews-container">
+      <div className="ownWish-main-container">
+
+        <div className="previous-wish-container">
           {/* REVIEW CONTAINER */}
-          <div className="user-prevReviews">
-            <div className="user-details-prevReviews">
+          <h3 
+        style={{
+          color:'#660000',
+          fontFamily:'Great Vibes',
+          fontSize:'40px'
+        }}>My Christmas Wish List</h3>
+          <div className="user-ownWish-container">
+            <div className="user-details-ownWish">
               <div
               style={{ display:'flex', flexDirection: 'row', alignItems:'center', gap:'10px' }}
               >
               <Meta
                     avatar={<Avatar size={64} className='reviews-profile-avatar' src={ profile } />} />
-                    <span className='profile-prevRev-username'>Username</span>
-                    <span style={{ fontSize:'12px', marginLeft:'10px' }}>
-                    <ClockCircleOutlined style={{ marginRight:'4px' }}/>3 days ago</span>
+                    <span className='profile-username'>Username</span>
               </div>
 
                       <div className="edit-delete-prevReview">
                       <ConfigProvider
                         theme={{
                           token: {
-                            colorBgElevated: '#424242',
-                            colorText: 'white',
-                            controlItemBgHover: '#0C0C0C'
+                            colorBgElevated: 'white',
+                            colorText: '#660000',
+                            controlItemBgHover: '#ECE2D0'
                           },
                         }}
                       >
@@ -123,19 +129,19 @@ const Profile: React.FC = () => {
 
                               {/* EDIT REVIEW */}
                               <Menu.Item key="1" onClick={handleEditReview}>
-                                Edit Review
+                                Edit Wish List
                               </Menu.Item>
 
                               {/* DELETE REVIEW */}
                               <Menu.Item key="2">
                               <Popconfirm
-                                title="Delete Review"
-                                description="Are you sure to delete this review?"
+                                title="Delete Wish List"
+                                description="Are you sure to delete this wish list?"
                                 okText="Yes"
                                 cancelText="No"
                                 cancelButtonProps={{ style:{ color:'black' } }}
                               >
-                                Delete Review
+                                Delete Wish List
                               </Popconfirm>
                               </Menu.Item>
                             </Menu>
@@ -154,9 +160,8 @@ const Profile: React.FC = () => {
                       </div>
             </div>
 
-            <h3 className='reviews-GameName'>Game Name</h3>
-                    
-            <span className='prevReviews-profile-content'>
+
+            <span className='ownWish-profile-content'>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit,
             sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
             Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
@@ -164,46 +169,93 @@ const Profile: React.FC = () => {
             Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
             </span>
 
-              <div className="prevReviews-profile-likeCounter">
-                <span className='prevReviews-likes'>
-                <LikeFilled style={{ marginRight:'5px' }}/>
-                  123</span>
+       
+
+          </div>
+
+          <div className="user-ownWish-container">
+            <div className="user-details-ownWish">
+              <div
+              style={{ display:'flex', flexDirection: 'row', alignItems:'center', gap:'10px' }}
+              >
+              <Meta
+                    avatar={<Avatar size={64} className='reviews-profile-avatar' src={ profile } />} />
+                    <span className='profile-username'>Username</span>
               </div>
+
+                      <div className="edit-delete-prevReview">
+                      <ConfigProvider
+                        theme={{
+                          token: {
+                            colorBgElevated: 'white',
+                            colorText: '#660000',
+                            controlItemBgHover: '#ECE2D0'
+                          },
+                        }}
+                      >
+
+                        {/* DROPDOWN FOR EDIT OR DELETE REVIEW */}
+                        <Dropdown
+                          overlay={
+                            <Menu>
+
+                              {/* EDIT REVIEW */}
+                              <Menu.Item key="1" onClick={handleEditReview}>
+                                Edit Wish List
+                              </Menu.Item>
+
+                              {/* DELETE REVIEW */}
+                              <Menu.Item key="2">
+                              <Popconfirm
+                                title="Delete Wish List"
+                                description="Are you sure to delete this wish list?"
+                                okText="Yes"
+                                cancelText="No"
+                                cancelButtonProps={{ style:{ color:'black' } }}
+                              >
+                                Delete Wish List
+                              </Popconfirm>
+                              </Menu.Item>
+                            </Menu>
+                          }
+                          placement="bottomRight"
+                          trigger={['click']}
+                        >
+                          <a onClick={(e) => e.preventDefault()}>
+                            <Space>
+                              <EllipsisOutlined style={{ fontSize: '25px', marginRight: '10px' }} />
+                            </Space>
+                          </a>
+                        </Dropdown>
+                      </ConfigProvider>
+                        
+                      </div>
+            </div>
+
+
+            <span className='ownWish-profile-content'>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+            sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
+            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+            Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+            </span>
+
+       
 
           </div>
           
         </div>
 
-        <div className="profile-liked-games-container">
-          <h3>Liked Games</h3>
-
-            {/* INDIV GAME CONTAINER */}
-          <div className="liked-games-container">
-            <Meta
-                    avatar={<Avatar size={64} className='liked-gameImg-avatar' src={ gameImg } />} />
-                    <span className='profile-prevRev-username'>Example Game Name</span>
-                    
-          </div>
-
-
-        </div>
 
         <ConfigProvider
           theme={{
             components: {
               Modal: {
-                contentBg: '#1C1C1C',
-                headerBg: '#1C1C1C',
-                colorText: 'white',
-                colorTextHeading: 'white'
+                colorText: '#660000',
+                colorTextHeading:'#660000'
               },
-              Input: {
-                colorText: 'white',
-                colorBgContainer: 'BLACK',
-                colorIcon: 'white',
-                colorTextPlaceholder: 'white',
-                colorTextDescription: 'white'
-              },
+            
               Form: {
                 labelColor: 'white',
                 colorError: '#C877FF',
@@ -223,23 +275,22 @@ const Profile: React.FC = () => {
           okText='Save'
           onCancel={handleCancel}
           width={650}
-          closeIcon={<span style={{ color: 'white' }}><CloseOutlined/></span>}
+          closeIcon={<span style={{ color: '#660000' }}><CloseOutlined/></span>}
           >
 
             <ConfigProvider
               theme={{
                 components: {
                   Radio: {
-                    buttonBg:'#1C1C1C',
-                    buttonSolidCheckedActiveBg: '#0C0C0C',
-                    buttonSolidCheckedBg: '#0C0C0C',
-                    buttonSolidCheckedHoverBg: '#0C0C0C',
-                    buttonCheckedBg: '#0C0C0C',
-                    colorPrimaryActive: '#1C1C1C',
-                    colorPrimary: '#1C1C1C',
+                    buttonBg:'#ECE2D0',
+                    buttonSolidCheckedActiveBg: '#660000',
+                    buttonSolidCheckedBg: '#660000',
+                    buttonSolidCheckedHoverBg: '#660000',
+                    buttonCheckedBg: '#660000',
+                    colorPrimaryActive: '#ECE2D0',
+                    colorPrimary: '#ECE2D0',
                     colorPrimaryHover:'#0C0C0C',
-                    colorBorder: '#0C0C0C'
-
+                    colorBorder: '#660000'
                   },
                 },
               }}
@@ -258,42 +309,38 @@ const Profile: React.FC = () => {
 
             <div className="user-info-container-editProf">
               <Form.Item<FieldType>
-              label="Username"
               name="username"
               rules={[{ required: true, message: 'Please input your username!' }]}
               >
-              <Input showCount maxLength={12} onChange={onChange}/>
+              <Input showCount maxLength={12} onChange={onChange} placeholder='Username'/>
               </Form.Item>
 
               <Form.Item<FieldType>
-              label="Full Name"
               name="fullName"
               rules={[{ required: true, message: 'Please input your full name!' }]}
               >
-              <Input  showCount maxLength={25} onChange={onChange} />
+              <Input  showCount maxLength={25} onChange={onChange} placeholder='Full Name'/>
               </Form.Item>
 
               <Form.Item<FieldType>
-              label="Password"
               name="password"
               rules={[{ required: true, message: 'Please input your password!' }]}
               >
-              <Input.Password />
+              <Input.Password placeholder='Password'/>
               </Form.Item>
 
               <Form.Item<FieldType>
-              label="Confirm Password"
               name="confirmPassword"
               rules={[{ required: true, message: 'Please re-enter your password!' }]}
               >
-              <Input.Password />
+              <Input.Password placeholder='Confirm Password'/>
               </Form.Item>
             </div>
         </Modal>
 
 
         <Modal
-        title="Edit Review"
+        title="Edit Wish List"
         centered={true}
         visible={isEditReviewModalOpen}
         onOk={handleEditReviewOk}
@@ -314,7 +361,7 @@ const Profile: React.FC = () => {
         <Form>
           <Form.Item>
             <Input.TextArea
-            placeholder='Enter your new review here.'
+            placeholder='Enter your new wish list here.'
               value={reviewContent}
               onChange={(e) => setReviewContent(e.target.value)}
               rows={10}

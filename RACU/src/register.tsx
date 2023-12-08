@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import registerPoster from '../src/assets/images/RACU(LOGO).png'
+import registerPoster from '../src/assets/images/a-14.png'
 import { Button, Form, Input, ConfigProvider, Radio } from 'antd';
 import profile1 from "../src/assets/images/18.png"
 import profile2 from "../src/assets/images/19.png"
@@ -42,7 +42,7 @@ const Register: React.FC = () => {
                 <span className="reg-text">Already have an account?</span>
                 <Link to='/'>
                 <Button type='text'
-                style={{ color: 'white', width: '15em', fontWeight: '900' }}>
+                style={{ color: '#660000', width: '13em', fontWeight: '900', fontFamily:'Mountains of Christmas', fontSize:'20px' }}>
                     Click here to Login</Button>
                     </Link>
         </div>
@@ -61,7 +61,9 @@ const Register: React.FC = () => {
   }}
 >
 <div className="register-form">
-    <h2>Register Using Your Credentials</h2>
+    <h2 style={{
+      color:'#660000'
+    }}>Register Using Your Credentials</h2>
             <div className="register-form-container">
               <Form.Item<FieldType>
               // label="Username"
@@ -105,15 +107,15 @@ const Register: React.FC = () => {
               theme={{
                 components: {
                   Radio: {
-                    buttonBg:'#1C1C1C',
-                    buttonSolidCheckedActiveBg: '#0C0C0C',
-                    buttonSolidCheckedBg: '#0C0C0C',
-                    buttonSolidCheckedHoverBg: '#0C0C0C',
-                    buttonCheckedBg: '#0C0C0C',
-                    colorPrimaryActive: '#1C1C1C',
-                    colorPrimary: '#1C1C1C',
+                    buttonBg:'#ECE2D0',
+                    buttonSolidCheckedActiveBg: '#660000',
+                    buttonSolidCheckedBg: '#660000',
+                    buttonSolidCheckedHoverBg: '#660000',
+                    buttonCheckedBg: '#660000',
+                    colorPrimaryActive: '#ECE2D0',
+                    colorPrimary: '#ECE2D0',
                     colorPrimaryHover:'#0C0C0C',
-                    colorBorder: '#0C0C0C'
+                    colorBorder: '#660000'
                   },
                 },
               }}
@@ -138,11 +140,15 @@ const Register: React.FC = () => {
             <Checkbox>Remember me</Checkbox>
             </Form.Item> */}
 
-            <Button type="primary" htmlType="submit"
+            <Button htmlType="submit"
             style={{
-              width:'20em',
+              width:'15em',
               borderRadius:'20px',
-              marginTop:'20px'
+              marginTop:'20px',
+              fontFamily:'Mountains of Christmas',
+              fontWeight:'700', fontSize:'20px',
+              backgroundColor:'#660000',
+              color: '#ECE2D0'
             }}>
                 Register
             </Button>

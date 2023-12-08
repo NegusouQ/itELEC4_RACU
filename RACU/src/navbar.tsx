@@ -29,27 +29,17 @@ const NavBar: React.FC = () => {
 
                     {/* NAV BUTTON FOR WISH LISTS */}
             <Link className='navLinks' to='/games'>
-                <div 
-                style={{
-                    marginLeft:'30px'
-                }}>
-                    <GiftFilled />
-                    <span>
-                        Wish Lists</span>
-                </div>
+                <GiftFilled />
+                <span>
+                    Wish Lists</span>
             </Link>
 
 
                     {/* NAV BUTTON FOR PROFILE */}
             <Link className='navLinks' to='profile'>
-                <div
-                style={{
-                    marginLeft:'30px'
-                }}>
-                    <SmileFilled />
-                    <span>
-                        Profile</span>
-                </div>
+                <SmileFilled />
+                <span>
+                    Profile</span>
             </Link>
             
             <ConfigProvider
@@ -89,15 +79,10 @@ const NavBar: React.FC = () => {
             onClick={logoutConfirmModal}
             style={{ marginTop:'28em' }}>
 
-                <div
-                style={{
-                    marginLeft:'40px'
-                }}>
-                    <LogoutOutlined />
-                    <span>
-                    Logout
-                    </span>
-                </div>
+                <LogoutOutlined />
+                <span>
+                Logout
+                </span>
             </div>
         </div>
         <Outlet/>

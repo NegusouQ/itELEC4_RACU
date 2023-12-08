@@ -1,18 +1,17 @@
 .wish-main-container {
     padding: 20px 20px 0;
     width: 85vw;
-    height: 90vh;
+    height: 97vh;
     display: flex;
-    justify-content: start;
     flex-direction: column;
-    flex-wrap: wrap;
+    /* flex-wrap: wrap; */
     overflow-x: hidden;
 }
 
 .greeting {
     display: flex;
     flex-direction: row;
-    background-color: #ECE2D0;
+    /* background-color: #ECE2D0; */
     /* background: linear-gradient(to right, white, #ECE2D0); */
     padding: 10px;
     height: fit-content;
@@ -32,6 +31,7 @@
     font-weight: 700;
     font-size: 70px;
     color: #660000;
+    line-height: 0;
 }
 
 .game-thumbnail {
@@ -44,7 +44,7 @@
 .wish-card-content {
     display: flex;
     flex-direction: row;
-    justify-content: start;
+    justify-content: space-between;
     align-items: center;
 }
 
@@ -183,4 +183,16 @@
 .wish-list-content {
     font-size: 20px;
     font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+.wish-container-card {
+    display: flex;
+    flex-direction: row;
+    width: 90vw;
+    flex-wrap: wrap;
+    gap: 30px;
+    justify-content: start;
+    margin-left: 40px;
+    margin-top: 20px;
+    height: fit-content;
 }

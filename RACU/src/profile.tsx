@@ -101,10 +101,14 @@ const Profile: React.FC = () => {
           fontFamily:'Great Vibes',
           fontSize:'40px'
         }}>My Christmas Wish List</h3>
+
           <div className="user-ownWish-container">
             <div className="user-details-ownWish">
               <div
-              style={{ display:'flex', flexDirection: 'row', alignItems:'center', gap:'10px' }}
+              style={{ display:'flex',
+               flexDirection: 'row',
+                alignItems:'center',
+                 gap:'10px' }}
               >
               <Meta
                     avatar={<Avatar size={64} className='reviews-profile-avatar' src={ profile } />} />
@@ -122,17 +126,17 @@ const Profile: React.FC = () => {
                         }}
                       >
 
-                        {/* DROPDOWN FOR EDIT OR DELETE REVIEW */}
+                        {/* DROPDOWN FOR EDIT OR DELETE WISH LIST */}
                         <Dropdown
                           overlay={
                             <Menu>
 
-                              {/* EDIT REVIEW */}
+                              {/* EDIT WISH LIST */}
                               <Menu.Item key="1" onClick={handleEditReview}>
                                 Edit Wish List
                               </Menu.Item>
 
-                              {/* DELETE REVIEW */}
+                              {/* DELETE WISH LIST */}
                               <Menu.Item key="2">
                               <Popconfirm
                                 title="Delete Wish List"
@@ -156,11 +160,9 @@ const Profile: React.FC = () => {
                           </a>
                         </Dropdown>
                       </ConfigProvider>
-                        
                       </div>
             </div>
-
-
+                          {/* wish list content */}
             <span className='ownWish-profile-content'>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit,
             sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
@@ -174,6 +176,7 @@ const Profile: React.FC = () => {
           </div>
 
           <div className="user-ownWish-container">
+
             <div className="user-details-ownWish">
               <div
               style={{ display:'flex', flexDirection: 'row', alignItems:'center', gap:'10px' }}
@@ -339,39 +342,50 @@ const Profile: React.FC = () => {
         </Modal>
 
 
-        <Modal
-        title="Edit Wish List"
-        centered={true}
-        visible={isEditReviewModalOpen}
-        onOk={handleEditReviewOk}
-        onCancel={handleEditReviewCancel}
-        width={600}
-        closable={false}
-        maskClosable={false}
-        destroyOnClose
-        footer={[
-          <Button key="cancel" onClick={handleEditReviewCancel}>
-            Cancel
-          </Button>,
-          <Button key="save" type="primary" onClick={handleEditReviewOk}>
-            Save
-          </Button>,
-        ]}
-      >
-        <Form>
-          <Form.Item>
-            <Input.TextArea
-            placeholder='Enter your new wish list here.'
-              value={reviewContent}
-              onChange={(e) => setReviewContent(e.target.value)}
-              rows={10}
-              cols={60}
-              showCount
-                maxLength={500}
-            />
-          </Form.Item>
-        </Form>
-      </Modal>
+
+                {/* MODAL TO EDIT WISH LIST */}
+            <Modal
+            title="Edit Wish List"
+            centered={true}
+            visible={isEditReviewModalOpen}
+            onOk={handleEditReviewOk}
+            onCancel={handleEditReviewCancel}
+            width={750}
+            closable={false}
+            maskClosable={false}
+            destroyOnClose
+            footer={[
+              <Button key="cancel" onClick={handleEditReviewCancel}>
+                Cancel
+              </Button>,
+              <Button key="save" type="primary" onClick={handleEditReviewOk}>
+                Save
+              </Button>,
+            ]}
+          >
+          <h3
+          style={{
+            color:'#660000',
+            fontFamily: 'Great Vibes',
+            fontSize:'40px',
+            lineHeight: 0
+          }}>
+            My Christmas Wish List</h3>
+
+                <Input.TextArea
+                  placeholder='Enter your new wish list here.'
+                  value={reviewContent}
+                  onChange={(e) => setReviewContent(e.target.value)}
+                  rows={10}
+                  cols={60}
+                  showCount
+                  maxLength={500}
+                  style={{
+                    marginBottom:'30px'
+                  }}
+                />
+   
+          </Modal>
         </ConfigProvider>
        
       </div>

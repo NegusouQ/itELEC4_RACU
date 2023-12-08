@@ -27,23 +27,29 @@ const NavBar: React.FC = () => {
             <img className='nav-logo' src={ UserProf } alt="" />
             <span className='username'>Username</span>
 
-
+                    {/* NAV BUTTON FOR WISH LISTS */}
             <Link className='navLinks' to='/games'>
-            <GiftFilled />
-            <span>
-                Wish List</span>
+                <div 
+                style={{
+                    marginLeft:'30px'
+                }}>
+                    <GiftFilled />
+                    <span>
+                        Wish Lists</span>
+                </div>
             </Link>
 
-            {/* <Link className='navLinks' to='games'>
-            <img className='nav-icons' src={ gameIcon }/>
-            <span>
-                Games</span>
-            </Link> */}
 
+                    {/* NAV BUTTON FOR PROFILE */}
             <Link className='navLinks' to='profile'>
-            <SmileFilled />
-            <span>
-                Profile</span>
+                <div
+                style={{
+                    marginLeft:'30px'
+                }}>
+                    <SmileFilled />
+                    <span>
+                        Profile</span>
+                </div>
             </Link>
             
             <ConfigProvider
@@ -66,11 +72,12 @@ const NavBar: React.FC = () => {
                         <span className='logout-message'>Are you sure you want to logout?</span>
                         <img className='character-logout-confirm' src={ char }/>
                     </div>
+
                     <div className="logoutConfirm-btns">
                         <Button onClick={handleCancel} >No</Button>
                         
                         <Link to='/'>
-                        <Button onClick={handleOk}>Yes</Button>
+                            <Button onClick={handleOk}>Yes</Button>
                         </Link>
 
                     </div>
@@ -81,9 +88,16 @@ const NavBar: React.FC = () => {
             <div className='navLinks'
             onClick={logoutConfirmModal}
             style={{ marginTop:'28em' }}>
-            <LogoutOutlined />
-            <span>
-                Logout</span>
+
+                <div
+                style={{
+                    marginLeft:'40px'
+                }}>
+                    <LogoutOutlined />
+                    <span>
+                    Logout
+                    </span>
+                </div>
             </div>
         </div>
         <Outlet/>

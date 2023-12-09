@@ -153,57 +153,44 @@ const [previewOpen, setPreviewOpen] = useState(false);
 
             <div className="user-details-ownWish">
               <div
-              style={{ display:'flex', flexDirection: 'row', alignItems:'center', gap:'10px' }}
+              style={{ display:'flex', flexDirection: 'row', alignItems:'end',
+                width:'45em', justifyContent:'end' }}
               >
-              </div>
 
-                      <div className="edit-delete-prevReview">
-                      <ConfigProvider
+                      {/* EDIT WISH LIST BUTTON */}
+                <Button type='text' onClick={handleEditReview}><EditOutlined/>Edit</Button>
+
+                <ConfigProvider
                         theme={{
                           token: {
-                            colorBgElevated: 'white',
+                            // colorBgElevated: 'white',
                             colorText: '#660000',
                             controlItemBgHover: '#ECE2D0'
                           },
                         }}
                       >
-
-                        {/* DROPDOWN FOR EDIT OR DELETE REVIEW */}
-                        <Dropdown
-                          overlay={
-                            <Menu>
-
-                              {/* EDIT REVIEW */}
-                              <Menu.Item key="1" onClick={handleEditReview}>
-                                Edit Wish List
-                              </Menu.Item>
-
-                              {/* DELETE REVIEW */}
-                              <Menu.Item key="2">
-                              <Popconfirm
+                      {/* DELETE WISH LIST BUTTON */}
+                        <Button type='text'>
+                            <Popconfirm
                                 title="Delete Wish List"
                                 description="Are you sure to delete this wish list?"
                                 okText="Yes"
                                 cancelText="No"
                                 cancelButtonProps={{ style:{ color:'black' } }}
                               >
-                                Delete Wish List
-                              </Popconfirm>
-                              </Menu.Item>
-                            </Menu>
-                          }
-                          placement="bottomRight"
-                          trigger={['click']}
-                        >
-                          <a onClick={(e) => e.preventDefault()}>
-                            <Space>
-                              <EllipsisOutlined style={{ fontSize: '25px', marginRight: '10px' }} />
-                            </Space>
-                          </a>
-                        </Dropdown>
+                              <CloseOutlined style={{ marginRight:'5px' }}/>
+                                Delete
+                          </Popconfirm>
+                        </Button>
+
                       </ConfigProvider>
-                        
-                      </div>
+
+                
+
+              </div>
+
+                      
+
             </div>
             <span
                className='item-name-own'>

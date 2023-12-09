@@ -144,6 +144,8 @@
     display: flex;
     flex-direction: column;
     margin-bottom: 10px;
+    justify-content: center;
+    align-items: center;
 }
 
 .profile-liked-games-container {
@@ -206,13 +208,15 @@
 
 .item-name-own {
     color: #660000;
-    font-size: 20px;
-    font-weight: 700;
+    font-size: 35px;
+    font-family: 'Nanum Pen Script', cursive;
 }
 
 .ownWish-list-content {
     color: #660000;
     max-width: 30em;
+    font-size: 25px;
+    font-family: 'Nanum Pen Script', cursive;
 }
 
 .ownWish-list-img-withDescription {
@@ -220,4 +224,5 @@
     flex-direction: row;
     gap: 40px;
     margin-top: 10px;
+    align-items: center;
 }

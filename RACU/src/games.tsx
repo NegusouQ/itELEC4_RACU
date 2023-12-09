@@ -2,7 +2,7 @@ import './games.css'
 import userProf from '../src/assets/images/21.png'
 import React, { useState } from 'react';
 import RACU from '../src/assets/images/a-14.png'
-import { Input, Upload, ConfigProvider, Modal, Button, Tooltip, FloatButton, Popconfirm, Space, Image } from 'antd';
+import { Input, Upload, ConfigProvider, Modal, Button, Tooltip, FloatButton, Space, Image } from 'antd';
 import { CloseOutlined } from '@ant-design/icons';
 import type { SearchProps } from '../Search';
 import { Avatar, Card } from 'antd';
@@ -142,6 +142,7 @@ const Games: React.FC = () => {
                 Card: {
                 colorBgContainer: '#890000',
                 },
+               
                 Modal: {
                   contentBg: 'white',
                   headerBg: 'white',
@@ -168,7 +169,11 @@ const Games: React.FC = () => {
           centered={true}
           width={700}
         >
+          
+
           <Space direction="vertical" style={{ width: '100%' }} size="large">
+          <Input 
+          placeholder="Enter Item Name here." />
 
             {/* LIMITS UPLOAD TO 1 IMAGE ONLY */}
             <Upload
@@ -249,7 +254,15 @@ const Games: React.FC = () => {
                 <span className='username-wishlist'>Username</span>
               </div> */}
               
-              <span
+              <div
+              style={{
+                display:'flex',
+                flexDirection:'column',
+                justifyContent:'center',
+                alignItems:'center'
+              }}
+              >
+                <span
                className='item-name'>
                 Sample Item Name
               </span>
@@ -296,6 +309,7 @@ const Games: React.FC = () => {
                     {/* <Button onClick={() => setEditWishOpen(true)}>Edit</Button> */}
 
                 </div>
+              </div>
               </Modal>
 
 

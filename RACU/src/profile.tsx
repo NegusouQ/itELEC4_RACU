@@ -1,10 +1,9 @@
 import './profile.css'
 import { Input, Button, Space, ConfigProvider, Modal, Avatar, Dropdown, Radio, Form, Menu,
-Popconfirm } from 'antd';
+Popconfirm, Image } from 'antd';
 import React, { useState } from 'react';
-import gameImg from '../src/assets/images/genshin.png'
 import { CloseOutlined } from '@ant-design/icons';
-import { EditOutlined, ClockCircleOutlined, LikeFilled,
+import { EditOutlined, PlusOutlined, UploadOutlined,
   EllipsisOutlined } from '@ant-design/icons';
 import profile from '../src/assets/images/23.png'
 import Meta from 'antd/es/card/Meta';
@@ -14,6 +13,7 @@ import profile2 from "../src/assets/images/19.png"
 import profile3 from "../src/assets/images/20.png"
 import profile4 from "../src/assets/images/21.png"
 import profile6 from "../src/assets/images/23.png"
+import Upload, { RcFile, UploadFile, UploadProps } from 'antd/es/upload';
 
 // const { TextArea } = Input;
 const onChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -29,7 +29,54 @@ const onChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) 
     fullName?: string;
   };
 
+  // upload images
+const getBase64 = (file: RcFile): Promise<string> =>
+new Promise((resolve, reject) => {
+  const reader = new FileReader();
+  reader.readAsDataURL(file);
+  reader.onload = () => resolve(reader.result as string);
+  reader.onerror = (error) => reject(error);
+});
+
 const Profile: React.FC = () => {
+// UPLOAD IMAGE
+const [previewOpen, setPreviewOpen] = useState(false);
+  const [previewImage, setPreviewImage] = useState('');
+  const [previewTitle, setPreviewTitle] = useState('');
+  const [fileList, setFileList] = useState<UploadFile[]>([
+    {
+      uid: '-1',
+      name: 'image.png',
+      status: 'done',
+      url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+    },
+  
+  ]);
+
+  const handleImgCancel = () => setPreviewOpen(false);
+
+  const handlePreview = async (file: UploadFile) => {
+    if (!file.url && !file.preview) {
+      file.preview = await getBase64(file.originFileObj as RcFile);
+    }
+
+    setPreviewImage(file.url || (file.preview as string));
+    setPreviewOpen(true);
+    setPreviewTitle(file.name || file.url!.substring(file.url!.lastIndexOf('/') + 1));
+  };
+
+  const handleImgChange: UploadProps['onChange'] = ({ fileList: newFileList }) =>
+    setFileList(newFileList);
+
+  const uploadButton = (
+    <div>
+      <PlusOutlined />
+      <div style={{ marginTop: 8 }}>Upload</div>
+    </div>
+  );
+
+  //
+
   // EDIT PROFILE MODAL
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isEditReviewModalOpen, setIsEditReviewModalOpen] = useState(false);
@@ -103,87 +150,11 @@ const Profile: React.FC = () => {
         }}>My Christmas Wish List</h3>
 
           <div className="user-ownWish-container">
-            <div className="user-details-ownWish">
-              <div
-              style={{ display:'flex',
-               flexDirection: 'row',
-                alignItems:'center',
-                 gap:'10px' }}
-              >
-              <Meta
-                    avatar={<Avatar size={64} className='reviews-profile-avatar' src={ profile } />} />
-                    <span className='profile-username'>Username</span>
-              </div>
-
-                      <div className="edit-delete-prevReview">
-                      <ConfigProvider
-                        theme={{
-                          token: {
-                            colorBgElevated: 'white',
-                            colorText: '#660000',
-                            controlItemBgHover: '#ECE2D0'
-                          },
-                        }}
-                      >
-
-                        {/* DROPDOWN FOR EDIT OR DELETE WISH LIST */}
-                        <Dropdown
-                          overlay={
-                            <Menu>
-
-                              {/* EDIT WISH LIST */}
-                              <Menu.Item key="1" onClick={handleEditReview}>
-                                Edit Wish List
-                              </Menu.Item>
-
-                              {/* DELETE WISH LIST */}
-                              <Menu.Item key="2">
-                              <Popconfirm
-                                title="Delete Wish List"
-                                description="Are you sure to delete this wish list?"
-                                okText="Yes"
-                                cancelText="No"
-                                cancelButtonProps={{ style:{ color:'black' } }}
-                              >
-                                Delete Wish List
-                              </Popconfirm>
-                              </Menu.Item>
-                            </Menu>
-                          }
-                          placement="bottomRight"
-                          trigger={['click']}
-                        >
-                          <a onClick={(e) => e.preventDefault()}>
-                            <Space>
-                              <EllipsisOutlined style={{ fontSize: '25px', marginRight: '10px' }} />
-                            </Space>
-                          </a>
-                        </Dropdown>
-                      </ConfigProvider>
-                      </div>
-            </div>
-                          {/* wish list content */}
-            <span className='ownWish-profile-content'>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-            sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
-            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-            Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-            </span>
-
-       
-
-          </div>
-
-          <div className="user-ownWish-container">
 
             <div className="user-details-ownWish">
               <div
               style={{ display:'flex', flexDirection: 'row', alignItems:'center', gap:'10px' }}
               >
-              <Meta
-                    avatar={<Avatar size={64} className='reviews-profile-avatar' src={ profile } />} />
-                    <span className='profile-username'>Username</span>
               </div>
 
                       <div className="edit-delete-prevReview">
@@ -234,17 +205,23 @@ const Profile: React.FC = () => {
                         
                       </div>
             </div>
+            <span
+               className='item-name-own'>
+                Sample Item Name
+              </span>
 
+              <div className="ownWish-list-img-withDescription">
+                <Image
+                  className='wishlist-item-img'
+                  width={150}
+                  src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
+                />
 
-            <span className='ownWish-profile-content'>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-            sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
-            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-            Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-            </span>
-
-       
+                <p className='ownWish-list-content'>Genshin Impact is an open-world,
+                  action role-playing game that allows the player to control one of four interchangeable characters in a party.
+                    Switching between characters can be done quickly during combat,
+                  allowing the player to use several different combinations of skills and attacks.</p>
+              </div>
 
           </div>
           
@@ -371,6 +348,20 @@ const Profile: React.FC = () => {
             lineHeight: 0
           }}>
             My Christmas Wish List</h3>
+
+            {/* LIMITS UPLOAD TO 1 IMAGE ONLY */}
+                    <Upload
+                      action="https://run.mocky.io/v3/435e224c-44fb-4773-9faf-380c5e6a2188"
+                      listType="picture-card"
+                      fileList={fileList}
+                      onPreview={handlePreview}
+                      onChange={handleImgChange}
+                    >
+                      {fileList.length >= 1 ? null : uploadButton}
+                    </Upload>
+                    <Modal open={previewOpen} title={previewTitle} footer={null} onCancel={handleImgCancel}>
+                      <img alt="example" style={{ width: '100%' }} src={previewImage} />
+                    </Modal>
 
                 <Input.TextArea
                   placeholder='Enter your new wish list here.'

@@ -203,3 +203,21 @@
 .ownWish-profile-content {
     color: #660000;
 }
+
+.item-name-own {
+    color: #660000;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.ownWish-list-content {
+    color: #660000;
+    max-width: 30em;
+}
+
+.ownWish-list-img-withDescription {
+    display: flex;
+    flex-direction: row;
+    gap: 40px;
+    margin-top: 10px;
+}

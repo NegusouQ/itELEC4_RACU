@@ -183,6 +183,7 @@
 .wish-list-content {
     font-size: 20px;
     font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    max-width: 25em;
 }
 
 .wish-container-card {
@@ -195,4 +196,21 @@
     margin-left: 40px;
     margin-top: 20px;
     height: fit-content;
+}
+
+.wish-list-img-withDescription {
+    display: flex;
+    flex-direction: row;
+    gap: 40px;
+    align-items: center;
+}
+
+.wishlist-item-img {
+    border-radius: 10px;
+}
+
+.item-name {
+    font-family: 'Poppins', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
 }

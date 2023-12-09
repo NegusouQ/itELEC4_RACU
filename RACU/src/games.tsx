@@ -2,13 +2,14 @@ import './games.css'
 import userProf from '../src/assets/images/21.png'
 import React, { useState } from 'react';
 import RACU from '../src/assets/images/a-14.png'
-import { Input, Space, Tag, ConfigProvider, Modal, Button, Tooltip, FloatButton, Popconfirm } from 'antd';
+import { Input, Upload, ConfigProvider, Modal, Button, Tooltip, FloatButton, Popconfirm, Space, Image } from 'antd';
 import { CloseOutlined } from '@ant-design/icons';
 import type { SearchProps } from '../Search';
 import { Avatar, Card } from 'antd';
-import { EditOutlined, QuestionCircleOutlined } from '@ant-design/icons';
+import { EditOutlined, QuestionCircleOutlined, UploadOutlined, PlusOutlined } from '@ant-design/icons';
 import { message } from 'antd';
 import gift from '../src/assets/images/a-17.png'
+import type { RcFile, UploadFile, UploadProps } from 'antd/es/upload';
 
 
 // DELETE POST CONFIRMATION NOTIF
@@ -32,8 +33,56 @@ const { Search } = Input;
 
 const onSearch: SearchProps['onSearch'] = (value, _e, info) => console.log(info?.source, value);
 
+
+
+// upload images
+const getBase64 = (file: RcFile): Promise<string> =>
+  new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => resolve(reader.result as string);
+    reader.onerror = (error) => reject(error);
+  });
+
 const Games: React.FC = () => {
 
+  // UPLOAD``
+  const [previewOpen, setPreviewOpen] = useState(false);
+  const [previewImage, setPreviewImage] = useState('');
+  const [previewTitle, setPreviewTitle] = useState('');
+  const [fileList, setFileList] = useState<UploadFile[]>([
+    {
+      uid: '-1',
+      name: 'image.png',
+      status: 'done',
+      url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+    },
+  
+  ]);
+
+  const handleImgCancel = () => setPreviewOpen(false);
+
+  const handlePreview = async (file: UploadFile) => {
+    if (!file.url && !file.preview) {
+      file.preview = await getBase64(file.originFileObj as RcFile);
+    }
+
+    setPreviewImage(file.url || (file.preview as string));
+    setPreviewOpen(true);
+    setPreviewTitle(file.name || file.url!.substring(file.url!.lastIndexOf('/') + 1));
+  };
+
+  const handleImgChange: UploadProps['onChange'] = ({ fileList: newFileList }) =>
+    setFileList(newFileList);
+
+  const uploadButton = (
+    <div>
+      <PlusOutlined />
+      <div style={{ marginTop: 8 }}>Upload</div>
+    </div>
+  );
+
+  
 
     // MODAL
     // SHOW GAME DESCRIPTION
@@ -78,7 +127,7 @@ const Games: React.FC = () => {
 
 
 
-                                                     {/* ADD GAME BUTTON */}
+                                                     {/* ADD wish list BUTTON */}
         <Tooltip title="Create wish list" placement='left'>
           <FloatButton shape='circle' icon={<EditOutlined />} onClick={() => setAddWishOpen(true)}/>
         </Tooltip>
@@ -91,7 +140,7 @@ const Games: React.FC = () => {
             theme={{
               components: {
                 Card: {
-                colorBgContainer: '#660000',
+                colorBgContainer: '#890000',
                 },
                 Modal: {
                   contentBg: 'white',
@@ -108,6 +157,7 @@ const Games: React.FC = () => {
             }}
           >
 
+
         {/* MODAL TO ADD NEW wish IN THE LIST */}
         <Modal
           title="My Christmas Wish List"
@@ -118,6 +168,28 @@ const Games: React.FC = () => {
           centered={true}
           width={700}
         >
+          <Space direction="vertical" style={{ width: '100%' }} size="large">
+
+            {/* LIMITS UPLOAD TO 1 IMAGE ONLY */}
+            <Upload
+              action="https://run.mocky.io/v3/435e224c-44fb-4773-9faf-380c5e6a2188"
+              listType="picture"
+              maxCount={1}
+            >
+              <Button icon={<UploadOutlined />}>Upload (Max: 1)</Button>
+            </Upload>
+
+            {/* LIMITS UPLOAD TO 3 IMAGES */}
+            {/* <Upload
+              action="https://run.mocky.io/v3/435e224c-44fb-4773-9faf-380c5e6a2188"
+              listType="picture"
+              maxCount={3}
+              multiple
+            >
+              <Button icon={<UploadOutlined />}>Upload (Max: 3)</Button>
+            </Upload> */}
+          </Space>
+
           <TextArea
             showCount
             maxLength={500}
@@ -170,17 +242,30 @@ const Games: React.FC = () => {
             footer={null}
             closeIcon={<span style={{ color: '#660000' }}><CloseOutlined/></span>}
             >
-              <div className="wish-description-container">
+              {/* <div className="wish-description-container">
                 <img
                 style={{ width: '100%', maxWidth: '10em', height: '10em', borderRadius:'10px' }}
                 src={ userProf } alt="" />
                 <span className='username-wishlist'>Username</span>
-              </div>
+              </div> */}
+              
+              <span
+               className='item-name'>
+                Sample Item Name
+              </span>
 
-              <p className='wish-list-content'>Genshin Impact is an open-world,
-                action role-playing game that allows the player to control one of four interchangeable characters in a party.
-                  Switching between characters can be done quickly during combat,
-                allowing the player to use several different combinations of skills and attacks.</p>
+              <div className="wish-list-img-withDescription">
+                <Image
+                  className='wishlist-item-img'
+                  width={150}
+                  src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
+                />
+
+                <p className='wish-list-content'>Genshin Impact is an open-world,
+                  action role-playing game that allows the player to control one of four interchangeable characters in a party.
+                    Switching between characters can be done quickly during combat,
+                  allowing the player to use several different combinations of skills and attacks.</p>
+              </div>
 
                 <div className="wish-buttons-container">
                     <ConfigProvider
@@ -194,7 +279,7 @@ const Games: React.FC = () => {
                     >
 
                           {/* DELETE POST CONFIRMATION */}
-                      <Popconfirm
+                      {/* <Popconfirm
                         okText='Yes'
                         cancelText="No"
                         cancelButtonProps={{ style:{ color:'black' } }}
@@ -202,13 +287,13 @@ const Games: React.FC = () => {
                         description="Are you sure to delete this post?"
                         onConfirm={confirm}
                         icon={<QuestionCircleOutlined style={{ color: 'red' }} />}
-                      >
-                        <Button danger>Delete Wish List</Button>
-                      </Popconfirm>
+                      > */}
+                        {/* <Button danger>Delete Wish List</Button> */}
+                      {/* </Popconfirm> */}
 
                     </ConfigProvider>
                     
-                    <Button onClick={() => setEditWishOpen(true)}>Edit</Button>
+                    {/* <Button onClick={() => setEditWishOpen(true)}>Edit</Button> */}
 
                 </div>
               </Modal>
@@ -216,7 +301,7 @@ const Games: React.FC = () => {
 
 
               {/* EDIT wish MODAL */}
-              <Modal
+              {/* <Modal
               title="Edit Wish List"
               okText='Save'
               open={editWishOpen}
@@ -225,10 +310,24 @@ const Games: React.FC = () => {
               width={750}
               centered={true}
               closeIcon={<span style={{ color: 'white' }}><CloseOutlined/></span>}    
-              >
+              > */}
 
-                                {/* wishlist content */}
-                <TextArea
+                    {/* LIMITS UPLOAD TO 1 IMAGE ONLY */}
+                    {/* <Upload
+                      action="https://run.mocky.io/v3/435e224c-44fb-4773-9faf-380c5e6a2188"
+                      listType="picture-card"
+                      fileList={fileList}
+                      onPreview={handlePreview}
+                      onChange={handleImgChange}
+                    >
+                      {fileList.length >= 1 ? null : uploadButton}
+                    </Upload>
+                    <Modal open={previewOpen} title={previewTitle} footer={null} onCancel={handleImgCancel}>
+                      <img alt="example" style={{ width: '100%' }} src={previewImage} />
+                    </Modal> */}
+
+                                {/* wishlist item description */}
+                {/* <TextArea
                   showCount
                   maxLength={500}
                   onChange={onChange}
@@ -236,7 +335,7 @@ const Games: React.FC = () => {
                   style={{ height: 220, resize: 'none', marginBottom:'20px', marginTop:'20px' }}
                 />
 
-              </Modal>
+              </Modal> */}
 
           </ConfigProvider>
         

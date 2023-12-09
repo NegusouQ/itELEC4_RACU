@@ -1,7 +1,6 @@
 import './games.css'
 import userProf from '../src/assets/images/21.png'
 import React, { useState } from 'react';
-import RACU from '../src/assets/images/a-14.png'
 import { Input, Upload, ConfigProvider, Modal, Button, Tooltip, FloatButton, Space, Image } from 'antd';
 import { CloseOutlined } from '@ant-design/icons';
 import type { SearchProps } from '../Search';
@@ -107,7 +106,7 @@ const Games: React.FC = () => {
     
 
     // EDIT wish list MODAL
-    const [editWishOpen, setEditWishOpen] = useState(false);
+    // const [editWishOpen, setEditWishOpen] = useState(false);
 
 
 
@@ -121,7 +120,6 @@ const Games: React.FC = () => {
                     style={{ width:'400px'}}
                     placeholder="Search by Username" onSearch={onSearch} enterButton />
                 </div>
-                <img className='logo-home' src={ RACU }/>
                 
           </div>
 
@@ -175,14 +173,7 @@ const Games: React.FC = () => {
           <Input 
           placeholder="Enter Item Name here." />
 
-            {/* LIMITS UPLOAD TO 1 IMAGE ONLY */}
-            <Upload
-              action="https://run.mocky.io/v3/435e224c-44fb-4773-9faf-380c5e6a2188"
-              listType="picture"
-              maxCount={1}
-            >
-              <Button icon={<UploadOutlined />}>Upload (Max: 1)</Button>
-            </Upload>
+            
 
             {/* LIMITS UPLOAD TO 3 IMAGES */}
             {/* <Upload
@@ -202,6 +193,15 @@ const Games: React.FC = () => {
             placeholder="Enter your christmas wish list here."
             style={{ height: 220, resize: 'none', marginBottom:'20px', marginTop:'20px' }}
           />
+
+          {/* LIMITS UPLOAD TO 1 IMAGE ONLY */}
+          <Upload
+              action="https://run.mocky.io/v3/435e224c-44fb-4773-9faf-380c5e6a2188"
+              listType="picture"
+              maxCount={1}
+            >
+              <Button icon={<UploadOutlined />}>Upload (Max: 1)</Button>
+            </Upload>
         </Modal>
 
 
@@ -262,23 +262,30 @@ const Games: React.FC = () => {
                 alignItems:'center'
               }}
               >
+                <div className="img-itemName">
+              <Image
+                    className='wishlist-item-img'
+                    width={130}
+                    height={130}
+                    src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
+                  />
+              <div 
+              style={{
+                display:'flex',
+                flexDirection:'column',
+                marginLeft:'2em'
+              }}
+              >
                 <span
-               className='item-name'>
-                Sample Item Name
-              </span>
-
-              <div className="wish-list-img-withDescription">
-                <Image
-                  className='wishlist-item-img'
-                  width={150}
-                  src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
-                />
-
-                <p className='wish-list-content'>Genshin Impact is an open-world,
-                  action role-playing game that allows the player to control one of four interchangeable characters in a party.
-                    Switching between characters can be done quickly during combat,
-                  allowing the player to use several different combinations of skills and attacks.</p>
+                  className='item-name-own'>
+                    Sample Item Name
+                  </span>
+                  <p className='ownWish-list-content'>Genshin Impact is an open-world,
+                    action role-playing game that allows the player to control one of four interchangeable characters in a party.
+                      Switching between characters can be done quickly during combat,
+                    allowing the player to use several different combinations of skills and attacks.</p>
               </div>
+            </div>
 
                 <div className="wish-buttons-container">
                     <ConfigProvider

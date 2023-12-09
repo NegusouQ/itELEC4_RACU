@@ -5,6 +5,7 @@ import UserProf from '../src/assets/images/23.png'
 import char from '../src/assets/images/a-15.png'
 import { Button, ConfigProvider, Modal } from 'antd';
 import { SmileFilled, LogoutOutlined, GiftFilled } from '@ant-design/icons';
+import Logo from '../src/assets/images/a-20.png'
 import { useState } from 'react';
 
 const NavBar: React.FC = () => {
@@ -76,14 +77,15 @@ const NavBar: React.FC = () => {
             
 
             <div className='navLinks'
-            onClick={logoutConfirmModal}
-            style={{ marginTop:'28em' }}>
-
+            onClick={logoutConfirmModal}>
                 <LogoutOutlined />
                 <span>
                 Logout
                 </span>
             </div>
+
+            <img className='web-logo' src={ Logo } alt="" />
+
         </div>
         <Outlet/>
 

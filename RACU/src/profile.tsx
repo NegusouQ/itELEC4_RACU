@@ -192,23 +192,32 @@ const [previewOpen, setPreviewOpen] = useState(false);
                       
 
             </div>
-            <span
-               className='item-name-own'>
-                Sample Item Name
-              </span>
-
-              <div className="ownWish-list-img-withDescription">
-                <Image
-                  className='wishlist-item-img'
-                  width={150}
-                  src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
-                />
-
-                <p className='ownWish-list-content'>Genshin Impact is an open-world,
-                  action role-playing game that allows the player to control one of four interchangeable characters in a party.
-                    Switching between characters can be done quickly during combat,
-                  allowing the player to use several different combinations of skills and attacks.</p>
+            <div className="img-itemName">
+              <Image
+                    className='wishlist-item-img'
+                    width={130}
+                    height={130}
+                    src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
+                  />
+              <div 
+              style={{
+                display:'flex',
+                flexDirection:'column',
+                marginLeft:'2em'
+              }}
+              >
+                <span
+                  className='item-name-own'>
+                    Sample Item Name
+                  </span>
+                  <p className='ownWish-list-content'>Genshin Impact is an open-world,
+                    action role-playing game that allows the player to control one of four interchangeable characters in a party.
+                      Switching between characters can be done quickly during combat,
+                    allowing the player to use several different combinations of skills and attacks.</p>
               </div>
+            </div>
+
+                
 
           </div>
           
@@ -342,19 +351,7 @@ const [previewOpen, setPreviewOpen] = useState(false);
                }}
               placeholder="Enter Item Name here." />
 
-            {/* LIMITS UPLOAD TO 1 IMAGE ONLY */}
-                    <Upload
-                      action="https://run.mocky.io/v3/435e224c-44fb-4773-9faf-380c5e6a2188"
-                      listType="picture-card"
-                      fileList={fileList}
-                      onPreview={handlePreview}
-                      onChange={handleImgChange}
-                    >
-                      {fileList.length >= 1 ? null : uploadButton}
-                    </Upload>
-                    <Modal open={previewOpen} title={previewTitle} footer={null} onCancel={handleImgCancel}>
-                      <img alt="example" style={{ width: '100%' }} src={previewImage} />
-                    </Modal>
+            
 
                 <Input.TextArea
                   placeholder='Enter your new wish list here.'
@@ -368,6 +365,20 @@ const [previewOpen, setPreviewOpen] = useState(false);
                     marginBottom:'30px'
                   }}
                 />
+
+                {/* LIMITS UPLOAD TO 1 IMAGE ONLY */}
+                <Upload
+                      action="https://run.mocky.io/v3/435e224c-44fb-4773-9faf-380c5e6a2188"
+                      listType="picture-card"
+                      fileList={fileList}
+                      onPreview={handlePreview}
+                      onChange={handleImgChange}
+                    >
+                      {fileList.length >= 1 ? null : uploadButton}
+                    </Upload>
+                    <Modal open={previewOpen} title={previewTitle} footer={null} onCancel={handleImgCancel}>
+                      <img alt="example" style={{ width: '100%' }} src={previewImage} />
+                    </Modal>
    
           </Modal>
         </ConfigProvider>

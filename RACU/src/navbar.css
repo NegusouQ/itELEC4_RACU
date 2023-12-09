@@ -20,6 +20,12 @@
     margin-bottom: 10px;
 }
 
+.web-logo {
+    width: 100%;
+    max-width: 8em;
+    margin-top: 18em;
+}
+
 .username {
     font-size: 13px;
     font-weight: 900;

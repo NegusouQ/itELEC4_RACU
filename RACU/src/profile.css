@@ -214,15 +214,12 @@
 
 .ownWish-list-content {
     color: #660000;
-    max-width: 30em;
+    max-width: 18em;
     font-size: 25px;
     font-family: 'Nanum Pen Script', cursive;
 }
 
-.ownWish-list-img-withDescription {
+.img-itemName {
     display: flex;
     flex-direction: row;
-    gap: 40px;
-    margin-top: 10px;
-    align-items: center;
 }

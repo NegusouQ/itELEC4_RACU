@@ -1,26 +1,27 @@
 {
   "format": 1,
   "restore": {
-    "/Users/racelanne/Documents/PROJECTS/RACU-VER2/racu.api/racu.api/racu.api.csproj": {}
+    "C:\\Users\\Dell\\VSCodeS\\itELEC4_RACU\\racu.api\\racu.api\\racu.api.csproj": {}
   },
   "projects": {
-    "/Users/racelanne/Documents/PROJECTS/RACU-VER2/racu.api/racu.api/racu.api.csproj": {
+    "C:\\Users\\Dell\\VSCodeS\\itELEC4_RACU\\racu.api\\racu.api\\racu.api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/racelanne/Documents/PROJECTS/RACU-VER2/racu.api/racu.api/racu.api.csproj",
+        "projectUniqueName": "C:\\Users\\Dell\\VSCodeS\\itELEC4_RACU\\racu.api\\racu.api\\racu.api.csproj",
         "projectName": "racu.api",
-        "projectPath": "/Users/racelanne/Documents/PROJECTS/RACU-VER2/racu.api/racu.api/racu.api.csproj",
-        "packagesPath": "/Users/racelanne/.nuget/packages/",
-        "outputPath": "/Users/racelanne/Documents/PROJECTS/RACU-VER2/racu.api/racu.api/obj/",
+        "projectPath": "C:\\Users\\Dell\\VSCodeS\\itELEC4_RACU\\racu.api\\racu.api\\racu.api.csproj",
+        "packagesPath": "C:\\Users\\Dell\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Dell\\VSCodeS\\itELEC4_RACU\\racu.api\\racu.api\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/Users/racelanne/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\Dell\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net7.0"
         ],
         "sources": {
-          "/usr/local/share/dotnet/library-packs": {},
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -41,11 +42,25 @@
           "dependencies": {
             "Microsoft.AspNetCore.OpenApi": {
               "target": "Package",
-              "version": "[7.0.2, )"
+              "version": "[7.0.11, )"
+            },
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[7.0.14, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[7.0.14, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[7.0.14, )"
             },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
-              "version": "[6.4.0, )"
+              "version": "[6.5.0, )"
             }
           },
           "imports": [
@@ -67,7 +82,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.102/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.202\\RuntimeIdentifierGraph.json"
         }
       }
     }

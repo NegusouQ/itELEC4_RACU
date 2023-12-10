@@ -6,17 +6,24 @@
     display: flex;
     flex-direction: column;
     padding-top: 20px;
-    background-color: #0C0C0C;
+    background-color: #890000;
 
 }
 
 .nav-logo {
     width: 100%;
-    max-width: 3em;
-    max-height: 3em;
+    max-width: 3.5em;
+    max-height: 3.5em;
     border-radius: 50%;
-    border: solid 2px white;
+    border: solid 5px #ECE2D0;
+    background-color: white;
     margin-bottom: 10px;
+}
+
+.web-logo {
+    width: 100%;
+    max-width: 8em;
+    margin-top: 18em;
 }
 
 .username {
@@ -39,11 +46,37 @@
 }
 
 .navLinks:hover{
-    background-color: #171717;
-    color: white;
+    background-color: #ECE2D0;
+    color: #660000;
 }
 
 .nav-icons {
     width: 100%;
     max-width: 1.2em;
+}
+
+.logoutConfirm-btns {
+    display: flex;
+    justify-content: space-between;
+    width: 8em;
+    margin-left: 25em;
+}
+
+.character-logout-confirm {
+    width: 100%;
+    max-width: 30em;
+    margin-top: 20px;
+}
+
+.logout-confirmMessage-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.logout-message {
+    color: #660000;
+    font-size: 30px;
 }

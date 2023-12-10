@@ -1,6 +1,6 @@
 import { Button, Form, Input, ConfigProvider } from 'antd';
 import { Link } from "react-router-dom";
-import logo from './assets/images/RACU.png'
+import logo from './assets/images/a-14.png'
 import './login.css'
 
 const onFinish = (values: any) => {
@@ -40,22 +40,24 @@ const Login: React.FC = () => {
   }}
 >
 <div className="login-form">
-    <h2>Login Using Your Credentials</h2>
-           <div>
+    {/* <h2>Welcome back to the festive fun!</h2> */}
+    <h2>Log in and let the Christmas wishes begin!</h2>
+           <div className='login-form-container'>
             <Form.Item<FieldType>
-              label="Username"
               name="username"
               rules={[{ required: true, message: 'Please input your username!' }]}
               >
-              <Input />
+              <Input
+              placeholder='Username' />
               </Form.Item>
 
               <Form.Item<FieldType>
-              label="Password"
+              // label="Password"
               name="password"
               rules={[{ required: true, message: 'Please input your password!' }]}
               >
-              <Input.Password />
+              <Input.Password 
+              placeholder='Password'/>
               </Form.Item>
 
               {/* <Form.Item<FieldType>
@@ -66,26 +68,26 @@ const Login: React.FC = () => {
               <Checkbox>Remember me</Checkbox>
               </Form.Item> */}
 
-              <Form.Item wrapperCol={{ offset: 12, span: 12 }}>
-              <Link to='/home'>
-              <Button type="primary" htmlType="submit"
-              style={{ marginTop:'50px' }}>
+              
+           </div>
+           <Link to='/games'>
+              <Button htmlType="submit"
+              style={{ marginTop:'20px', width:'15em', borderRadius:'20px', backgroundColor:'#ECE2D0', color:'#660000', fontFamily:'Mountains of Christmas',
+              fontWeight:'700', fontSize:'20px' }}>
                   Login
               </Button>
               </Link>
-              </Form.Item>
-           </div>
             </div>
 
 </ConfigProvider>
 
             <div className="login-poster">
-            <img className='RACU-logo' src={ logo }/>
-            <span className='reg-text'>Don't have an account yet?</span>
-            <Link to='/register'>
-            <Button type='text'
-            style={{ color: 'white', width: '15em', fontWeight: '900' }}>
-                Click here to Register</Button>
+              <img className='RACU-logo' src={ logo }/>
+              <span className='reg-text'>Don't have an account yet?</span>
+              <Link to='/register'>
+              <Button type='text'
+              style={{ color: '#660000', width: '13em', fontWeight: '900', fontFamily:'Mountains of Christmas', fontSize:'20px'}}>
+                  Click here to Register</Button>
                 </Link>
             </div>
 

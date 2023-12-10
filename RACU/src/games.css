@@ -1,10 +1,216 @@
-.games-main-container {
+.wish-main-container {
     padding: 20px 20px 0;
     width: 85vw;
-    height: 100vh;
+    height: 97vh;
     display: flex;
     flex-direction: column;
-    justify-content: start;
-    flex-wrap: wrap;
+    /* flex-wrap: wrap; */
     overflow-x: hidden;
+}
+
+.greeting {
+    display: flex;
+    flex-direction: row;
+    /* background-color: #ECE2D0; */
+    /* background: linear-gradient(to right, white, #ECE2D0); */
+    padding: 10px;
+    height: fit-content;
+    border-radius: 20px;
+    width: 81vw;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.logo-home {
+    width: 100%;
+    max-width: 13em;
+}
+
+.greeting-text {
+    font-family: 'Great Vibes', cursive;
+    font-weight: 700;
+    font-size: 70px;
+    color: #660000;
+    line-height: 0;
+}
+
+.game-thumbnail {
+    width: 100%;
+    max-width: 8em;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.wish-card-content {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.game-card-description {
+    color: white;
+}
+
+.games-container-card {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+    flex-wrap: wrap;
+    margin-top: 20px;
+    /* height: 100vh; */
+}
+
+.userAvatar, .wishUser-pic {
+    background-color: white;
+}
+
+.gamePost-user-details {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-top: 20px;
+    gap: 30px;
+}
+
+.wish-users-name {
+    color: white;
+    font-weight: 900;
+    font-size: 15px;
+}
+
+.wish-buttons-container {
+    display: flex;
+    gap: 8px;
+    justify-content: end;
+    align-items: end;
+}
+
+.username-wishlist {
+    font-size: 25px;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-weight: 600;
+}
+
+.wish-description-container {
+    display: flex;
+    flex-direction: row;
+    width: 30em;
+    line-height: 0;
+    gap: 40px;
+    align-items: center;
+}
+
+.category-game {
+    display: flex;
+    flex-direction: column;
+    /* background-color: #0197FF; */
+    justify-content: space-between;
+    /* line-height: 0; */
+    align-items: start;
+}
+
+.uploadImage-tags-container {
+    display: flex;
+    flex-direction: row;
+}
+
+.tag-category {
+    max-width: 250px;
+    max-height: 20px ;
+}
+
+.game-like-counter {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+    color: #0197FF;
+    height: 3em;
+    align-items: center;
+    justify-content: end;
+}
+
+.gameReviews-container {
+    height: 38em;
+    width: 63%;
+    display: flex;
+    flex-wrap: wrap;
+    overflow: auto;
+}
+
+.commenter-reviews-prof {
+    width: 100%;
+    max-width: 3.5em;
+    background-color: white;
+    border-radius: 50%;
+    border: solid 5px #2a2a2a;
+}
+
+.review-userDets {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+    justify-content: space-between;
+}
+
+.userReview-container {
+    background-color: #0C0C0C;
+    padding: 14px;
+    border-radius: 10px;
+    width: 50em;
+    height: fit-content;
+    border: solid 1px #424242;
+    margin-bottom: 8px;
+}
+
+.modal-main-container{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.writeReview-container {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    width: 34%;
+    flex-direction: column;
+    padding: 10px;
+}
+
+.wish-list-content {
+    font-size: 25px;
+    font-family: 'Nanum Pen Script', cursive;
+    max-width: 25em;
+}
+
+.wish-container-card {
+    display: flex;
+    flex-direction: row;
+    width: 90vw;
+    flex-wrap: wrap;
+    gap: 30px;
+    justify-content: start;
+    margin-left: 40px;
+    margin-top: 20px;
+    height: fit-content;
+}
+
+.wish-list-img-withDescription {
+    display: flex;
+    flex-direction: row;
+    gap: 40px;
+    align-items: center;
+}
+
+.wishlist-item-img {
+    border-radius: 10px;
+}
+
+.item-name {
+    font-family: 'Nanum Pen Script', cursive;
+    font-size: 40px;
+    font-weight: 700;
 }

@@ -5,6 +5,7 @@ import UserProf from '../src/assets/images/23.png'
 import char from '../src/assets/images/a-15.png'
 import { Button, ConfigProvider, Modal } from 'antd';
 import { SmileFilled, LogoutOutlined, GiftFilled } from '@ant-design/icons';
+import Logo from '../src/assets/images/a-20.png'
 import { useState } from 'react';
 
 const NavBar: React.FC = () => {
@@ -27,23 +28,19 @@ const NavBar: React.FC = () => {
             <img className='nav-logo' src={ UserProf } alt="" />
             <span className='username'>Username</span>
 
-
+                    {/* NAV BUTTON FOR WISH LISTS */}
             <Link className='navLinks' to='/games'>
-            <GiftFilled />
-            <span>
-                Wish List</span>
+                <GiftFilled />
+                <span>
+                    Wish Lists</span>
             </Link>
 
-            {/* <Link className='navLinks' to='games'>
-            <img className='nav-icons' src={ gameIcon }/>
-            <span>
-                Games</span>
-            </Link> */}
 
+                    {/* NAV BUTTON FOR PROFILE */}
             <Link className='navLinks' to='profile'>
-            <SmileFilled />
-            <span>
-                Profile</span>
+                <SmileFilled />
+                <span>
+                    Profile</span>
             </Link>
             
             <ConfigProvider
@@ -66,11 +63,12 @@ const NavBar: React.FC = () => {
                         <span className='logout-message'>Are you sure you want to logout?</span>
                         <img className='character-logout-confirm' src={ char }/>
                     </div>
+
                     <div className="logoutConfirm-btns">
                         <Button onClick={handleCancel} >No</Button>
                         
                         <Link to='/'>
-                        <Button onClick={handleOk}>Yes</Button>
+                            <Button onClick={handleOk}>Yes</Button>
                         </Link>
 
                     </div>
@@ -79,12 +77,15 @@ const NavBar: React.FC = () => {
             
 
             <div className='navLinks'
-            onClick={logoutConfirmModal}
-            style={{ marginTop:'28em' }}>
-            <LogoutOutlined />
-            <span>
-                Logout</span>
+            onClick={logoutConfirmModal}>
+                <LogoutOutlined />
+                <span>
+                Logout
+                </span>
             </div>
+
+            <img className='web-logo' src={ Logo } alt="" />
+
         </div>
         <Outlet/>
 

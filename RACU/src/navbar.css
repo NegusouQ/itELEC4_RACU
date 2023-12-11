@@ -1,11 +1,11 @@
 .nav-container {
-    width: 25vh;
+    width: 12vw;
     justify-content: start;
     align-items: center;
-    height: 97.3vh;
+    height: 100vh;
     display: flex;
     flex-direction: column;
-    padding-top: 20px;
+    padding-top: 10px;
     background-color: #890000;
 
 }
@@ -23,7 +23,7 @@
 .web-logo {
     width: 100%;
     max-width: 8em;
-    margin-top: 18em;
+    margin-top: 16em;
 }
 
 .username {

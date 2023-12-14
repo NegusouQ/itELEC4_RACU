@@ -1,24 +1,21 @@
 import './games.css'
-import userProf from '../src/assets/images/21.png'
-import React, { useState } from 'react';
-import { Input, Upload, ConfigProvider, Modal, Button, Tooltip, FloatButton, Space, Image } from 'antd';
+
+import React, { useEffect, useState } from 'react';
+import { Input, Upload, ConfigProvider, Modal, Button, Tooltip, FloatButton, Space, Image, notification, Form, message } from 'antd';
 import { CloseOutlined } from '@ant-design/icons';
 import type { SearchProps } from '../Search';
 import { Avatar, Card } from 'antd';
-import { EditOutlined, QuestionCircleOutlined, UploadOutlined, PlusOutlined } from '@ant-design/icons';
-import { message } from 'antd';
+import { EditOutlined, SmileOutlined, UploadOutlined, PlusOutlined } from '@ant-design/icons';
 import gift from '../src/assets/images/a-17.png'
 import type { RcFile, UploadFile, UploadProps } from 'antd/es/upload';
+// 1 - Install
+import axios from 'axios';
+import { Item } from './models/item'
+import { getAvatar } from './services/common-service';
+import { User } from './models/user';
 
 
-// DELETE POST CONFIRMATION NOTIF
-const confirm = (e: React.MouseEvent<HTMLElement>) => {
-  console.log(e);
-  message.success('Wish List deleted Successfully!');
-};
-
-
-// TEXT AREA FOR GAME DESCRIPTION
+// TEXT AREA FOR Item DESCRIPTION
 const { TextArea } = Input;
 
 const onChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -29,10 +26,8 @@ const { Meta } = Card;
 
 const { Search } = Input;
 
-
-const onSearch: SearchProps['onSearch'] = (value, _e, info) => console.log(info?.source, value);
-
-
+//search
+// const onSearch: SearchProps['onSearch'] = (value, _e, info) => console.log(info?.source, value);
 
 // upload images
 const getBase64 = (file: RcFile): Promise<string> =>
@@ -43,7 +38,46 @@ const getBase64 = (file: RcFile): Promise<string> =>
     reader.onerror = (error) => reject(error);
   });
 
+let currentUser!: User
+
 const Games: React.FC = () => {
+  const onFinishAddWish = (values: any) => {
+    values.UserId = currentUser.id
+    axios.post('https://localhost:7070/api/Item', values)
+      .then(response => {
+        setAddWishOpen(false)
+        message.success('Your Christmas Wishlist has been successfully added!');
+        loadList()
+      })
+      .catch(error => {
+        console.log(error.error);
+        message.error('Failed to added wishlist. Please try again later.');
+      })
+  }
+
+  type FieldTypeAddItem = {
+    title?: string;
+    description?: string;
+    image?: string;
+  }
+
+  // 2 - Initialize
+  const [items, setItems] = useState<Item[]>([])
+  const [viewedItem, setViewedItem] = useState(new Item)
+
+  // 3 - Call & Receive response from Api
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem('current-user') ?? '') as User
+    if(!user)
+      return
+    currentUser = user
+    
+    loadList()
+  }, [])
+
+  const loadList = () => axios.get('https://localhost:7070/api/Item')
+    .then(response => setItems(response.data))
+    .catch(error => console.error(error.error))
 
   // UPLOAD``
   const [previewOpen, setPreviewOpen] = useState(false);
@@ -56,7 +90,6 @@ const Games: React.FC = () => {
       status: 'done',
       url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
     },
-  
   ]);
 
   const handleImgCancel = () => setPreviewOpen(false);
@@ -81,56 +114,40 @@ const Games: React.FC = () => {
     </div>
   );
 
-  
+  // MODALS
+  // SHOW wish DESCRIPTION
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-    // MODAL
-    // SHOW GAME DESCRIPTION
-    const [isModalOpen, setIsModalOpen] = useState(false);
+  const wishModal = (data: any) => {
+    setViewedItem(data)
+    setIsModalOpen(true);
+  };
 
-    const gameModal = () => {
-      setIsModalOpen(true);
-    };
-  
-    const handleOk = () => {
-      setIsModalOpen(false);
-    };
-  
-    const handleCancel = () => {
-      setIsModalOpen(false);
-    };
+  const handleOk = () => {
+    setIsModalOpen(false);
+  };
 
-    // ADD wish list MODAL
+  const handleCancel = () => {
+    console.log('closed')
+    setIsModalOpen(false);
+  };
 
-    const [addWishOpen, setAddWishOpen] = useState(false);
-
-    
-
-    // EDIT wish list MODAL
-    // const [editWishOpen, setEditWishOpen] = useState(false);
-
-
+  // ADD wish list MODAL
+  const [addWishOpen, setAddWishOpen] = useState(false);
 
     return <>
-            
-        <div className="wish-main-container">
-          <div className="greeting">
-                <div className="text-greeting">
-                    <h3 className='greeting-text'> Christmas Wish Lists</h3>
-                    <Search
-                    style={{ width:'400px'}}
-                    placeholder="Search by Username" onSearch={onSearch} enterButton />
-                </div>
-                
+
+      <div className="wish-main-container">
+        <div className="greeting">
+          <div className="text-greeting">
+            <h3 className='greeting-text'> Christmas Wish Lists</h3>
+            {/* <Search style={{ width:'400px'}} placeholder="Search by Username" onSearch={onSearch} enterButton /> */}
           </div>
-
-
-
-                                                     {/* ADD wish list BUTTON */}
+        </div>
+          {/* ADD wish list BUTTON */}
         <Tooltip title="Create wish list" placement='left'>
           <FloatButton shape='circle' icon={<EditOutlined />} onClick={() => setAddWishOpen(true)}/>
         </Tooltip>
-
-
 
         <div className="wish-container-card">
           {/* wish (CARD) */}
@@ -153,215 +170,108 @@ const Games: React.FC = () => {
                 colorTextHeading: '#660000',
                 colorTextDescription: 'white'
               },
-            }}
-          >
+            }}>
 
-
-        {/* MODAL TO ADD NEW wish IN THE LIST */}
-        <Modal
-          title="My Christmas Wish List"
-          open={addWishOpen}
-          onOk={() => setAddWishOpen(false)}
-          onCancel={() => setAddWishOpen(false)}
-          okText='Post'
-          centered={true}
-          width={700}
-        >
-          
-
-          <Space direction="vertical" style={{ width: '100%' }} size="large">
-          <Input 
-          placeholder="Enter Item Name here." />
-
-            
-
-            {/* LIMITS UPLOAD TO 3 IMAGES */}
-            {/* <Upload
-              action="https://run.mocky.io/v3/435e224c-44fb-4773-9faf-380c5e6a2188"
-              listType="picture"
-              maxCount={3}
-              multiple
-            >
-              <Button icon={<UploadOutlined />}>Upload (Max: 3)</Button>
-            </Upload> */}
-          </Space>
-
-          <TextArea
-            showCount
-            maxLength={500}
-            onChange={onChange}
-            placeholder="Enter your christmas wish list here."
-            style={{ height: 220, resize: 'none', marginBottom:'20px', marginTop:'20px' }}
-          />
-
-          {/* LIMITS UPLOAD TO 1 IMAGE ONLY */}
-          <Upload
-              action="https://run.mocky.io/v3/435e224c-44fb-4773-9faf-380c5e6a2188"
-              listType="picture"
-              maxCount={1}
-            >
-              <Button icon={<UploadOutlined />}>Upload (Max: 1)</Button>
-            </Upload>
-        </Modal>
-
-
-                              {/* wish CARD */}
-            <Card bordered={false} style={{ width:360, height: 'fit-content' }}
-            hoverable={true}
-            onClick={gameModal}>
-              <div className="wish-card-content">
-                
-                <div
-                style={{
-                  display:'flex',
-                  flexDirection:'row',
-                  alignItems:'center',
-                }}
-                >
-                <Meta
-                  avatar={<Avatar size={64} className='wishUser-pic' src={ userProf } />}
-                />
-                  <span className='wish-users-name'>Username</span>
-                </div>
-                
-                <img src={ gift } 
-                style={{
-                  width:'100%',
-                  maxWidth:'5em'
-                }} />
-              </div>
-            </Card>
-            
-
-
-{/* POPS UP AFTER THE USER CLICKS THE wish list card */}
-
-            {/* wish list DESCRIPTION MODAL */}
-            <Modal title="Christmas Wish List" 
-            open={isModalOpen} 
-            onOk={handleOk} 
-            onCancel={handleCancel}
-            width={750}
-            centered={true}
-            okText='Close'
-            footer={null}
-            closeIcon={<span style={{ color: '#660000' }}><CloseOutlined/></span>}
-            >
-              {/* <div className="wish-description-container">
-                <img
-                style={{ width: '100%', maxWidth: '10em', height: '10em', borderRadius:'10px' }}
-                src={ userProf } alt="" />
-                <span className='username-wishlist'>Username</span>
-              </div> */}
-              
-              <div
-              style={{
-                display:'flex',
-                flexDirection:'column',
-                justifyContent:'center',
-                alignItems:'center'
-              }}
-              >
-                <div className="img-itemName">
-              <Image
-                    className='wishlist-item-img'
-                    width={130}
-                    height={130}
-                    src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
-                  />
-              <div 
-              style={{
-                display:'flex',
-                flexDirection:'column',
-                marginLeft:'2em'
-              }}
-              >
-                <span
-                  className='item-name-own'>
-                    Sample Item Name
-                  </span>
-                  <p className='ownWish-list-content'>Genshin Impact is an open-world,
-                    action role-playing game that allows the player to control one of four interchangeable characters in a party.
-                      Switching between characters can be done quickly during combat,
-                    allowing the player to use several different combinations of skills and attacks.</p>
-              </div>
-            </div>
-
-                <div className="wish-buttons-container">
-                    <ConfigProvider
-                      theme={{
-                        token: {
-                          colorBgElevated: '#660000',
-                          colorText: 'white',
-                          colorTextHeading: 'white'
-                        },
-                      }}
-                    >
-
-                          {/* DELETE POST CONFIRMATION */}
-                      {/* <Popconfirm
-                        okText='Yes'
-                        cancelText="No"
-                        cancelButtonProps={{ style:{ color:'black' } }}
-                        title="Delete Post"
-                        description="Are you sure to delete this post?"
-                        onConfirm={confirm}
-                        icon={<QuestionCircleOutlined style={{ color: 'red' }} />}
-                      > */}
-                        {/* <Button danger>Delete Wish List</Button> */}
-                      {/* </Popconfirm> */}
-
-                    </ConfigProvider>
-                    
-                    {/* <Button onClick={() => setEditWishOpen(true)}>Edit</Button> */}
-
-                </div>
-              </div>
-              </Modal>
-
-
-
-              {/* EDIT wish MODAL */}
-              {/* <Modal
-              title="Edit Wish List"
-              okText='Save'
-              open={editWishOpen}
-              onOk={() => setEditWishOpen(false)}
-              onCancel={() => setEditWishOpen(false)}
-              width={750}
+            {/* MODAL TO ADD NEW wish IN THE LIST */}
+            <Modal title="My Christmas Wish List"
+              open={addWishOpen}
+              // onOk={() => setAddWishOpen(false)}
+              onCancel={() => setAddWishOpen(false)}
+              okText='Post'
               centered={true}
-              closeIcon={<span style={{ color: 'white' }}><CloseOutlined/></span>}    
-              > */}
-
+              width={700}
+              footer={null}>
+                <Form name='add Item' autoComplete='off' className='addItem-form' onFinish={onFinishAddWish}>
+                    {/* INPUT FOR ITEM NAME */}
+                    <Form.Item<FieldTypeAddItem> name='title'
+                      rules={[{ required: true, message: 'Please input item name' }]}>
+                      <Input style={{width:'40em'}} placeholder="Enter Item Name here." />
+                    </Form.Item>
+                      {/* INPUT FOR ITEM DESCRIPTION */}
+                    <Form.Item<FieldTypeAddItem> name='description'
+                      rules={[{ required: true, message: 'Please input item description' }]}>
+                      <TextArea showCount maxLength={500} placeholder="Enter your christmas wish list here."
+                        style={{ height: 220, width:'40em' , resize: 'none'}}
+                        onChange={onChange}/>
+                    </Form.Item>
                     {/* LIMITS UPLOAD TO 1 IMAGE ONLY */}
-                    {/* <Upload
-                      action="https://run.mocky.io/v3/435e224c-44fb-4773-9faf-380c5e6a2188"
-                      listType="picture-card"
-                      fileList={fileList}
-                      onPreview={handlePreview}
-                      onChange={handleImgChange}
-                    >
-                      {fileList.length >= 1 ? null : uploadButton}
-                    </Upload>
-                    <Modal open={previewOpen} title={previewTitle} footer={null} onCancel={handleImgCancel}>
-                      <img alt="example" style={{ width: '100%' }} src={previewImage} />
-                    </Modal> */}
+                    <Form.Item<FieldTypeAddItem> name='image'
+                      rules={[{ required: true, message: 'Please enter image link' }]}>
+                      <Input style={{width:'40em'}} placeholder="Enter image link here." />
+                    </Form.Item>
+                    {/* <Form.Item<FieldTypeAddItem> name='image'
+                      rules={[{ required: true, message: 'Please upload item image' }]}>
+                      <Upload action="https://run.mocky.io/v3/435e224c-44fb-4773-9faf-380c5e6a2188" 
+                        listType="picture" maxCount={1}>
+                        <Button style={{ marginRight:'29em'}} icon={<UploadOutlined />}>Upload (Max: 1)</Button>
+                      </Upload>
+                    </Form.Item> */}
+                    <Button htmlType="submit"
+                      style={{ marginTop:'20px', width:'15em', borderRadius:'20px', backgroundColor:'#ECE2D0', color:'#660000',
+                      fontWeight:'700' }}>
+                      Save
+                    </Button>
+                </Form>
+            </Modal>
 
-                                {/* wishlist item description */}
-                {/* <TextArea
-                  showCount
-                  maxLength={500}
-                  onChange={onChange}
-                  placeholder="Enter your wish list here."
-                  style={{ height: 220, resize: 'none', marginBottom:'20px', marginTop:'20px' }}
-                />
-
-              </Modal> */}
-
+                   {/* wish CARD */}
+                {
+                  items.map((data: any, id) => {
+                    return (
+                      <Card bordered={false} style={{ width:360, height: 'fit-content' }}
+                        hoverable={true}
+                        onClick={ () => wishModal(data)}>
+                        <div className="wish-card-content">
+                          {/* USER AVATAR */}
+                          <div style={{ display:'flex', flexDirection:'row', alignItems:'center',}}>
+                            <Meta avatar={<Avatar size={64} className='wishUser-pic' src={ getAvatar(data.user.avatar) } />}/>
+                            <span className='wish-users-name'>{ data.user.userName }</span>
+                          </div>
+                          <img src={ gift } style={{ width:'100%', maxWidth:'5em'}} />
+                        </div>
+                      </Card>
+                    )
+                  })
+                }
+              {/* POPS UP AFTER THE USER CLICKS THE wish list card */}
+              {/* wish list DESCRIPTION MODAL */}
+            <Modal title="Christmas Wish List" 
+              open={isModalOpen} 
+              onOk={handleOk} 
+              onCancel={handleCancel}
+              width={500}
+              centered={true}
+              okText='Close'
+              footer={null}
+              closeIcon={<span style={{ color: '#660000' }}><CloseOutlined/></span>}>
+              <div style={{ display:'flex', flexDirection:'column', justifyContent:'start', alignItems:'start'}}>
+                {/* ITEM DETAILS */}
+                <div className="img-itemName">
+                  {/* ITEM IMAGE */}
+                  <Image className='wishlist-item-img' width={130} height={130} src={ viewedItem.image ?? "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"}/>
+                  <div style={{ display:'flex', flexDirection:'column', marginLeft:'2em'}}>
+                    {/* ITEM NAME */}
+                    <span className='item-name-own'>{ viewedItem.title }</span>
+                      {/* ITEM DESCRIPTION */}
+                      <p className='ownWish-list-content'>{ viewedItem.description }</p>
+                  </div>
+                </div>
+                      {/* BUTTONS */}
+                <div className="wish-buttons-container">
+                  <ConfigProvider
+                    theme={{
+                      token: {
+                        colorBgElevated: '#660000',
+                        colorText: 'white',
+                        colorTextHeading: 'white'
+                      },
+                    }}>
+                  </ConfigProvider>
+                </div>
+              </div>
+            </Modal>
           </ConfigProvider>
-        
         </div>
-        
       </div>
     </>
 }

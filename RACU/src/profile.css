@@ -137,15 +137,18 @@
 }
 
 .user-ownWish-container {
-    width: 50vw;
+    width: 30vw;
+    height: fit-content;
+    flex-wrap: wrap;
     padding: 15px;
     border-radius: 10px;
     background-color: #ECE2D0;
     display: flex;
     flex-direction: column;
     margin-bottom: 10px;
-    justify-content: center;
-    align-items: center;
+    justify-content: start;
+    align-items: start;
+    border: solid 1px #424242;
 }
 
 .profile-liked-games-container {
@@ -193,11 +196,6 @@
     background-color: #424242;
 } */
 
-.user-info-container-editProf {
-    /* background-color: #0197FF; */
-    max-width: 30em;
-}
-
 .fullName-username-container {
     line-height: 0;
 }
@@ -213,6 +211,7 @@
 }
 
 .ownWish-list-content {
+    max-height: fit-content;
     color: #660000;
     max-width: 18em;
     font-size: 25px;
@@ -222,4 +221,15 @@
 .img-itemName {
     display: flex;
     flex-direction: row;
+}
+
+.editProfile-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: start;
+}
+
+.wishlist-item-img {
+    object-fit: cover;
 }

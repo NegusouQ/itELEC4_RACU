@@ -214,3 +214,8 @@
     font-size: 40px;
     font-weight: 700;
 }
+
+.addItem-form {
+    display: flex;
+    flex-direction: column;
+}

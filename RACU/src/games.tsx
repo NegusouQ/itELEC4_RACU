@@ -12,6 +12,7 @@ import type { SearchProps } from '../Search';
 import { Avatar, Card } from 'antd';
 import { EditOutlined, SmileOutlined, UploadOutlined, PlusOutlined } from '@ant-design/icons';
 import { message } from 'antd';
+import { useParams } from 'react-router-dom'
 import gift from '../src/assets/images/a-17.png'
 import type { RcFile, UploadFile, UploadProps } from 'antd/es/upload';
 // 1 - Install
@@ -119,6 +120,43 @@ const Games: React.FC = () => {
     // ADD wish list MODAL
     const [addWishOpen, setAddWishOpen] = useState(false);
 
+    const { UserId } = useParams();
+
+    const [itemName, setItemName] = useState('');
+    const [itemDescription, setItemDescription] = useState('');
+    const [file, setFile] = useState<UploadFile | null>(null);
+
+    // const currentUser: User = {
+    //   id: UserId 
+    // };
+
+    const params = useParams();
+
+    const handlePostButtonClick = async () => {
+      try {
+        if (!itemName || !itemDescription) {
+          message.error('Please fill in all the fields');
+          return;
+        }
+        const requestData = {
+          // UserId: currentUser,
+          Title: itemName,
+          Description: itemDescription,
+          Image: file ? file.url : null,
+        };
+
+        const response = await axios.post(`https://localhost:7070/api/Item`, requestData);
+
+        console.log('Item added successfully:', response.data);
+
+        setAddWishOpen(false);
+        message.success('Item added successfully!');
+      } catch (error) {
+        console.error('Error adding item:', error);
+        message.error('Failed to add item. Please try again.');
+      }
+    };
+
     return <>
 
       <div className="wish-main-container">
@@ -159,23 +197,32 @@ const Games: React.FC = () => {
             {/* MODAL TO ADD NEW wish IN THE LIST */}
             <Modal title="My Christmas Wish List"
               open={addWishOpen}
-              onOk={() => setAddWishOpen(false)}
+              onOk={handlePostButtonClick}
               onCancel={() => setAddWishOpen(false)}
               okText='Post'
               centered={true}
               width={700}>
                 {/* ITEM NAME INPUT */}
               <Space direction="vertical" style={{ width: '100%' }} size="large">
-                <Input placeholder="Enter Item Name here." />
+                <Input 
+                  placeholder="Enter Item Name here."
+                  onChange={(e) => setItemName(e.target.value)}
+                />
               </Space>
                 {/* INPUT FOR ITEM DESCRIPTION */}
               <TextArea showCount maxLength={500} placeholder="Enter your christmas wish list here."
                 style={{ height: 220, resize: 'none', marginBottom:'20px', marginTop:'20px' }}
-                onChange={onChange}
+                onChange={(e) => setItemDescription(e.target.value)}
               />
               {/* LIMITS UPLOAD TO 1 IMAGE ONLY */}
               <Upload
-                  action="https://run.mocky.io/v3/435e224c-44fb-4773-9faf-380c5e6a2188" listType="picture" maxCount={1}>
+                  action="https://run.mocky.io/v3/435e224c-44fb-4773-9faf-380c5e6a2188" 
+                  listType="picture" 
+                  maxCount={1}
+                  fileList={file ? [file] : []} // Pass the file in fileList to display the uploaded image
+                  onChange={({ fileList }) => setFile(fileList[0] || null)} // Capture the uploaded file
+                  onPreview={handlePreview}
+              >
                   <Button icon={<UploadOutlined />}>Upload (Max: 1)</Button>
               </Upload>
             </Modal>

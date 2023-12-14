@@ -39,6 +39,22 @@ const Profile: React.FC = () => {
     image?: string;
   }
 
+  const onFinishEditProfile = (values: any) => {
+    values.userId = currentUser.id
+    axios.put('https://localhost:7070/api/User', values)
+      .then(response => {
+        setIsModalOpen(false);
+        console.log(response)
+        message.success('Profile updated successfully!');
+        handleOk();
+      })
+      .catch(error => {
+        console.error(error);
+        message.error('Failed to update profile');
+      });
+        
+  }
+
   const onFinishEditWish = (values: any) => {
     values.id = viewedItem.id
     values.userId = currentUser.id
@@ -163,7 +179,7 @@ const Profile: React.FC = () => {
 
     return <>
     <div className="profile-main-container">
-      {/* <div className='userProfile-container'>
+      {<div className='userProfile-container'>
         <div className='image-name-user'>
           <img className='user-prof' src={ getAvatar(currentUser.avatar) } alt="" />
           <div className="fullName-username-container">
@@ -182,7 +198,7 @@ const Profile: React.FC = () => {
             }}>
           <Button onClick={editProfile}><EditOutlined/>Edit Profile</Button>
         </ConfigProvider>
-      </div> */}
+      </div>}
       <div className="ownWish-main-container">
         <div className="previous-wish-container">
           {/* WISH LIST CONTAINER */}
@@ -251,9 +267,9 @@ const Profile: React.FC = () => {
               },
             }}>
 
-              {/* <Modal title="Edit Profile Information"
+              {<Modal title="Edit Profile Information"
                 open={isModalOpen}
-                onOk={handleOk}
+                onOk={onFinishEditProfile}
                 okText='Save'
                 onCancel={handleCancel}
                 width={650}
@@ -301,7 +317,7 @@ const Profile: React.FC = () => {
                     <Input.Password style={{ width:'24em' }} placeholder='Password'/>
                     </Form.Item>
                 </Form>
-            </Modal> */}
+            </Modal>}
 
               {/* MODAL TO EDIT WISH LIST */}
             <Modal title="Edit Wish List"

@@ -5,17 +5,17 @@ import { Input, Upload, ConfigProvider, Modal, Button, Tooltip, FloatButton, Spa
 import { CloseOutlined } from '@ant-design/icons';
 import type { SearchProps } from '../Search';
 import { Avatar, Card } from 'antd';
-import { EditOutlined, QuestionCircleOutlined, UploadOutlined, PlusOutlined } from '@ant-design/icons';
-import { message } from 'antd';
+import { EditOutlined, UploadOutlined, PlusOutlined } from '@ant-design/icons';
+// import { message } from 'antd';
 import gift from '../src/assets/images/a-17.png'
 import type { RcFile, UploadFile, UploadProps } from 'antd/es/upload';
 
 
 // DELETE POST CONFIRMATION NOTIF
-const confirm = (e: React.MouseEvent<HTMLElement>) => {
-  console.log(e);
-  message.success('Wish List deleted Successfully!');
-};
+// const confirm = (e: React.MouseEvent<HTMLElement>) => {
+//   console.log(e);
+//   message.success('Wish List deleted Successfully!');
+// };
 
 
 // TEXT AREA FOR GAME DESCRIPTION
@@ -102,13 +102,6 @@ const Games: React.FC = () => {
     // ADD wish list MODAL
 
     const [addWishOpen, setAddWishOpen] = useState(false);
-
-    
-
-    // EDIT wish list MODAL
-    // const [editWishOpen, setEditWishOpen] = useState(false);
-
-
 
     return <>
             

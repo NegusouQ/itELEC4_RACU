@@ -14,7 +14,7 @@ const onFinish = (values: any) => {
   type FieldType = {
     username?: string;
     password?: string;
-    remember?: string;
+    // remember?: string;
   };
 
 const Login: React.FC = () => {

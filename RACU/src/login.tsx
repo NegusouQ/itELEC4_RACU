@@ -1,95 +1,86 @@
-import { Button, Form, Input, ConfigProvider } from 'antd';
-import { Link } from "react-router-dom";
-import logo from './assets/images/RACU.png'
+import { Button, Form, Input, ConfigProvider, message } from 'antd';
+import { Link, useNavigate } from "react-router-dom";
+import logo from './assets/images/a-14.png'
 import './login.css'
-
-const onFinish = (values: any) => {
-    console.log('Success:', values);
-  };
-  
-  const onFinishFailed = (errorInfo: any) => {
-    console.log('Failed:', errorInfo);
-  };
-
-  type FieldType = {
-    username?: string;
-    password?: string;
-    remember?: string;
-  };
+import axios from 'axios';
 
 const Login: React.FC = () => {
 
+  type FieldType = {
+    userName?: string;
+    password?: string;
+  }
+
+  const navigate = useNavigate();
+
+  const onFinish = (values: any) => {
+    axios.get(`https://localhost:7070/api/User?Username=${values.userName}&Password=${values.password}`, values)
+        .then(response => {
+          if(!response.data) {
+            console.log('Invalid username or password.')
+            message.error('Invalid username or password.');
+            return 
+          }
+          localStorage.setItem(`current-user`, JSON.stringify(response.data))
+          navigate("/games")
+        })
+        .catch(error => console.error(error.error))
+  }
+
+  const onFinishFailed = (errorInfo: any) => {
+    console.log('Failed:', errorInfo);
+  }
+  
     return (
-        <Form
-            name="login"
-            initialValues={{ remember: true }}
-            onFinish={onFinish}
-            onFinishFailed={onFinishFailed}
-            autoComplete="off"
-        >
+        <Form name="login"
+          initialValues={{ remember: true }}
+          onFinish={onFinish}
+          onFinishFailed={onFinishFailed}
+          autoComplete="off">
             <ConfigProvider
-  theme={{
-    components: {
-      Form: {
-            labelColor: 'white',
-            colorError: '#C877FF',
-            colorErrorBorder:'#C877FF',
-            colorErrorOutline: '#D28FFF',
-      },
-    },
-  }}
->
-<div className="login-form">
-    <h2>Login Using Your Credentials</h2>
-           <div>
-            <Form.Item<FieldType>
-              label="Username"
-              name="username"
-              rules={[{ required: true, message: 'Please input your username!' }]}
-              >
-              <Input />
-              </Form.Item>
-
-              <Form.Item<FieldType>
-              label="Password"
-              name="password"
-              rules={[{ required: true, message: 'Please input your password!' }]}
-              >
-              <Input.Password />
-              </Form.Item>
-
-              {/* <Form.Item<FieldType>
-              name="remember"
-              valuePropName="checked"
-              wrapperCol={{ offset: 4, span: 16 }}
-              >
-              <Checkbox>Remember me</Checkbox>
-              </Form.Item> */}
-
-              <Form.Item wrapperCol={{ offset: 12, span: 12 }}>
-              <Link to='/home'>
-              <Button type="primary" htmlType="submit"
-              style={{ marginTop:'50px' }}>
+              theme={{
+                components: {
+                  Form: {
+                        labelColor: 'white',
+                        colorError: '#C877FF',
+                        colorErrorBorder:'#C877FF',
+                        colorErrorOutline: '#D28FFF',
+                  },
+                },
+              }}>
+              <div className="login-form">
+                <h2>Log in and let the Christmas wishes begin!</h2>
+                <div className='login-form-container'>
+                  {/* USERNAME INPUT */}
+                  <Form.Item<FieldType>
+                    name="userName"
+                    rules={[{ required: true, message: 'Please input your username!' }]}>
+                    <Input placeholder='Username' />
+                  </Form.Item>
+                    {/* PASSWORD INPUT */}
+                  <Form.Item<FieldType> name="password"
+                    rules={[{ required: true, message: 'Please input your password!' }]}>
+                    <Input.Password placeholder='Password'/>
+                  </Form.Item>
+                </div>
+                {/* LOGIN BUTTON */}
+                <Button htmlType="submit"
+                  style={{ marginTop:'20px', width:'15em', borderRadius:'20px', backgroundColor:'#ECE2D0', color:'#660000', fontFamily:'Mountains of Christmas',
+                  fontWeight:'700' }}>
                   Login
-              </Button>
-              </Link>
-              </Form.Item>
-           </div>
-            </div>
-
-</ConfigProvider>
+                </Button>
+              </div>
+            </ConfigProvider>
 
             <div className="login-poster">
-            <img className='RACU-logo' src={ logo }/>
-            <span className='reg-text'>Don't have an account yet?</span>
-            <Link to='/register'>
-            <Button type='text'
-            style={{ color: 'white', width: '15em', fontWeight: '900' }}>
-                Click here to Register</Button>
-                </Link>
+              <img className='RACU-logo' src={ logo }/>
+              <span className='reg-text'>Don't have an account yet?</span>
+              <Link to='/register'>
+                <Button type='text'style={{ color: '#660000', width: '13em', height:'fit-content', fontWeight: '900', fontFamily:'Mountains of Christmas', fontSize:'20px'}}>
+                  Click here to Register
+                </Button>
+              </Link>
             </div>
-
-            
         </Form>
       );
 };

@@ -1,0 +1,18 @@
+.error-main-container {
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    /* background: linear-gradient(to right, #0C0C0C, #0197FF); */
+}
+
+.message {
+    color: #660000;
+}
+
+.back {
+    border: 2px solid #660000;
+    color: #660000
+}

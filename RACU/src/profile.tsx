@@ -1,191 +1,376 @@
 import './profile.css'
-import { Input, Button, Space, ConfigProvider,message, Upload} from 'antd';
-import type { UploadProps } from 'antd';
-import { Tabs } from 'antd';
-import type { TabsProps } from 'antd';
-import { UploadOutlined, EditOutlined, ClockCircleOutlined, DeleteOutlined, SendOutlined, HeartOutlined, LikeFilled,
-DislikeFilled } from '@ant-design/icons';
-import profile from '../src/assets/images/12.png'
+import { Input, Button, Space, ConfigProvider, Modal, Avatar, Dropdown, Radio, Form, Menu,
+Popconfirm, Image, message } from 'antd';
+import React, { useEffect, useState } from 'react';
+import { CloseOutlined } from '@ant-design/icons';
+import { EditOutlined, PlusOutlined, UploadOutlined,
+  EllipsisOutlined } from '@ant-design/icons';
+import profile from '../src/assets/images/23.png'
+import Meta from 'antd/es/card/Meta';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
-const { TextArea } = Input;
-
-//TABS
-const onChange = (key: string) => {
-  console.log(key);
-};
-
-const items: TabsProps['items'] = [
-  {
-    key: '1',
-    label: 'COMMENTS',
-    children:
-    <div className='commenter-container'>
-      <div className="commenter-details">
-        <img className='commenter-prof' src={ profile } alt="" />
-        <h3 className='commenter-name'>Commenter Name</h3>
-        <span className='existing-post-time'><ClockCircleOutlined style={{ marginRight:'5px' }}/>10 mins. ago</span>
-        <div className="heart-btn"  style={{ fontSize:'20px', color:'white', marginLeft:'33em', cursor:'pointer' }}>
-          <span className='heart-counter'>12312</span>
-          <HeartOutlined/>
-        </div>
-      </div>
-      <div className="comment-container">
-        <span className='commenter-comment'>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                         sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                          Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                           Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                            Excepteur sint occaecat cupidatat non proident,
-                         sunt in culpa qui officia deserunt mollit anim id est laborum.
-        </span>
-      </div>
-    </div>,
-  },
-  {
-    key: '2',
-    label: 'LIKES',
-    children: <div className='likes-container'>
-      <div className="reactor-container">
-        <img className='commenter-prof' src={ profile } alt="" />
-        <h3 className='commenter-name'>Commenter Name</h3>
-        <h3 style={{ color: 'white', marginLeft:'10px' }}>liked your post.</h3>
-        {/* <LikeFilled style={{ marginLeft:'40em', fontSize:'18px', color:'#0197FF' }}/> */}
-      </div>
-      <div className="reactor-container">
-        <img className='commenter-prof' src={ profile } alt="" />
-        <h3 className='commenter-name'>Commenter Name</h3>
-        <h3 style={{ color: 'white', marginLeft:'10px' }}>liked your post.</h3>
-        {/* <LikeFilled style={{ marginLeft:'40em', fontSize:'18px', color:'#0197FF' }}/> */}
-      </div>
-    </div>,
-  },
-  {
-    key: '3',
-    label: 'DISLIKES',
-    children: <div className='dislikes-container'>
-    <div className="reactor-container">
-      <img className='commenter-prof' src={ profile } alt="" />
-      <h3 className='commenter-name'>Commentesdasdasdr Name</h3>
-      <h3 style={{ color: 'white', marginLeft:'10px' }}>disliked your post.</h3>
-      {/* <DislikeFilled style={{ marginLeft:'38em', fontSize:'18px', color:'#0197FF' }}/> */}
-
-    </div>
-    <div className="reactor-container">
-      <img className='commenter-prof' src={ profile } alt="" />
-      <h3 className='commenter-name'>Commenter Name</h3>
-      <h3 style={{ color: 'white', marginLeft:'10px' }}>disliked your post.</h3>
-      {/* <DislikeFilled style={{ marginLeft:'38em', fontSize:'18px', color:'#0197FF' }}/> */}
-    </div>
-  </div>,
-  },
-];
-
-//END OF TABS
-
-const props: UploadProps = {
-    name: 'file',
-    action: 'https://run.mocky.io/v3/435e224c-44fb-4773-9faf-380c5e6a2188',
-    headers: {
-      authorization: 'authorization-text',
-    },
-    onChange(info) {
-      if (info.file.status !== 'uploading') {
-        console.log(info.file, info.fileList);
-      }
-      if (info.file.status === 'done') {
-        message.success(`${info.file.name} file uploaded successfully`);
-      } else if (info.file.status === 'error') {
-        message.error(`${info.file.name} file upload failed.`);
-      }
-    },
-  };
+//PROFILE OPTIONS
+import profile1 from "../src/assets/images/18.png"
+import profile2 from "../src/assets/images/19.png"
+import profile3 from "../src/assets/images/20.png"
+import profile4 from "../src/assets/images/21.png"
+import profile6 from "../src/assets/images/23.png"
+import Upload, { RcFile, UploadFile, UploadProps } from 'antd/es/upload';
+import { User } from './models/user';
+import { getAvatar } from './services/common-service';
+import axios from 'axios';
+import TextArea from 'antd/es/input/TextArea';
+import { Item } from './models/item';
 
 const Profile: React.FC = () => {
+  
+  // INPUT FIELD TYPE FOR EDIT PROFILE
+  type FieldTypeEditProfile = {
+    username?: string;
+    password?: string;
+    fullName?: string;
+    avatar?: number;
+  }
+
+  type FieldTypeItem = {
+    title?: string;
+    description?: string;
+    image?: string;
+  }
+
+  const onFinishEditWish = (values: any) => {
+    values.id = viewedItem.id
+    values.userId = currentUser.id
+    axios.put('https://localhost:7070/api/Item', values)
+      .then(response => {
+        setIsEditWishModalOpen(false)
+        loadList()
+      })
+
+      message.success('Wishlist edited successfully!');
+
+      handleEditWishOk();
+  }
+
+  const [viewedItem, setViewedItem] = useState(new Item)
+
+  // upload images
+  const getBase64 = (file: RcFile): Promise<string> =>
+  new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => resolve(reader.result as string);
+    reader.onerror = (error) => reject(error);
+  });
+
+    // const { TextArea } = Input;
+  const onChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    console.log('Change:', e.target.value);
+  };
+
+  const [currentUser, setCurrentUser] = useState<User>(new User)
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem('current-user') ?? '')
+    if(!user)
+      return
+    loadList(user.id)
+  }, [])
+
+  const loadList = (id: string = currentUser.id) => axios.get(`https://localhost:7070/api/User/${id}`)
+    .then(response => {
+      setCurrentUser(response.data)
+      localStorage.setItem('current-user',  JSON.stringify(response.data))
+    })
+    .catch(error => console.error(error.error))
+
+  const onDelete = (id: string) => axios.delete(`https://localhost:7070/api/Item/${id}`)
+    .then(response => {
+      loadList();
+      message.success('Wishlist deleted successfully!');
+    })
+    .catch(error => {
+      console.error(error.error);
+      message.error('Failed to delete wish list');
+    });
+
+  // UPLOAD IMAGE
+  const [previewOpen, setPreviewOpen] = useState(false);
+  const [previewImage, setPreviewImage] = useState('');
+  const [previewTitle, setPreviewTitle] = useState('');
+  const [fileList, setFileList] = useState<UploadFile[]>([
+    {
+      uid: '-1',
+      name: 'image.png',
+      status: 'done',
+      url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+    },
+  
+  ]);
+
+  const handleImgCancel = () => setPreviewOpen(false);
+
+  const handlePreview = async (file: UploadFile) => {
+    if (!file.url && !file.preview) {
+      file.preview = await getBase64(file.originFileObj as RcFile);
+    }
+
+    setPreviewImage(file.url || (file.preview as string));
+    setPreviewOpen(true);
+    setPreviewTitle(file.name || file.url!.substring(file.url!.lastIndexOf('/') + 1));
+  };
+
+  const handleImgChange: UploadProps['onChange'] = ({ fileList: newFileList }) =>
+    setFileList(newFileList);
+
+  const uploadButton = (
+    <div>
+      <PlusOutlined />
+      <div style={{ marginTop: 8 }}>Upload</div>
+    </div>
+  );
+
+  // EDIT PROFILE MODAL
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isEditReviewModalOpen, setIsEditWishModalOpen] = useState(false);
+  const [reviewContent, setReviewContent] = useState('');
+
+  const editProfile = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleOk = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
+  
+  //EDIT WISH LIST MODAL
+  const handleEditWish = (data: Item) => {
+    setViewedItem(data)
+    setIsEditWishModalOpen(true);
+  };
+
+  const handleEditWishOk = () => {
+    setIsEditWishModalOpen(false);
+  };
+
+  const handleEditWishCancel = () => {
+    setIsEditWishModalOpen(false);
+  };
+
     return <>
     <div className="profile-main-container">
-        <div className='userProfile-container'>
-            <div className='image-name-user'>
-                <img className='user-prof' src={ profile } alt="" />
-                <h1>Sample name here</h1>
-            </div>
-            <Button ghost><EditOutlined/>Edit Profile</Button>
-        </div>
-
-        <div className="profile-comment-section">
-            <div className='profile-user-details'>
-                <img className='user-comment-prof' src={ profile } alt="" />
-                <h3>Croy croy</h3>
-            </div>
-                <div className="post-upload">
-                        <ConfigProvider
-                        theme={{
-                            token: {
-                                colorTextPlaceholder:'white',
-                                colorText: 'white'
-                            },
-                        }}
-                        >
-                            
-                        <Space.Compact className="post-textarea">
-                            <TextArea rows={4} placeholder="Post your thoughts here!" bordered={false} />
-                        </Space.Compact>
-                        </ConfigProvider>
-                </div>
-                <div className='post-btns'>
-                    <Upload className='upload-btn' {...props}>
-                        <Button icon={<UploadOutlined />}>Upload photos</Button>
-                    </Upload>
-                    <Button className='post-btn' ghost>Post</Button>
-                </div>
-        </div>
-
-        <div className="existing-post-container">
-          <div className='profile-user-details'>
-              <img className='user-comment-prof' src={ profile } alt="" />
-              <h3>Croy croy</h3>
-              <span className='existing-post-time'><ClockCircleOutlined style={{ marginRight:'5px' }}/>30 mins. ago</span>
-              <div className="delete-btn">
-              <DeleteOutlined style={{ fontSize:'20px', color:'white', marginLeft:'38em', cursor:'pointer' }} />
-              </div>
+      {/* <div className='userProfile-container'>
+        <div className='image-name-user'>
+          <img className='user-prof' src={ getAvatar(currentUser.avatar) } alt="" />
+          <div className="fullName-username-container">
+            <h1 className='profile-fullName-banner'>{ currentUser.name }</h1>
+            <span className='profile-user-Username'>{ currentUser.userName }</span>
           </div>
-          <span className='existing-post-content'>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                         sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                          Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                           Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                            Excepteur sint occaecat cupidatat non proident,
-                         sunt in culpa qui officia deserunt mollit anim id est laborum.
-          </span>
-          {/* TABS */}
+        </div>
           <ConfigProvider
             theme={{
               components: {
-                Tabs: {
-                  itemColor: 'white',
+                Button: {
+                  colorPrimaryHover: '#0C0C0C',
+                  colorText:'#660000'
                 },
               },
-            }}
-          >
-          <Tabs defaultActiveKey="1" items={items} onChange={onChange} style={{ marginTop:'10px' }}/>
-          </ConfigProvider>
-          
-          {/* COMMENT - USER CAN LEAVE A COMMENT */}
-          <ConfigProvider
-                            theme={{
-                                token: {
-                                    colorTextPlaceholder:'white',
-                                    colorText: 'white'
-                                },
-                            }}
-                            >
-                                <Space.Compact style={{ width: '100%', marginTop:'20px' }}>
-                                    <Button ghost type="primary"><SendOutlined /></Button>
-                                    <Input placeholder="Leave a comment" bordered={false} />
-                                </Space.Compact>
-          </ConfigProvider>
+            }}>
+          <Button onClick={editProfile}><EditOutlined/>Edit Profile</Button>
+        </ConfigProvider>
+      </div> */}
+      <div className="ownWish-main-container">
+        <div className="previous-wish-container">
+          {/* WISH LIST CONTAINER */}
+          <h3 style={{ color:'#660000', fontFamily:'Great Vibes', fontSize:'40px'}}>My Christmas Wish List</h3>
+          {
+              currentUser.items.map(data => {
+                return (
+                  <div className="user-ownWish-container">
+                    <div className="user-details-ownWish">
+                      <div style={{ display:'flex', width:'36em', flexDirection: 'row', alignItems:'end', justifyContent:'end'}}>
+                        <ConfigProvider
+                          theme={{
+                            token: 
+                              {
+                              colorText: '#660000',
+                              controlItemBgHover: '#ECE2D0'
+                              },
+                            }}>
+                            {/* EDIT WISH LIST BUTTON */}
+                            <Button type='text' onClick={() => handleEditWish(data)}><EditOutlined/>Edit</Button>
+                            {/* DELETE WISH LIST BUTTON */}
+                            <Button type='text'>
+                              <Popconfirm title="Delete Wish List"
+                                onConfirm={() => onDelete(data.id)}
+                                description="Are you sure to delete this wish list?"
+                                okText="Yes"
+                                cancelText="No"
+                                cancelButtonProps={{ style:{ color:'black' } }}>
+                                <CloseOutlined style={{ marginRight:'5px' }}/>
+                                  Delete
+                              </Popconfirm>
+                            </Button>
+                        </ConfigProvider>
+                      </div>
+                    </div>
+                    <div className="img-itemName">
+                      {/* ITEM IMAGE */}
+                      <Image className='wishlist-item-img' width={130} height={130} src={ data.image ?? "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png" }/>
+                      <div style={{ display:'flex', flexDirection:'column', marginLeft:'2em' }}>
+                        {/* ITEM NAME */}
+                        <span className='item-name-own'>{ data.title }</span>
+                        {/* DESCRIPTION */}
+                        <p className='ownWish-list-content'>
+                          { data.description }
+                        </p>
+                      </div>
+                    </div>         
+                  </div>
+                )
+              })
+            }  
         </div>
+          <ConfigProvider
+            theme={{
+              components: {
+                Modal: {
+                  colorText: '#660000',
+                  colorTextHeading:'#660000'
+                },
+                Form: {
+                  labelColor: 'white',
+                  colorError: '#C877FF',
+                  colorErrorBorder:'#C877FF',
+                  colorErrorOutline: '#D28FFF',
+                },
+              },
+            }}>
+
+              {/* <Modal title="Edit Profile Information"
+                open={isModalOpen}
+                onOk={handleOk}
+                okText='Save'
+                onCancel={handleCancel}
+                width={650}
+                closeIcon={<span style={{ color: '#660000' }}><CloseOutlined/></span>}>
+                <Form className='editProfile-form' name='editProfile' autoComplete='off'>
+                  <ConfigProvider
+                    theme={{
+                      components: {
+                        Radio: {
+                          buttonBg:'#ECE2D0',
+                          buttonSolidCheckedActiveBg: '#660000',
+                          buttonSolidCheckedBg: '#660000',
+                          buttonSolidCheckedHoverBg: '#660000',
+                          buttonCheckedBg: '#660000',
+                          colorPrimaryActive: '#ECE2D0',
+                          colorPrimary: '#ECE2D0',
+                          colorPrimaryHover:'#0C0C0C',
+                          colorBorder: '#660000'
+                        },
+                      },
+                    }}>
+                    
+                    <Form.Item<FieldTypeEditProfile> name='avatar'
+                    rules={[{ required: true, message: 'Please choose your avatar!' }]}>
+                      <label className="select-prof-label" htmlFor="profile">Select Profile Picture</label>
+                      <Radio.Group defaultValue="a" buttonStyle="solid" name="profile">
+                        <Radio.Button className="profile-radio" value="1"><img className="radio-prof" src={ profile1 }/></Radio.Button>
+                        <Radio.Button className="profile-radio" value="2"><img className="radio-prof" src={ profile2 }/></Radio.Button>
+                        <Radio.Button className="profile-radio" value="3"><img className="radio-prof" src={ profile3 }/></Radio.Button>
+                        <Radio.Button className="profile-radio" value="4"><img className="radio-prof" src={ profile4 }/></Radio.Button>
+                        <Radio.Button className="profile-radio" value="5"><img className="radio-prof" src={ profile6 }/></Radio.Button>
+                      </Radio.Group>
+                    </Form.Item>
+                  </ConfigProvider>
+                      
+                    <Form.Item<FieldTypeEditProfile> name="username" rules={[{ required: true, message: 'Please input your username!' }]}>
+                    <Input style={{ width:'24em' }} showCount maxLength={12} onChange={onChange} placeholder='Username'/>
+                    </Form.Item>
+                        
+                    <Form.Item<FieldTypeEditProfile> name="fullName" rules={[{ required: true, message: 'Please input your full name!' }]}>
+                    <Input style={{ width:'24em' }} showCount maxLength={25} onChange={onChange} placeholder='Full Name'/>
+                    </Form.Item>
+                        
+                    <Form.Item<FieldTypeEditProfile> name="password" rules={[{ required: true, message: 'Please input your password!' }]}>
+                    <Input.Password style={{ width:'24em' }} placeholder='Password'/>
+                    </Form.Item>
+                </Form>
+            </Modal> */}
+
+              {/* MODAL TO EDIT WISH LIST */}
+            <Modal title="Edit Wish List"
+              centered={true}
+              visible={isEditReviewModalOpen}
+              onOk={handleEditWishOk}
+              onCancel={handleEditWishCancel}
+              width={750}
+              closable={true}
+              maskClosable={false}
+              destroyOnClose
+              footer={null}
+              // footer={[
+              //   <Button key="cancel" onClick={handleEditWishCancel}>Cancel</Button>,
+              //   <Button key="save" type="primary" onClick={handleEditWishOk}>Save</Button>,
+              // ]}
+              >
+              {/* <h3 style={{ color:'#660000', fontFamily: 'Great Vibes', fontSize:'40px', lineHeight: 0}}>My Christmas Wish List</h3>
+              <Input style={{ marginBottom:'10px'}} placeholder="Enter Item Name here." />
+              <Input.TextArea placeholder='Enter your new wish list here.' value={reviewContent} onChange={(e) => setReviewContent(e.target.value)}
+                rows={10} cols={60} showCount maxLength={500} style={{ marginBottom:'30px' }}/>
+              <Upload action="https://run.mocky.io/v3/435e224c-44fb-4773-9faf-380c5e6a2188"
+                listType="picture-card" fileList={fileList}
+                onPreview={handlePreview} onChange={handleImgChange}>
+                {fileList.length >= 1 ? null : uploadButton}
+              </Upload> */}
+              {/* VIEW AND DELETE IMAGE */}
+              {/* <Modal open={previewOpen} title={previewTitle} footer={null} onCancel={handleImgCancel}>
+                <img alt="example" style={{ width: '100%' }} src={previewImage} />
+              </Modal> */}
+              <Form name='add Item' autoComplete='off' className='addItem-form' onFinish={onFinishEditWish}>
+                    {/* INPUT FOR ITEM NAME */}
+                    <Form.Item<FieldTypeItem> name='title'
+                      initialValue={viewedItem.title}
+                      rules={[{ required: true, message: 'Please input item name' }]}>
+                      <Input style={{width:'40em'}} placeholder="Enter Item Name here."/>
+                    </Form.Item>
+                      {/* INPUT FOR ITEM DESCRIPTION */}
+                    <Form.Item<FieldTypeItem> name='description'
+                      initialValue={viewedItem.description}
+                      rules={[{ required: true, message: 'Please input item description' }]}>
+                      <TextArea showCount maxLength={100} placeholder="Enter your christmas wish list here."
+                        style={{ height: 220, width:'40em' , resize: 'none'}}
+                        onChange={onChange}/>
+                    </Form.Item>
+                    {/* LIMITS UPLOAD TO 1 IMAGE ONLY */}
+                    <Form.Item<FieldTypeItem> name='image'
+                      initialValue={viewedItem.image}
+                      rules={[{ required: true, message: 'Please enter image link' }]}>
+                      <Input style={{width:'40em'}} placeholder="Enter image link here."/>
+                    </Form.Item>
+                    {/* <Form.Item<FieldTypeAddItem> name='image'
+                      rules={[{ required: true, message: 'Please upload item image' }]}>
+                      <Upload action="https://run.mocky.io/v3/435e224c-44fb-4773-9faf-380c5e6a2188" 
+                        listType="picture" maxCount={1}>
+                        <Button style={{ marginRight:'29em'}} icon={<UploadOutlined />}>Upload (Max: 1)</Button>
+                      </Upload>
+                    </Form.Item> */}
+                    <Button htmlType="submit"
+                      style={{ marginTop:'20px', width:'15em', borderRadius:'20px', backgroundColor:'#ECE2D0', color:'#660000', 
+                      fontWeight:'700' }}>
+                      Save
+                    </Button>
+              </Form>
+            </Modal>
+        </ConfigProvider>
+      </div>
     </div>
-    </>
+  </>
 }
 
 export default Profile;

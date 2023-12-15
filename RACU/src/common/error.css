@@ -12,18 +12,7 @@
     color: #660000;
 }
 
-.char {
-    width: 100%;
-    max-width: 17em;
-}
-
-.error-message {
-    display: flex;
-    flex-direction: row;
-    pad: 20px;
-    border-radius: 20px;
-    border: solid 1px #C1C1C1;
-    width: 44em;
-    background-color: #0C0C0C;
-    line-height: 0;
+.back {
+    border: 2px solid #660000;
+    color: #660000
 }

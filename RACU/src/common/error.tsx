@@ -1,9 +1,16 @@
-import character from '../assets/images/21.png'
-import { Button } from 'antd';
 import { AlertOutlined } from '@ant-design/icons';
 import './error.css'
+import { useNavigate } from 'react-router-dom'
+import { Button } from 'antd';
 
 function Error () {
+    const navigate = useNavigate();
+
+    const handleNavigate = () => {
+        // Use the navigate function to go to a specific route
+        navigate('/'); // Replace '/' with your desired route
+      };
+    
     return <>
     <div className='error-main-container'>
         <h1
@@ -11,26 +18,15 @@ function Error () {
         ><AlertOutlined
             style={{ marginRight: '5px' }}
         />Error 404</h1>
-        <div className="error-message">
-        <img className='char' src={ character } alt="" />
-        <div
-            style={{ 
-                display:'flex',
-                justifyContent: 'start',
-                flexDirection: 'column',
-                alignItems: 'center',
-                marginTop: '5em'
-             }}
-        >
-            <h2> Page Not Found!</h2>
-            <p className='message'>Sorry, the page you were looking for could not be found.</p>
-        </div>
-        </div>
+        <p className='message'>Sorry, the page you were looking for could not be found.</p>
+        <Button className='back' onClick={handleNavigate}>
+            BACK
+        </Button>
     </div>
     </>
-    
-    
-        
+
+
+
 }
 
 export default Error;

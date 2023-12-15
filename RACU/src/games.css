@@ -33,6 +33,13 @@
     color: #660000;
     line-height: 0;
 }
+.christmas-saying {
+    font-family: 'Great Vibes', cursive;
+    font-weight: 700;
+    font-size: 30px;
+    color: #660000;
+    line-height: 0;
+}
 
 .game-thumbnail {
     width: 100%;

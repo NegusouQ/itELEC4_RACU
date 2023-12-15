@@ -17,7 +17,7 @@ const Register: React.FC = () => {
     axios.post('https://localhost:7070/api/User', values)
         .then(response => { 
           console.log(response)
-          message.success('Successfull registered! Please proceed to the login page.');
+          message.success('Successfully registered! Please proceed to the login page.');
         })
         .catch(error => {
           console.error(error.error)

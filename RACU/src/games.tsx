@@ -26,8 +26,6 @@ const { Meta } = Card;
 
 const { Search } = Input;
 
-//search
-// const onSearch: SearchProps['onSearch'] = (value, _e, info) => console.log(info?.source, value);
 
 // upload images
 const getBase64 = (file: RcFile): Promise<string> =>
@@ -41,6 +39,11 @@ const getBase64 = (file: RcFile): Promise<string> =>
 let currentUser!: User
 
 const Games: React.FC = () => {
+
+  // 2 - Initialize
+  const [items, setItems] = useState<Item[]>([])
+  const [viewedItem, setViewedItem] = useState(new Item)
+
   const onFinishAddWish = (values: any) => {
     values.UserId = currentUser.id
     axios.post('https://localhost:7070/api/Item', values)
@@ -61,10 +64,7 @@ const Games: React.FC = () => {
     image?: string;
   }
 
-  // 2 - Initialize
-  const [items, setItems] = useState<Item[]>([])
-  const [viewedItem, setViewedItem] = useState(new Item)
-
+  
   // 3 - Call & Receive response from Api
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem('current-user') ?? '') as User
@@ -135,13 +135,25 @@ const Games: React.FC = () => {
   // ADD wish list MODAL
   const [addWishOpen, setAddWishOpen] = useState(false);
 
+  //search
+  const [searchValue, setSearchValue] = useState('');
+  //const onSearch: SearchProps['onSearch'] = (value, _e, info) => console.log(info?.source, value);
+  const onSearch = (value: string) => {
+    setSearchValue(value);
+  };
+
+  const filteredItems = items.filter(item =>
+    item.user.userName.toLowerCase().includes(searchValue.toLowerCase())
+  );
+
     return <>
 
       <div className="wish-main-container">
         <div className="greeting">
           <div className="text-greeting">
             <h3 className='greeting-text'> Christmas Wish Lists</h3>
-            {/* <Search style={{ width:'400px'}} placeholder="Search by Username" onSearch={onSearch} enterButton /> */}
+            <h3 className='christmas-saying'> 'Tis the season to be jolly, your wish is our command!'</h3>
+            { <Search style={{ width:'400px'}} placeholder="Search by Username" onSearch={onSearch} enterButton /> }
           </div>
         </div>
           {/* ADD wish list BUTTON */}
@@ -216,7 +228,7 @@ const Games: React.FC = () => {
 
                    {/* wish CARD */}
                 {
-                  items.map((data: any, id) => {
+                  filteredItems.map((data: any, id) => {
                     return (
                       <Card bordered={false} style={{ width:360, height: 'fit-content' }}
                         hoverable={true}

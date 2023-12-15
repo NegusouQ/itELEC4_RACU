@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("racu.api")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d1794b8e6d9b6c37d16caa90327a318130ac18a6")]
 [assembly: System.Reflection.AssemblyProductAttribute("racu.api")]
 [assembly: System.Reflection.AssemblyTitleAttribute("racu.api")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

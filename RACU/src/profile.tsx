@@ -39,21 +39,22 @@ const Profile: React.FC = () => {
     image?: string;
   }
 
-  const onFinishEditProfile = (values: any) => {
+  /*const onFinishEditProfile = (values: any) => {
+
     values.userId = currentUser.id
     axios.put('https://localhost:7070/api/User', values)
       .then(response => {
         setIsModalOpen(false);
-        console.log(response)
+        console.log(response);
         message.success('Profile updated successfully!');
-        handleOk();
+        loadList();
       })
       .catch(error => {
         console.error(error);
         message.error('Failed to update profile');
       });
-        
-  }
+  }*/
+
 
   const onFinishEditWish = (values: any) => {
     values.id = viewedItem.id
@@ -70,6 +71,7 @@ const Profile: React.FC = () => {
   }
 
   const [viewedItem, setViewedItem] = useState(new Item)
+  //const [viewedUser, setViewedUser] = useState(new User);
 
   // upload images
   const getBase64 = (file: RcFile): Promise<string> =>
@@ -86,6 +88,7 @@ const Profile: React.FC = () => {
   };
 
   const [currentUser, setCurrentUser] = useState<User>(new User)
+
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem('current-user') ?? '')
     if(!user)
@@ -169,6 +172,7 @@ const Profile: React.FC = () => {
     setIsEditWishModalOpen(true);
   };
 
+
   const handleEditWishOk = () => {
     setIsEditWishModalOpen(false);
   };
@@ -179,7 +183,7 @@ const Profile: React.FC = () => {
 
     return <>
     <div className="profile-main-container">
-      {<div className='userProfile-container'>
+      {/*<div className='userProfile-container'>
         <div className='image-name-user'>
           <img className='user-prof' src={ getAvatar(currentUser.avatar) } alt="" />
           <div className="fullName-username-container">
@@ -188,17 +192,18 @@ const Profile: React.FC = () => {
           </div>
         </div>
           <ConfigProvider
-            theme={{
-              components: {
-                Button: {
-                  colorPrimaryHover: '#0C0C0C',
-                  colorText:'#660000'
-                },
+          theme={{
+            components: {
+              Button: {
+                colorPrimaryHover: '#0C0C0C',
+                colorText:'#660000'
               },
-            }}>
-          <Button onClick={editProfile}><EditOutlined/>Edit Profile</Button>
-        </ConfigProvider>
-      </div>}
+            },
+          }}>
+        <Button onClick={editProfile}><EditOutlined/>Edit Profile</Button>
+      </ConfigProvider>
+          
+        </div>*/}
       <div className="ownWish-main-container">
         <div className="previous-wish-container">
           {/* WISH LIST CONTAINER */}
@@ -267,7 +272,7 @@ const Profile: React.FC = () => {
               },
             }}>
 
-              {<Modal title="Edit Profile Information"
+              {/*<Modal title="Edit Profile Information"
                 open={isModalOpen}
                 onOk={onFinishEditProfile}
                 okText='Save'
@@ -295,12 +300,12 @@ const Profile: React.FC = () => {
                     <Form.Item<FieldTypeEditProfile> name='avatar'
                     rules={[{ required: true, message: 'Please choose your avatar!' }]}>
                       <label className="select-prof-label" htmlFor="profile">Select Profile Picture</label>
-                      <Radio.Group defaultValue="a" buttonStyle="solid" name="profile">
-                        <Radio.Button className="profile-radio" value="1"><img className="radio-prof" src={ profile1 }/></Radio.Button>
-                        <Radio.Button className="profile-radio" value="2"><img className="radio-prof" src={ profile2 }/></Radio.Button>
-                        <Radio.Button className="profile-radio" value="3"><img className="radio-prof" src={ profile3 }/></Radio.Button>
-                        <Radio.Button className="profile-radio" value="4"><img className="radio-prof" src={ profile4 }/></Radio.Button>
-                        <Radio.Button className="profile-radio" value="5"><img className="radio-prof" src={ profile6 }/></Radio.Button>
+                      <Radio.Group defaultValue={"a"} buttonStyle="solid" name="profile">
+                        <Radio.Button className="profile-radio" value={1}><img className="radio-prof" src={ profile1 }/></Radio.Button>
+                        <Radio.Button className="profile-radio" value={2}><img className="radio-prof" src={ profile2 }/></Radio.Button>
+                        <Radio.Button className="profile-radio" value={3}><img className="radio-prof" src={ profile3 }/></Radio.Button>
+                        <Radio.Button className="profile-radio" value={4}><img className="radio-prof" src={ profile4 }/></Radio.Button>
+                        <Radio.Button className="profile-radio" value={5}><img className="radio-prof" src={ profile6 }/></Radio.Button>
                       </Radio.Group>
                     </Form.Item>
                   </ConfigProvider>
@@ -317,7 +322,7 @@ const Profile: React.FC = () => {
                     <Input.Password style={{ width:'24em' }} placeholder='Password'/>
                     </Form.Item>
                 </Form>
-            </Modal>}
+            </Modal>*/}
 
               {/* MODAL TO EDIT WISH LIST */}
             <Modal title="Edit Wish List"

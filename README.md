@@ -5,7 +5,7 @@ APP NAME:
 JollyWishmas
 
 Members:
-Racel Anne Pitogo
-Cray Pixel Abitria
-Andre Kent Ricablanca
-Umar Alikhan Samsa
+# Racel Anne Pitogo
+# Cray Pixel Abitria
+# Andre Kent Ricablanca
+# Umar Alikhan Samsa
